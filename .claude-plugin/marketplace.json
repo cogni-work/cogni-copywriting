@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "cogni-copywriting",
-      "source": ".",
+      "source": "./cogni-copywriting",
       "description": "Professional copywriting toolkit with arc-aware narrative polishing, messaging frameworks, stakeholder review, and sales enhancement."
     }
   ]
