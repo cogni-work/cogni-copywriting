@@ -606,11 +606,13 @@ Citation Formatting: {citations formatted, if applicable}
 
 ### Scripts
 
-**calculate_readability.py** - Measure Flesch score, paragraph length, visual elements
+**calculate_readability.py** - Language-aware Flesch scoring (English standard + German Amstad), paragraph length, visual elements
 
 ```bash
-python3 scripts/calculate_readability.py <file_path>
+python3 scripts/calculate_readability.py <file_path> [--lang de|en|auto]
 ```
+
+Auto-detects German vs English and applies the correct formula. German text uses Amstad (1978): `180 - ASL - 58.5 * ASW`, which compensates for German compound words and higher syllable counts. Target range 50-60 applies to both languages.
 
 ## Quick Reference
 

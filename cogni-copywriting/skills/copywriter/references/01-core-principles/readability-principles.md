@@ -294,7 +294,36 @@ Present information in layers, from general to specific.
 - **30-50:** Difficult (college level)
 - **0-30:** Very difficult (professional/academic)
 
-**Formula:** 206.835 - 1.015(words/sentences) - 84.6(syllables/words)
+**English Formula:** 206.835 - 1.015(words/sentences) - 84.6(syllables/words)
+
+### German Flesch Reading Ease (Amstad, 1978)
+
+The standard English Flesch formula produces wildly negative scores for German text because German words have significantly more syllables on average (compound nouns like Qualitaetssicherungssysteme). Toni Amstad adapted the formula for German in his 1978 dissertation.
+
+**German Formula:** 180 - ASL - 58.5 * ASW
+
+Where ASL = words/sentences, ASW = syllables/words.
+
+Key differences from English formula:
+- Lower constant (180 vs 206.835)
+- No coefficient on ASL (1.0 vs 1.015)
+- Much lower syllable penalty (58.5 vs 84.6) -- compensates for German compound words
+
+**German Interpretation Scale:**
+
+| Score | Level |
+|-------|-------|
+| 90-100 | Very easy |
+| 80-90 | Easy |
+| 70-80 | Medium easy |
+| 60-70 | Medium |
+| 50-60 | Medium weight |
+| 30-50 | Heavy |
+| 0-30 | Very difficult (academic) |
+
+**Target for German business writing:** 50-60 (same target range, but using Amstad formula)
+
+The readability script auto-detects language and applies the correct formula. Use `--lang de` or `--lang en` to override detection.
 
 ### Flesch-Kincaid Grade Level
 Target: 8-10 for general business writing

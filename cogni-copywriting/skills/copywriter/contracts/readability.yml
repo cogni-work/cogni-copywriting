@@ -1,8 +1,8 @@
-version: "1.0.0"
+version: "1.1.0"
 script:
   name: "readability.sh"
   path: "${CLAUDE_PLUGIN_ROOT}/skills/copywriter/scripts/readability.sh"
-  purpose: "Calculate readability metrics for markdown documents"
+  purpose: "Calculate language-aware readability metrics for markdown documents"
   category: "validators"
 interface:
   parameters:
@@ -10,6 +10,11 @@ interface:
       type: "path"
       required: true
       description: "Path to markdown file to analyze"
+    - name: "--lang"
+      type: "string"
+      required: false
+      default: "auto"
+      description: "Language for Flesch formula: de (German/Amstad), en (English/standard), or auto (detect)"
     - name: "--json"
       type: "boolean"
       required: false
@@ -22,7 +27,13 @@ interface:
     format: "json"
     schema:
       success: "boolean"
-      data: {}
+      data:
+        flesch_score: "number (0-100, Flesch Reading Ease)"
+        detected_language: "string (en or de)"
+        avg_paragraph_length: "number (average sentences per paragraph)"
+        total_paragraphs: "number"
+        visual_elements: "number (count of tables, callouts, lists, bold sections)"
+        header_levels: "number (max header depth)"
       error: "string (if success=false)"
   exit_codes:
     0: "Success"
@@ -36,6 +47,10 @@ compatibility:
   environment:
     - "CLAUDE_PLUGIN_ROOT (optional for relative paths)"
 changelog:
+  - version: "1.1.0"
+    date: "2026-02-24"
+    changes: "Add German Flesch (Amstad 1978) formula with auto language detection, --lang parameter, detected_language output field"
+    breaking: false
   - version: "1.0.0"
     date: "2025-12-21"
     changes: "Initial contract generation"

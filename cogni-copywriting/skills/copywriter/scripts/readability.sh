@@ -6,10 +6,11 @@ set -euo pipefail
 # Category: validators
 #
 # Usage:
-#   readability.sh --file <path> [--json]
+#   readability.sh --file <path> [--lang de|en|auto] [--json]
 #
 # Arguments:
 #   --file <path>     Path to markdown file to analyze (required)
+#   --lang <lang>     Language for Flesch formula: de, en, or auto (default: auto)
 #   --json            Output raw JSON only, skip formatted display (optional)
 #   --help            Show this help message
 #
@@ -70,26 +71,33 @@ json_error() {
 
 # Function to show usage
 usage() {
-    echo "Usage: $0 --file <path> [--json]"
+    echo "Usage: $0 --file <path> [--lang de|en|auto] [--json]"
     echo ""
     echo "Arguments:"
     echo "  --file <path>   Path to markdown file to analyze (required)"
+    echo "  --lang <lang>   Language for Flesch formula: de, en, or auto (default: auto)"
     echo "  --json          Output raw JSON only, skip formatted display"
     echo "  --help          Show this help message"
     echo ""
     echo "Examples:"
     echo "  $0 --file /path/to/document.md"
     echo "  $0 --file ./memo.md --json"
+    echo "  $0 --file ./bericht.md --lang de"
 }
 
 # Parse named arguments
 FILE_PATH=""
 JSON_ONLY=false
+LANG_FLAG="auto"
 
 while [[ $# -gt 0 ]]; do
     case $1 in
         --file)
             FILE_PATH="$2"
+            shift 2
+            ;;
+        --lang)
+            LANG_FLAG="$2"
             shift 2
             ;;
         --json)
@@ -177,7 +185,7 @@ if [ "$JSON_ONLY" = false ]; then
     echo ""
 fi
 
-OUTPUT="$(python3 "$PYTHON_SCRIPT" "$FILE_PATH" 2>&1)"
+OUTPUT="$(python3 "$PYTHON_SCRIPT" "$FILE_PATH" --lang "$LANG_FLAG" 2>&1)"
 EXIT_CODE=$?
 
 if [ $EXIT_CODE -ne 0 ]; then
@@ -199,6 +207,7 @@ fi
 
 # Parse JSON output for formatted display
 FLESCH="$(echo "$OUTPUT" | python3 -c "import sys, json; print(json.load(sys.stdin)['flesch_score'])" 2>/dev/null || echo "N/A")"
+DETECTED_LANG="$(echo "$OUTPUT" | python3 -c "import sys, json; print(json.load(sys.stdin)['detected_language'])" 2>/dev/null || echo "N/A")"
 AVG_PARA="$(echo "$OUTPUT" | python3 -c "import sys, json; print(json.load(sys.stdin)['avg_paragraph_length'])" 2>/dev/null || echo "N/A")"
 TOTAL_PARA="$(echo "$OUTPUT" | python3 -c "import sys, json; print(json.load(sys.stdin)['total_paragraphs'])" 2>/dev/null || echo "N/A")"
 VISUALS="$(echo "$OUTPUT" | python3 -c "import sys, json; print(json.load(sys.stdin)['visual_elements'])" 2>/dev/null || echo "N/A")"
@@ -214,6 +223,14 @@ fi
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "READABILITY METRICS REPORT"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+# Detected Language
+if [ "$DETECTED_LANG" = "de" ]; then
+    echo "Language: German (using Amstad formula)"
+else
+    echo "Language: English (using standard Flesch formula)"
+fi
 echo ""
 
 # Flesch Reading Ease
