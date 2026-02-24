@@ -1,4 +1,32 @@
+# macOS
 .DS_Store
+._*
+
+# IDE
+.vscode/
+.idea/
+
+# Development environment
+.claude/
+.validation/
+**/.validation/
+.test-results/
+**/.test-results/
+.sprints/
+.audit/
+**/.audit/
+.logs/
+**/.logs/
+
+# Python
 __pycache__/
+**/__pycache__/
 *.pyc
-.claude/*.local.md
+
+# Temp / backup
+*.tmp
+*.bak
+*.swp
+*~
+tmp/
+temp/
