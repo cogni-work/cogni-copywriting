@@ -5,6 +5,68 @@ All notable changes to the copywriter skill will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.0.0] - 2026-02-24
+
+### Added - Arc-Aware Polishing Mode
+
+#### New Reference: arc-technique-map.md
+
+- **references/09-preservation-modes/arc-technique-map.md**: Per-arc, per-element technique strengthening rules
+  - Technique map tables for all 5 arcs (corporate-visions, technology-futures, competitive-intelligence, strategic-foresight, industry-transformation)
+  - Element-specific Number Play variant selection (compound impact, ratio framing, comparative anchoring, etc.)
+  - Element-specific polish rules (what to strengthen, what to preserve per element)
+  - Cross-arc technique application table
+  - Technique validation checklist
+
+#### Rewritten Reference: arc-preservation.md
+
+- **references/09-preservation-modes/arc-preservation.md**: Upgraded from blunt "don't touch headings" to arc-aware preservation
+  - Arc detection logic: YAML frontmatter `arc_id`, pattern matching against known arc heading patterns
+  - Structure preservation rules: FORBIDDEN vs ALLOWED modifications with arc-aware nuance
+  - Technique-aware validation: verifies element techniques survived polishing
+  - Integration patterns for cogni-narrative and cogni-research
+  - Localization support (EN/DE heading variants)
+
+#### Enhanced SKILL.md Workflow
+
+- **Step 1 (Parse Parameters)**: Added arc detection before framework loading. When arc detected, loads arc-preservation.md and arc-technique-map.md instead of messaging frameworks
+- **Step 3 (Apply Structure)**: Skipped entirely in arc mode — the arc IS the structure
+- **Step 5 (Apply Impact Techniques)**: Arc-aware mode applies techniques PER ELEMENT using the technique map, not generically across the whole document
+- **Step 8 (Validate & Write)**: Added arc-specific technique validation checklist (heading integrity, technique integrity, word count targets, per-element citation counts)
+- **Bundled Resources**: Added Arc Preservation section listing both new/updated references
+- **Description**: Updated to mention arc-aware polishing of cogni-narrative stories
+- **When to Use**: Added arc narrative polishing trigger
+
+#### Updated 00-index.md
+
+- **Loading Logic**: Arc detection takes priority over framework/deliverable loading
+- **Tier 9**: New progressive disclosure tier for arc-aware preservation
+- **Version**: Updated to 7.0
+
+### Changed
+
+- **Arc preservation philosophy**: From "preserve headings only" to "preserve structure AND strengthen element-specific techniques"
+- **Impact technique application**: In arc mode, techniques are element-tuned (e.g., compound impact for Why Pay, forcing functions for Why Now) rather than generic
+- **Validation**: Arc mode adds per-element technique validation on top of existing checks
+
+### Rationale
+
+cogni-narrative creates story arc narratives with specific narrative techniques per element (PSB for Why Change, Forcing Functions for Why Now, IS-DOES-MEANS for Why You, etc.). The previous arc-preservation mode treated all elements identically — "don't touch headings, improve body text." This was too blunt:
+
+- The copywriter couldn't strengthen arc-specific techniques because it didn't know what they were
+- Number Plays were applied generically, not tuned to element purpose
+- No validation that arc techniques survived polishing
+
+The new arc-aware mode gives the copywriter element-level intelligence: it knows Why Now needs forcing functions, Why Pay needs compound impact calculations, and Why You needs You-Phrasing in the DOES layer. This produces polished narratives that are both structurally sound AND technique-rich.
+
+### Migration Notes
+
+- **Non-breaking for standard mode**: All standard copywriting workflows (memos, emails, reports, etc.) are unchanged
+- **Enhanced for arc mode**: Narratives with `arc_id` frontmatter now get element-specific technique strengthening
+- **Backward compatible**: Old arc preservation constraints still work — the new system is a superset
+
+---
+
 ## [6.2.0] - 2025-12-06
 
 ### Added - Citation Formatting Standards

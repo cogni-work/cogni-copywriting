@@ -1,187 +1,144 @@
-# Arc Preservation Mode
+# Arc-Aware Preservation Mode
 
 ## Purpose
 
-When copywriter is invoked to polish research content that uses story arc structures (e.g., Why Change → Why Now → Why You → Why Pay), the heading structure MUST be preserved exactly to maintain narrative integrity.
+When the copywriter polishes a narrative that uses story arc structures (created by cogni-narrative), it activates arc-aware preservation mode. This mode preserves arc structure while strengthening arc-specific narrative techniques within each element.
 
-## What Qualifies as Story Arc Structure
+## Activation
 
-**Story arc structure consists of:**
+Arc-aware mode activates when ANY of these conditions is true:
 
-1. **H1 Title** - Arc-specific title (not generic "Management Summary")
-2. **H2 Subtitle** - Research question or executive summary introduction
-3. **4 Arc Element Headings** (H2) - Specific to the story arc pattern
-4. **Bridge Section** (H2) - "Further Reading" or equivalent linking section
+1. Document YAML frontmatter contains `arc_id` field
+2. Explicit arc preservation constraints are provided in the task prompt
+3. Document structure matches a known arc pattern (H1 + H2 subtitle + 4 arc element headings + bridge section)
 
-**Example (Corporate Visions Arc):**
+## Arc Detection
 
-```markdown
-# The Case for Workflow Redesign
+**Step 1: Check frontmatter**
 
-## Healthcare AI Adoption Barriers
-
-[Hook paragraph...]
-
-## Why Change
-
-[Element 1 content...]
-
-## Why Now
-
-[Element 2 content...]
-
-## Why You
-
-[Element 3 content...]
-
-## Why Pay
-
-[Element 4 content...]
-
-## Further Reading
-
-[Bridge content with link to research-report.md]
+```yaml
+---
+arc_id: corporate-visions  # ← If present, use this arc ID
+title: "..."
+subtitle: "..."
+---
 ```
 
-## When to Use Arc Preservation Mode
+**Step 2: If no frontmatter, pattern-match headings against known arcs**
 
-Arc preservation mode should be activated when:
+| Arc ID | Element 1 | Element 2 | Element 3 | Element 4 |
+|--------|-----------|-----------|-----------|-----------|
+| corporate-visions | Why Change | Why Now | Why You | Why Pay |
+| technology-futures | What's Emerging | What's Converging | What's Possible | What's Required |
+| competitive-intelligence | Landscape | Shifts | Positioning | Implications |
+| strategic-foresight | Signals | Scenarios | Strategies | Decisions |
+| industry-transformation | Forces | Friction | Evolution | Leadership |
 
-1. Content is passed from create-insight skill (cogni-research)
-2. Explicit arc preservation constraints are provided in the Task prompt
-3. Content structure includes H1 + H2 subtitle + 4 element headings + bridge section
+Match H2 headings against the patterns above (partial match on first word is sufficient). If 3+ of 4 elements match, activate arc-aware mode with the matching arc ID.
 
-## Preservation Requirements
+**Step 3: Load technique map**
+
+```text
+READ: references/09-preservation-modes/arc-technique-map.md
+```
+
+## Structure Preservation Rules
 
 ### FORBIDDEN Modifications
 
 **Never modify:**
+
 - H1 title text
 - H2 subtitle text
-- Any of the 4 arc element heading texts
-- Bridge section heading text
+- Any of the 4 arc element heading texts (exact match required)
+- Bridge section heading text (e.g., "Further Reading")
 - Heading hierarchy (H1/H2 levels)
 - Heading order or count
+- Content movement between elements (each element is self-contained)
 
-**Example of FORBIDDEN change:**
+### ALLOWED Modifications (Arc-Aware)
 
-```markdown
-<!-- BEFORE (correct) -->
-## Why Change
+Within each element, the copywriter MAY:
 
-<!-- AFTER (incorrect) -->
-## The Case for Change
-```
+1. **Strengthen the element's primary technique** — Consult arc-technique-map.md for which technique each element uses, then enhance it (e.g., sharpen PSB pattern in Why Change, tighten forcing functions in Why Now)
+2. **Apply the element's Number Play variant** — Use the arc-specific Number Play type from the technique map (e.g., compound impact for Why Pay, ratio framing for Why Change)
+3. **Enhance Power Words** — Strengthen verbs in body text. Apply sparingly (3-5 per element). Never in headings.
+4. **Improve sentence rhythm** — Vary sentence length. Use short punch sentences after longer setups.
+5. **Strengthen You-Phrasing** — Convert third-person to direct address where the technique map marks this technique for the element.
+6. **Improve transitions** — Sharpen paragraph transitions within elements. Do NOT modify cross-element transitions (the sentence bridging from one H2 section to the next).
 
-### ALLOWED Modifications
+### NEVER in Arc-Aware Mode
 
-**Allowed within elements:**
-- Improve word choice in body paragraphs
-- Enhance Number Plays (e.g., "25%" → "1 in 4")
-- Add Power Words to body text (not headings)
-- Optimize sentence structure for readability
-- Improve transitions between paragraphs
+- Do NOT apply messaging frameworks (BLUF, Pyramid, SCQA) — the arc IS the structure
+- Do NOT restructure element content into a different pattern
+- Do NOT merge or split elements
+- Do NOT add new sections or headings
+- Do NOT change the element's purpose (e.g., turning "Why Now" urgency into "Why Change" problem framing)
 
-**Example of ALLOWED change:**
+## Validation
 
-```markdown
-<!-- BEFORE -->
-Companies are adopting AI at 25% rate.
+After polishing, validate:
 
-<!-- AFTER -->
-Organizations are embracing AI at an accelerating pace—1 in 4 enterprises now deploying production systems.
-```
+1. **Structure intact:**
+   - H1 title — exact match to original
+   - H2 subtitle — exact match to original
+   - 4 element headings — exact match to original arc pattern
+   - H2 count — total of 6 (subtitle + 4 elements + bridge)
+   - Bridge heading — match to "Further Reading" or localized equivalent
 
-## Validation Requirements
+2. **Techniques preserved:**
+   - Each element's primary technique still present (check against arc-technique-map.md)
+   - Number Plays applied using correct variant for each element
+   - Word counts within target range (±50 words from arc definition targets)
 
-When arc preservation constraints are specified, the invoking skill will validate:
-
-1. **H1 title** - Exact match to original
-2. **H2 subtitle** - Exact match to original
-3. **4 element headings** - Exact match to original arc pattern
-4. **H2 count** - Total of 6 (subtitle + 4 elements + bridge)
-5. **Bridge heading** - Match to "Further Reading" or localized equivalent
+3. **Content integrity:**
+   - Citations preserved (count ≥ original count)
+   - German characters preserved (ä, ö, ü, ß)
+   - Protected content unchanged (diagram placeholders, figure references)
+   - No content moved between elements
 
 **If validation fails:**
+
 - Polished output is rejected
 - Original unpolished content is used as fallback
-- Error is logged with `fallback_reason="arc_structure_violation"`
+- Error logged with `fallback_reason="arc_structure_violation"` or `fallback_reason="arc_technique_violation"`
 
 ## Integration Pattern
 
-**Typical invocation from create-insight skill:**
+**Typical invocation from cogni-narrative or cogni-research:**
 
-```
+```text
 CRITICAL PRESERVATION REQUIREMENTS:
-1. Citations: <sup>[N](12-synthesis/*.md)</sup> - PRESERVE EXACTLY
-2. German characters: ä, ö, ü, ß - PRESERVE EXACTLY (if present)
-3. STORY ARC STRUCTURE - PRESERVE EXACTLY:
-   - H1 Title: "The Case for Workflow Redesign" - DO NOT MODIFY
-   - H2 Subtitle: "Healthcare AI Adoption Barriers" - DO NOT MODIFY
-   - Element 1 Heading: "Why Change" - DO NOT MODIFY
-   - Element 2 Heading: "Why Now" - DO NOT MODIFY
-   - Element 3 Heading: "Why You" - DO NOT MODIFY
-   - Element 4 Heading: "Why Pay" - DO NOT MODIFY
-   - Bridge Section: "Further Reading" - DO NOT MODIFY
+1. Citations: <sup>[N](source.md)</sup> — PRESERVE EXACTLY
+2. German characters: ä, ö, ü, ß — PRESERVE EXACTLY (if present)
+3. STORY ARC STRUCTURE — PRESERVE EXACTLY:
+   - arc_id: corporate-visions
+   - H1 Title: "The Case for Workflow Redesign" — DO NOT MODIFY
+   - H2 Subtitle: "Healthcare AI Adoption Barriers" — DO NOT MODIFY
+   - Element headings: Why Change, Why Now, Why You, Why Pay — DO NOT MODIFY
+   - Bridge: "Further Reading" — DO NOT MODIFY
 
-ALLOWED: Improve word choice, enhance Number Plays, optimize sentences
-FORBIDDEN: Change any heading text, move content between elements
+ARC-AWARE POLISH: Strengthen techniques per arc-technique-map.md
+FORBIDDEN: Change headings, move content between elements, apply messaging frameworks
 ```
 
-## Story Arc Patterns
+## Localization
 
-Common story arc patterns that require preservation:
+Arc element headings may be in German or English. Both are preserved exactly:
 
-### 1. Corporate Visions
-- Why Change
-- Why Now
-- Why You
-- Why Pay (or Why Pay More, Why Stay, Why Evolve)
+| Arc | EN | DE |
+|-----|----|----|
+| corporate-visions | Why Change | Warum Aendern |
+| corporate-visions | Why Now | Warum Jetzt |
+| corporate-visions | Why You | Warum Wir |
+| corporate-visions | Why Pay | Warum Investieren |
 
-### 2. Technology Futures
-- What's Emerging
-- What's Converging
-- What's Possible
-- What's Required
-
-### 3. Competitive Intelligence
-- Market Landscape
-- Competitive Shifts
-- Strategic Positioning
-- Business Implications
-
-### 4. Strategic Foresight
-- Emerging Signals
-- Future Scenarios
-- Strategic Options
-- Decision Framework
-
-### 5. Industry Transformation
-- Driving Forces
-- Friction Points
-- Evolution Pathways
-- Leadership Imperatives
-
-## Benefits of Arc Preservation
-
-**Maintains narrative integrity:**
-- Story flow remains consistent with arc definition
-- Reader expectations set by headings are met
-- Cross-references to specific elements remain valid
-
-**Enables validation:**
-- Automated checks can verify structure integrity
-- Fallback to unpolished content if structure violated
-- Graceful degradation without breaking user workflow
-
-**Supports localization:**
-- Headings can be in German or English
-- Arc patterns work across languages
-- Bridge sections adapt to project language
+The bridge section adapts to project language:
+- EN: "Further Reading"
+- DE: "Weiterfuehrende Lektuere"
 
 ## Related Documentation
 
-- create-insight skill: `cogni-research/skills/create-insight/SKILL.md`
-- Story arc registry: `cogni-research/skills/create-insight/references/story-arc/arc-registry.md`
-- Phase 2 workflow: `cogni-research/skills/create-insight/references/phase-workflows/phase-2-polish-optional.md`
-- Phase 3 validation: `cogni-research/skills/create-insight/references/phase-workflows/phase-3-validate-and-write.md`
+- Arc technique map: `references/09-preservation-modes/arc-technique-map.md`
+- cogni-narrative: Creates the story arc narratives that this mode polishes
+- cogni-research create-insight: May invoke copywriter with arc preservation constraints

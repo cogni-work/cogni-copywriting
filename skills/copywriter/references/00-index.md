@@ -1,8 +1,8 @@
 ---
 title: Copywriting Skills Master Index
 type: index
-version: 5.0
-last_updated: 2025-12-02
+version: 7.0
+last_updated: 2026-02-24
 ---
 
 # Copywriting Skills Master Index
@@ -22,22 +22,29 @@ This index enables progressive disclosure for copywriting tasks. Claude loads on
 ### Loading Logic
 
 ```
-IF deliverable_type SPECIFIED:
+IF document has arc_id in frontmatter OR arc preservation requested:
+  LOAD: references/09-preservation-modes/arc-preservation.md
+  LOAD: references/09-preservation-modes/arc-technique-map.md
+  LOAD: references/01-core-principles/ (clarity, conciseness, active-voice)
+  SKIP: framework and deliverable type loading (arc IS the structure)
+  SET: arc_mode = true
+
+ELSE IF deliverable_type SPECIFIED:
   LOAD: references/04-deliverable-types/{deliverable_type}.md
 
-IF framework SPECIFIED:
-  LOAD: references/02-messaging-frameworks/{framework}-framework.md
-ELSE:
-  LOAD: Recommended framework from deliverable reference
+  IF framework SPECIFIED:
+    LOAD: references/02-messaging-frameworks/{framework}-framework.md
+  ELSE:
+    LOAD: Recommended framework from deliverable reference
 
-IF deliverable recommends specific principles:
-  LOAD: references/01-core-principles/{principles}.md
+  IF deliverable recommends specific principles:
+    LOAD: references/01-core-principles/{principles}.md
 
-IF examples needed:
-  LOAD: references/05-examples/example-{deliverable}-{framework}.md
+  IF examples needed:
+    LOAD: references/05-examples/example-{deliverable}-{framework}.md
 
-IF template requested:
-  LOAD: references/06-templates/template-{deliverable}.md
+  IF template requested:
+    LOAD: references/06-templates/template-{deliverable}.md
 ```
 
 ## Progressive Disclosure Tiers
@@ -397,6 +404,48 @@ IF MODE == sales OR content_contains_power_positions:
 - Number Plays: Apply primarily to DOES layer (quantify outcomes)
 - Power Words: Apply primarily to MEANS layer (emotional resonance)
 - Both techniques complement Power Positions enhancement
+
+---
+
+### Tier 9: Arc-Aware Preservation (LOAD WHEN ARC DETECTED)
+
+**When to load:** When document has `arc_id` in YAML frontmatter, or arc preservation is requested, or H2 headings match a known arc pattern.
+
+**Files available:**
+
+1. **arc-preservation.md** - `09-preservation-modes/arc-preservation.md`
+   - Arc detection logic (frontmatter, pattern matching)
+   - Structure preservation rules (FORBIDDEN vs. ALLOWED modifications)
+   - Validation requirements (heading integrity, technique integrity)
+   - Integration patterns for cogni-narrative and cogni-research
+   - Load when: Any story arc narrative is being polished
+
+2. **arc-technique-map.md** - `09-preservation-modes/arc-technique-map.md`
+   - Per-arc, per-element technique strengthening rules
+   - Number Play variant selection by element (compound impact, ratio framing, etc.)
+   - Element-specific polish rules (what to strengthen, what to preserve)
+   - Cross-arc technique application table
+   - Technique validation checklist
+   - Load when: Arc-aware mode is active (always loaded alongside arc-preservation.md)
+
+**Supported arcs:** corporate-visions, technology-futures, competitive-intelligence, strategic-foresight, industry-transformation
+
+**Loading pattern:**
+
+```bash
+IF arc_id_detected OR arc_preservation_requested:
+  READ: references/09-preservation-modes/arc-preservation.md
+  READ: references/09-preservation-modes/arc-technique-map.md
+  # Also load core principles (still apply in arc mode)
+  READ: references/01-core-principles/clarity-principles.md
+  READ: references/01-core-principles/conciseness-principles.md
+  READ: references/01-core-principles/active-voice-principles.md
+  # Also load impact techniques (applied through arc-technique-map)
+  READ: references/07-impact-techniques/number-plays.md
+  READ: references/07-impact-techniques/power-words.md
+```
+
+**Key rule:** When arc mode is active, do NOT load messaging frameworks or deliverable types. The arc provides the structure. The copywriter strengthens techniques within each element, not restructures.
 
 ---
 

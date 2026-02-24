@@ -1,6 +1,6 @@
 ---
 name: copywriter
-description: Create high-impact business documents using messaging frameworks (BLUF, Pyramid, SCQA, STAR, PSB, FAB) and sophisticated persuasion techniques (number plays, power words, rhetorical devices). Supports memos, emails, briefs, reports, proposals, one-pagers, executive summaries, and business letters with measurable quality standards.
+description: Create high-impact business documents using messaging frameworks (BLUF, Pyramid, SCQA, STAR, PSB, FAB) and sophisticated persuasion techniques (number plays, power words, rhetorical devices). Supports memos, emails, briefs, reports, proposals, one-pagers, executive summaries, and business letters with measurable quality standards. Also polishes story arc narratives (from cogni-narrative) with arc-aware technique strengthening.
 allowed-tools: Read, Write, Edit, Bash, TodoWrite
 ---
 
@@ -57,6 +57,7 @@ Create professional business documents using structured messaging frameworks, me
 - Applying messaging frameworks (BLUF, Pyramid, SCQA, STAR, PSB, FAB, Inverted Pyramid)
 - Enhancing document impact with persuasion techniques
 - Improving document readability and executive appeal
+- Polishing story arc narratives created by cogni-narrative (arc-aware mode)
 
 ## Protected Content (DO NOT Modify)
 
@@ -122,7 +123,23 @@ Documents may contain tagged diagram descriptions for later processing by diagra
 - `impact_level` (optional): standard | high (for executive audiences)
 - `MODE` (optional): standard | sales (default: standard)
 
-**Load references:**
+**Arc detection (check BEFORE loading framework):**
+
+If the input document has YAML frontmatter with `arc_id`, OR the task prompt specifies arc preservation, OR the document's H2 headings match a known arc pattern:
+
+```text
+READ: references/09-preservation-modes/arc-preservation.md
+READ: references/09-preservation-modes/arc-technique-map.md
+```
+
+When arc-aware mode is active:
+- Do NOT load a messaging framework — the arc IS the structure
+- Do NOT load a deliverable type — arc narratives are their own format
+- DO load core principles (clarity, conciseness, active voice) — these still apply
+- DO load impact techniques — applied through the arc-technique-map's element-specific variants
+- Set `arc_mode: true` and `arc_id: {detected_arc_id}` for use in Steps 3-8
+
+**Standard mode (no arc detected):**
 
 ```text
 READ: references/04-deliverable-types/{deliverable_type}.md
@@ -160,7 +177,9 @@ Ask user for:
 
 ### Step 3: Apply Structure & Framework
 
-Use deliverable structure from loaded reference, then integrate framework pattern:
+**If arc_mode is active:** SKIP this step entirely. The arc provides the structure. Proceed to Step 4.
+
+**Standard mode:** Use deliverable structure from loaded reference, then integrate framework pattern:
 
 | Framework | Pattern |
 |-----------|---------|
@@ -181,7 +200,17 @@ Use deliverable structure from loaded reference, then integrate framework patter
 
 ### Step 5: Apply Impact Techniques
 
-For enhanced persuasion, apply techniques from `references/07-impact-techniques/`:
+**If arc_mode is active:** Apply techniques PER ELEMENT using the arc-technique-map. For each element:
+
+1. Look up the element's row in the technique map table for the active `arc_id`
+2. Apply the element's specific Number Play variant (e.g., compound impact for Why Pay, ratio framing for Why Change)
+3. Strengthen the element's primary technique (e.g., tighten forcing functions in Why Now, sharpen PSB in Why Change)
+4. Apply Power Words sparingly (3-5 per element) in body text only
+5. Follow element-specific polish rules from the technique map
+
+Do NOT apply techniques generically across the whole document in arc mode. Each element has its own technique profile.
+
+**Standard mode:** For enhanced persuasion, apply techniques from `references/07-impact-techniques/`:
 
 #### Number Plays
 
@@ -440,14 +469,35 @@ READ: references/10-stakeholder-review/synthesis-guidelines.md
 
 - **German characters preserved** (ä, ö, ü, ß MUST remain as-is, NEVER converted to ae, oe, ue, ss)
 - **Citations preserved** (all `[P1-1](URL)` markers MUST retain their URLs, format unchanged)
-- Framework pattern applied correctly
-- Deliverable requirements met (length, structure, tone)
+- Framework pattern applied correctly (standard mode only)
+- Deliverable requirements met (length, structure, tone) (standard mode only)
 - Readability: Flesch 50-60 target
 - Active voice: 80%+ usage
 - Impact techniques applied (if specified)
 - **Critical stakeholder improvements applied** (if review conducted)
 - **Protected content preserved** (diagram placeholders, figure references, captions unchanged)
 - **Citation formatting applied** (see below)
+
+**Arc-aware validation (additional checks when arc_mode is active):**
+
+Run the technique validation checklist from `arc-technique-map.md`:
+
+```text
+FOR EACH element IN arc:
+  1. Heading text unchanged? (MANDATORY — reject if violated)
+  2. Primary technique intact? (e.g., PSB for Why Change, Forcing Functions for Why Now)
+  3. Number Play variant applied? (check element's row in technique map)
+  4. Word count within target range? (±50 words from arc definition targets)
+  5. Citations preserved within this element? (count ≥ original per element)
+  6. Element serves its distinct purpose? (no blending between elements)
+```
+
+Also validate:
+- H2 count is exactly 6 (subtitle + 4 elements + bridge)
+- No content moved between elements
+- Bridge section ("Further Reading" or equivalent) unchanged
+
+**If arc validation fails:** Revert the failing element to its original text. Log with `fallback_reason="arc_technique_violation"`. Continue with remaining elements — partial polish is acceptable.
 
 **Backup original document** before writing:
 
@@ -534,6 +584,11 @@ Citation Formatting: {citations formatted, if applicable}
 **Sales Techniques** (08-sales-techniques/):
 
 - power-positions.md - IS-DOES-MEANS enhancement for sales proposals
+
+**Arc Preservation** (09-preservation-modes/):
+
+- arc-preservation.md - Arc-aware preservation mode activation, structure rules, validation
+- arc-technique-map.md - Per-arc, per-element technique strengthening rules and Number Play variants
 
 **Stakeholder Review** (10-stakeholder-review/):
 

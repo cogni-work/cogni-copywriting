@@ -1,30 +1,18 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "cogni-copywriting",
   "version": "0.2.0",
   "description": "Professional copywriting toolkit providing document polishing with messaging frameworks (BLUF, Pyramid, SCQA, STAR, PSB, FAB), arc-aware narrative polishing (cogni-narrative integration), stakeholder review via parallel persona Q&A, readability optimization, sales enhancement (Power Positions), and multi-language support (English/German).",
-  "author": {
+  "license": "CC-BY-NC-SA-4.0",
+  "owner": {
     "name": "Stephan de Haas",
     "email": "stephan@cogni-work.ai"
   },
-  "license": "CC-BY-NC-SA-4.0",
-  "keywords": [
-    "copywriting",
-    "document-polishing",
-    "executive-writing",
-    "mckinsey-pyramid",
-    "readability",
-    "content-editing",
-    "stakeholder-review",
-    "messaging-frameworks",
-    "sales-copy",
-    "power-positions"
-  ],
-  "agents": [
-    "./agents/copywriter.md",
-    "./agents/reader.md"
-  ],
-  "commands": [
-    "./commands/copywrite.md",
-    "./commands/review-doc.md"
+  "plugins": [
+    {
+      "name": "cogni-copywriting",
+      "source": ".",
+      "description": "Professional copywriting toolkit with arc-aware narrative polishing, messaging frameworks, stakeholder review, and sales enhancement."
+    }
   ]
 }
