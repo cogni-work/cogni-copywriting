@@ -17,7 +17,9 @@ Usage:
     python3 calculate_readability.py <file_path> [--lang de|en|auto]
 
 Returns JSON with:
-- flesch_score: Flesch Reading Ease score (0-100, target 50-60)
+- flesch_score: Flesch Reading Ease score (0-100)
+- flesch_target_min: Language-aware minimum target (EN: 50, DE: 30)
+- flesch_target_max: Language-aware maximum target (EN: 60, DE: 50)
 - avg_paragraph_length: Average sentences per paragraph (target 3-5)
 - total_paragraphs: Number of paragraphs in document
 - visual_elements: Count of tables, callouts, lists, bold sections
@@ -353,8 +355,20 @@ def analyze_document(file_path, lang='auto'):
     headers = re.findall(r'^(#+)\s', content, re.MULTILINE)
     max_header_level = max(len(h) for h in headers) if headers else 0
 
+    # Language-aware Flesch targets
+    # English: 50-60 (standard business writing)
+    # German:  30-50 (Amstad formula yields lower scores due to compound words)
+    if detected_lang == 'de':
+        flesch_target_min = 30
+        flesch_target_max = 50
+    else:
+        flesch_target_min = 50
+        flesch_target_max = 60
+
     result = {
         "flesch_score": flesch_score,
+        "flesch_target_min": flesch_target_min,
+        "flesch_target_max": flesch_target_max,
         "detected_language": detected_lang,
         "avg_paragraph_length": avg_paragraph_length,
         "total_paragraphs": total_paragraphs,

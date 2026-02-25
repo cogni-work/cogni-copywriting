@@ -34,10 +34,11 @@ Polish markdown documents into executive-ready content through the copywriter ag
   - `tone` - Academic to executive tone transformation only
   - `formatting` - Visual hierarchy and formatting only
 
-- **--flesch-target** - Target Flesch Reading Ease score (default: 50-60)
-  - Standard range: 50-60 (standard difficulty)
-  - Easier reading: 60-70
-  - More technical: 40-50
+- **--flesch-target** - Target Flesch Reading Ease score (default: language-aware)
+  - English default: 50-60 (standard business difficulty)
+  - German default: 30-50 (Amstad formula; compound words produce lower scores)
+  - Easier reading: +10 above default range
+  - More technical: -10 below default range
 
 ## Examples
 

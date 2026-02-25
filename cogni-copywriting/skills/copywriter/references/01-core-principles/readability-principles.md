@@ -316,7 +316,7 @@ Key differences from the English formula:
 | 30-50 | Heavy |
 | 0-30 | Very difficult (academic) |
 
-**Target for German business writing:** 50-60 (same target range, using Amstad formula).
+**Target for German business writing:** 30-50 (using Amstad formula). German compound words (e.g., Qualitaetssicherungssysteme) inherently produce lower Amstad scores than equivalent English text on the standard Flesch scale. A German Amstad score of 30-50 corresponds roughly to the readability level of an English text scoring 50-60 on the standard Flesch formula.
 
 The readability script auto-detects language and applies the correct formula. Use `--lang de` or `--lang en` to override detection.
 

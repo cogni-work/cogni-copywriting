@@ -29,6 +29,8 @@ interface:
       success: "boolean"
       data:
         flesch_score: "number (0-100, Flesch Reading Ease)"
+        flesch_target_min: "number (language-aware minimum: EN=50, DE=30)"
+        flesch_target_max: "number (language-aware maximum: EN=60, DE=50)"
         detected_language: "string (en or de)"
         avg_paragraph_length: "number (average sentences per paragraph)"
         total_paragraphs: "number"

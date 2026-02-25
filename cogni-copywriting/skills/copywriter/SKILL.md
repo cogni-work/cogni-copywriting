@@ -496,7 +496,7 @@ READ: references/10-stakeholder-review/synthesis-guidelines.md
 - **Citations preserved** (all `[P1-1](URL)` markers MUST retain their URLs, format unchanged)
 - Framework pattern applied correctly (standard mode only)
 - Deliverable requirements met (length, structure, tone) (standard mode only)
-- Readability: Flesch/Amstad 50-60 target
+- Readability: Flesch target (language-aware: EN 50-60, DE 30-50 via Amstad formula)
 - Active voice: 80%+ usage
 - **German-specific validation** (when `detected_language: de`):
   - Average clause length: target 10-12 words (max 12)
@@ -643,7 +643,7 @@ Citation Formatting: {citations formatted, if applicable}
 python3 scripts/calculate_readability.py <file_path> [--lang de|en|auto]
 ```
 
-Auto-detects German vs English and applies the correct formula. German text uses Amstad (1978): `180 - ASL - 58.5 * ASW`, which compensates for German compound words and higher syllable counts. Target range 50-60 applies to both languages.
+Auto-detects German vs English and applies the correct formula. German text uses Amstad (1978): `180 - ASL - 58.5 * ASW`, which compensates for German compound words and higher syllable counts. Language-aware targets: English 50-60, German 30-50 (German compound words inherently produce lower Amstad scores). The script returns `flesch_target_min` and `flesch_target_max` fields for validation.
 
 ## Quick Reference
 

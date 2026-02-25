@@ -216,6 +216,8 @@ fi
 # Parse JSON output for formatted display
 FLESCH="$(echo "$OUTPUT" | python3 -c "import sys, json; print(json.load(sys.stdin)['flesch_score'])" 2>/dev/null || echo "N/A")"
 DETECTED_LANG="$(echo "$OUTPUT" | python3 -c "import sys, json; print(json.load(sys.stdin)['detected_language'])" 2>/dev/null || echo "N/A")"
+FLESCH_MIN="$(echo "$OUTPUT" | python3 -c "import sys, json; print(json.load(sys.stdin)['flesch_target_min'])" 2>/dev/null || echo "50")"
+FLESCH_MAX="$(echo "$OUTPUT" | python3 -c "import sys, json; print(json.load(sys.stdin)['flesch_target_max'])" 2>/dev/null || echo "60")"
 AVG_PARA="$(echo "$OUTPUT" | python3 -c "import sys, json; print(json.load(sys.stdin)['avg_paragraph_length'])" 2>/dev/null || echo "N/A")"
 TOTAL_PARA="$(echo "$OUTPUT" | python3 -c "import sys, json; print(json.load(sys.stdin)['total_paragraphs'])" 2>/dev/null || echo "N/A")"
 VISUALS="$(echo "$OUTPUT" | python3 -c "import sys, json; print(json.load(sys.stdin)['visual_elements'])" 2>/dev/null || echo "N/A")"
@@ -241,16 +243,18 @@ else
 fi
 echo ""
 
-# Flesch Reading Ease
+# Flesch Reading Ease (language-aware targets)
+FLESCH_NEAR_MIN="$(echo "$FLESCH_MIN - 5" | bc -l)"
+FLESCH_NEAR_MAX="$(echo "$FLESCH_MAX + 5" | bc -l)"
 echo "Flesch Reading Ease: $FLESCH"
-if (( $(echo "$FLESCH >= 50 && $FLESCH <= 60" | bc -l 2>/dev/null || echo 0) )); then
-    success "  ✓ Within target range (50-60)"
-elif (( $(echo "$FLESCH >= 45 && $FLESCH < 50" | bc -l 2>/dev/null || echo 0) )); then
-    warning "  ⚠ Slightly below target (50-60)"
-elif (( $(echo "$FLESCH > 60 && $FLESCH <= 65" | bc -l 2>/dev/null || echo 0) )); then
-    warning "  ⚠ Slightly above target (50-60)"
+if (( $(echo "$FLESCH >= $FLESCH_MIN && $FLESCH <= $FLESCH_MAX" | bc -l 2>/dev/null || echo 0) )); then
+    success "  ✓ Within target range ($FLESCH_MIN-$FLESCH_MAX)"
+elif (( $(echo "$FLESCH >= $FLESCH_NEAR_MIN && $FLESCH < $FLESCH_MIN" | bc -l 2>/dev/null || echo 0) )); then
+    warning "  ⚠ Slightly below target ($FLESCH_MIN-$FLESCH_MAX)"
+elif (( $(echo "$FLESCH > $FLESCH_MAX && $FLESCH <= $FLESCH_NEAR_MAX" | bc -l 2>/dev/null || echo 0) )); then
+    warning "  ⚠ Slightly above target ($FLESCH_MIN-$FLESCH_MAX)"
 else
-    error "  ✗ Outside target range (50-60)"
+    error "  ✗ Outside target range ($FLESCH_MIN-$FLESCH_MAX)"
 fi
 echo ""
 
@@ -344,7 +348,7 @@ echo ""
 
 # Overall assessment
 ISSUES=0
-if ! (( $(echo "$FLESCH >= 50 && $FLESCH <= 60" | bc -l 2>/dev/null || echo 0) )); then
+if ! (( $(echo "$FLESCH >= $FLESCH_MIN && $FLESCH <= $FLESCH_MAX" | bc -l 2>/dev/null || echo 0) )); then
     ((ISSUES++)) || true
 fi
 if ! (( $(echo "$AVG_PARA >= 3 && $AVG_PARA <= 5" | bc -l 2>/dev/null || echo 0) )); then

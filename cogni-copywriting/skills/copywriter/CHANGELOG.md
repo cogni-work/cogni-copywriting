@@ -5,6 +5,40 @@ All notable changes to the copywriter skill will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.1.0] - 2026-02-25
+
+### Fixed - Language-Aware Flesch Targets for German
+
+The Flesch readability target of 50-60 was applied uniformly to both English and German text. The Amstad formula inherently produces lower scores for German due to compound words, making 50-60 unreachable for German business writing. Introduced language-aware targets.
+
+#### Target Ranges
+
+| Language | Formula | Old Target | New Target |
+|----------|---------|-----------|-----------|
+| English | Standard Flesch | 50-60 | 50-60 (unchanged) |
+| German | Amstad (1978) | 50-60 | 30-50 |
+
+#### Changed Files
+
+- **calculate_readability.py**: Returns `flesch_target_min` and `flesch_target_max` fields based on detected language (EN: 50/60, DE: 30/50)
+- **readability.sh**: All display and assessment logic uses dynamic thresholds from script output instead of hardcoded 50-60
+- **SKILL.md**: Step 8 validation and script documentation updated to reference language-aware targets
+- **contracts/readability.yml**: Added `flesch_target_min` and `flesch_target_max` to output schema
+- **readability-principles.md**: German target updated from 50-60 to 30-50 with explanation of why German scores lower
+- **copywrite.md**: `--flesch-target` parameter documentation updated to describe language-aware defaults
+
+### Rationale
+
+Research on the Amstad (1978) formula shows German business writing typically scores 30-50, not 50-60. German compound words like "Qualitaetssicherungssysteme" produce many syllables per word, which the Amstad formula cannot fully compensate for. A German Amstad score of 30-50 corresponds roughly to the readability level of an English text scoring 50-60.
+
+### Migration Notes
+
+- **Non-breaking**: English targets unchanged at 50-60
+- **Improved German scoring**: German documents that previously failed (e.g., scoring 22-40) will now be assessed against realistic 30-50 target
+- **New JSON fields**: `flesch_target_min` and `flesch_target_max` added to script output; consumers should use these instead of hardcoded values
+
+---
+
 ## [7.0.0] - 2026-02-24
 
 ### Added - Arc-Aware Polishing Mode
