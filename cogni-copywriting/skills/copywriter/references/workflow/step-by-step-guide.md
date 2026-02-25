@@ -34,6 +34,22 @@ Step 7: Synthesis & Refinement (optional)
 Step 8: Validate & Write Document
 ```
 
+### Scope Handling (Polish Mode)
+
+When the skill receives a `SCOPE` parameter (from `/copywrite --scope=`), certain steps are skipped:
+
+| Step | full | structure | tone | formatting |
+|------|------|-----------|------|------------|
+| 1. Parse & load refs | YES | YES | YES | YES |
+| 2. Gather content | SKIP | SKIP | SKIP | SKIP |
+| 3. Structure & framework | YES | YES | SKIP | SKIP |
+| 4. Writing principles | YES | SKIP | YES | YES |
+| 5. Impact techniques | YES | SKIP | SKIP | YES |
+| 6-7. Review & synthesis | YES | SKIP | SKIP | SKIP |
+| 8. Validate & write | YES | YES | YES | YES |
+
+**Critical exception:** Sub-step 4C (Paragraph Separation and Bold Anchoring) runs in ALL scopes. Dense paragraphs and missing bold anchors are readability defects, not style choices.
+
 ---
 
 ## Step 1: Parse Parameters & Load References
@@ -262,6 +278,28 @@ Using the structural outline from Step 3 and the writing principles from 4A, wri
 - Element boundaries (no content moves between elements)
 - The distinct purpose of each element
 
+### 4C: Apply Paragraph Separation and Bold Anchoring
+
+After drafting or tone transformation, perform this formatting pass on every section:
+
+**Paragraph splitting procedure:**
+
+1. Count sentences in each paragraph
+2. If a paragraph has 6+ sentences, find the topic boundary and split
+3. If a paragraph covers two distinct points (even in 4-5 sentences), split at the boundary
+4. Verify each resulting paragraph is 3-5 sentences, 40-70 words
+5. Ensure one blank line separates consecutive paragraphs
+
+**Bold anchoring procedure:**
+
+1. Scan each paragraph for key data: percentages, counts, ratios, dates, metric names
+2. Bold the 2-4 word phrase containing the data point (e.g., "**31% of variance**", "**2.3x more likely**")
+3. Bold the topic anchor of a paragraph's lead sentence when it names a key concept (e.g., "**Organizational culture** emerges as...")
+4. Verify 2-3 bold instances per paragraph, no more
+5. Never bold an entire sentence or clause
+
+This sub-step applies regardless of SCOPE.
+
 ### Step 4 Gate
 
 Before proceeding, verify:
@@ -269,6 +307,8 @@ Before proceeding, verify:
 - Writing principles are applied throughout (not just in spots)
 - Language-specific rules are followed (German Schneider rules OR English clarity/conciseness)
 - If arc mode: all element headings and boundaries are preserved
+- No paragraph exceeds 5 sentences or 70 words
+- Key data points (numbers, percentages, ratios) are bolded with 2-4 word anchors
 
 ---
 

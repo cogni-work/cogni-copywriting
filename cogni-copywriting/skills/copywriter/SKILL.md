@@ -114,6 +114,31 @@ Documents may contain tagged diagram descriptions for later processing by diagra
 7. Synthesis and refinement (optional)
 8. Validate and write document
 
+### Scope Handling
+
+When polishing an existing document (`/copywrite --scope=`), use this table to determine which steps execute:
+
+| Step | full | structure | tone | formatting |
+|------|------|-----------|------|------------|
+| 1. Parse parameters | YES | YES | YES | YES |
+| 2. Gather content | SKIP | SKIP | SKIP | SKIP |
+| 3. Structure & framework | YES | YES | SKIP | SKIP |
+| 4. Writing principles | YES | SKIP | YES | YES |
+| 5. Impact techniques | YES | SKIP | SKIP | YES |
+| 6. Stakeholder review | YES | SKIP | SKIP | SKIP |
+| 7. Synthesis | YES | SKIP | SKIP | SKIP |
+| 8. Validate & write | YES | YES | YES | YES |
+
+When `arc_mode: true`, arc-preservation rules override scope step selection. See `arc-preservation.md`.
+
+**Baseline formatting (ALL scopes):** Regardless of scope, every polished output MUST meet these minimum standards:
+
+1. **Paragraph separation**: No paragraph exceeds 5 sentences or ~70 words. Split any paragraph covering more than one logical point into separate paragraphs separated by a blank line.
+2. **Bold anchoring**: Bold the 2-4 most critical words around key data points (percentages, counts, ratios, dates). Target 2-3 bold instances per paragraph. Never bold entire sentences.
+3. **White space**: One blank line between every paragraph. Blank lines before and after headings, lists, tables, and block quotes.
+
+These three standards apply even in `--scope=tone` because they are readability fundamentals, not decorative formatting.
+
 ### Step 1: Parse Parameters & Load References
 
 **Extract from user request:**
@@ -219,9 +244,13 @@ Apply Wolf Schneider rules for German:
 **Conciseness**: 3-5 sentence paragraphs, no filler phrases, strong verbs
 **Active voice**: 80%+ active voice usage
 
-**Both languages:**
+**Both languages -- formatting and readability:**
 
-**Formatting**: Max 3 heading levels, visual elements every 2 paragraphs
+1. **Paragraph splitting**: Scan each paragraph. If it exceeds 5 sentences OR covers more than one logical point, split it. Insert a blank line at each topic boundary. Target: 3-5 sentences, 40-70 words per paragraph.
+2. **Bold anchoring**: Identify key data points (percentages, metrics, counts, dates, ratios) and bold 2-4 words around each. Target: 2-3 bold instances per paragraph. Never bold full sentences.
+3. **Heading levels**: Max 3 levels (H1, H2, H3). If H4 is needed, restructure.
+4. **Visual element rhythm**: Insert a visual element (table, list, callout) every 2-3 consecutive prose paragraphs.
+5. **White space**: Blank line between every paragraph, around every heading, list, table, and block quote.
 
 ### Step 5: Apply Impact Techniques
 
