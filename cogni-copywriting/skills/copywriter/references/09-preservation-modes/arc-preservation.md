@@ -151,6 +151,28 @@ Before (Why Change element, NOT marked for You-Phrasing): Leave third-person phr
 **6. Improve within-element transitions.**
 Sharpen paragraph transitions within a single element. Do NOT modify cross-element transitions (the bridging sentence between one H2 section and the next).
 
+**7. Restructure weak hook openings.**
+The hook is the exception to structural preservation. If the hook's first sentence fails ANY of these tests, you must restructure it:
+
+- **Kuechenzuruf test:** Can the reader shout the gist to someone in the next room?
+- **Surprise test:** Does it contain a surprising truth or the main conclusion?
+- **Platitude test:** Is it a self-evident statement or generic context?
+- **Raw statistics test:** Does it lead with an unframed number?
+- **12-word test:** Is it a single Hauptsatz of max 12 words?
+
+If the first sentence fails 3 or more of these tests, the opening MUST be restructured. Failing 1-2 tests warrants attempted revision within the current structure.
+
+When restructuring a hook opening:
+- Preserve ALL citations, facts, and data from the original
+- Preserve the hook's overall purpose and message
+- Apply german-hook-principles.md rules (if German) or equivalent English hook principles
+- The restructured hook must still serve the arc's Pyramid Principle
+- Only the first 1-2 sentences may be restructured; the rest of the hook is structure-protected
+- Apply Regel 7 (Schneider): Find the strongest sentence in the hook paragraph and promote it
+- Apply Regel 9 (Schneider): Move raw statistics to sentence 2-3 as the evidence anchor
+
+This rule overrides the general prohibition on restructuring (item "What You Must Never Apply") specifically and only for the hook's first 1-2 sentences. The rationale: preservation must not mean starting with a weak first sentence. The very first sentence must be surprising and immediately hook the reader to continue.
+
 ## Step-by-Step Polish Process
 
 Follow this sequence for every arc-aware polish task:
@@ -161,7 +183,7 @@ Follow this sequence for every arc-aware polish task:
    Number Play variant, and word target.
 3. SNAPSHOT: Record the original document's heading texts, heading count,
    citation count, and per-element word counts.
-4. POLISH: For each element (in order), apply the six allowed modifications:
+4. POLISH: For each element (in order), apply the seven allowed modifications:
    a. Check the technique map for this element's assigned techniques.
    b. Strengthen the primary technique (e.g., sharpen PSB in Why Change).
    c. Apply the correct Number Play variant.
@@ -169,6 +191,8 @@ Follow this sequence for every arc-aware polish task:
    e. Improve sentence rhythm.
    f. Apply You-Phrasing only if the technique map marks it for this element.
    g. Sharpen within-element transitions.
+   h. FOR HOOK ONLY: Run the 5 hook quality tests. If 3+ fail, restructure
+      the first 1-2 sentences per german-hook-principles.md / technique map.
 5. VALIDATE: Run the validation checklist (below) against the polished output.
 6. OUTPUT: If validation passes, return the polished document.
    If validation fails, revert the failing element(s) to original text.
@@ -220,7 +244,7 @@ FOR EACH element:
 These are the most frequent errors when polishing arc narratives. Check for each one:
 
 **Mistake 1: Applying BLUF to the opening.**
-The arc's hook section already uses Pyramid Principle (answer-first). BLUF restructuring would duplicate or conflict with this. Leave the hook's structure intact; only strengthen its language.
+The arc's hook section already uses Pyramid Principle (answer-first). BLUF restructuring would duplicate or conflict with this. However, if the hook's first sentence fails the hook quality tests (see "7. Restructure weak hook openings" above), you must restructure the first 1-2 sentences. This is not BLUF -- it is hook strengthening. The distinction: BLUF imposes a competing framework; hook strengthening applies the arc's own Pyramid Principle more effectively by promoting the strongest statement to position 1.
 
 **Mistake 2: Blending element purposes.**
 Each element serves one function. "Why Now" creates urgency through forcing functions and timelines. "Why Change" establishes the problem through PSB and contrast. If your polish makes "Why Now" read like a problem statement instead of an urgency driver, you have crossed element boundaries. Revert.

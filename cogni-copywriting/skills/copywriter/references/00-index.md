@@ -56,6 +56,7 @@ LOAD: 07-impact-techniques/power-words.md
 
 IF document language is German:
   LOAD: 01-core-principles/german-style-principles.md
+  LOAD: 01-core-principles/german-hook-principles.md
 ```
 
 After loading, SKIP Steps 3-4 below. Proceed directly to skill workflow Step 3 (structure comes from the arc, not from a framework).
@@ -93,6 +94,7 @@ LOAD: 01-core-principles/active-voice-principles.md
 ```
 IF document language is German:
   LOAD: 01-core-principles/german-style-principles.md
+  LOAD: 01-core-principles/german-hook-principles.md
 ```
 
 #### 2c. Optional Core Principles (load only when relevant)
@@ -260,6 +262,7 @@ All reference files in this system, organized by directory. Use this as the sour
 - `conciseness-principles.md` -- 3-5 sentence paragraphs, eliminate filler, strong verbs
 - `active-voice-principles.md` -- 80%+ active voice, clear subjects, transformation patterns
 - `german-style-principles.md` -- Wolf Schneider rules: 12-word clauses, Satzklammer, Mittelfeld, Floskeln
+- `german-hook-principles.md` -- Wolf Schneider / Reiners / Nannen: 12 opening-sentence rules, Kuechenzuruf test, arc hook strategies
 - `plain-language-principles.md` -- Technical content accessibility
 - `readability-principles.md` -- Visual hierarchy and scannability
 

@@ -546,6 +546,45 @@ Position for the new structure, not defense of the old. Apply You-Phrasing.
 
 These techniques apply to ALL arcs, every element. Strengthen them regardless of arc_id.
 
+### Hook -- First-Sentence Rules (all arcs)
+
+The hook is the reader's entry point. Every arc has a Hook element (the opening paragraphs before the first H2 arc element). The technique table assigns "Pyramid Principle + Hero number isolation" to every Hook. These rules specify HOW to strengthen the hook's first 1-2 sentences.
+
+**First-sentence strategy (choose one based on arc and content):**
+- **Surprise/Paradox:** A counterintuitive true statement from the research (e.g., "Success caused the crisis")
+- **Main conclusion first:** The single most important finding, stated boldly
+- **Provocative thesis:** A sharp claim that demands engagement
+
+**First-sentence constraints:**
+- Max 12 words (German) / 15 words (English)
+- Main clause only -- no subordinate clauses, no appositional phrases
+- No raw statistics as opener (transform into vivid statement first)
+- Must pass the Kuechenzuruf test (German) or Kitchen Call-Out test (English): can the reader shout the gist to someone in the next room?
+- Must not be a Binsenweisheit (platitude) or self-evident context
+
+**Hero number isolation:**
+- The hero number appears in sentence 2-3, not necessarily sentence 1
+- It anchors the hook's credibility AFTER the opening creates interest
+- The number grounds the surprising claim with evidence
+
+**Hook quality tests (run all five):**
+
+| Test | Pass Criterion | Fail Action |
+|------|---------------|-------------|
+| 12-word Hauptsatz | First sentence is max 12 words, main clause only | Shorten and simplify |
+| Surprise or Hauptsache | Contains surprising truth or main conclusion | Find strongest sentence in paragraph, promote it (Schneider Regel 7) |
+| No Binsenweisheit | Reader would NOT respond "Ja, und?" | Replace with concrete finding |
+| Kuechenzuruf | Gist survives being shouted across a room | Sharpen core message |
+| No raw statistics | Does not lead with unframed number | Transform number into vivid statement, move raw number to sentence 2-3 |
+
+If the first sentence fails 3+ tests: restructure the opening 1-2 sentences (permitted under arc-preservation.md Section 7).
+If the first sentence fails 1-2 tests: attempt revision within current structure.
+If the first sentence passes all 5: strengthen language only (Power Words, rhythm).
+
+For German documents, load `01-core-principles/german-hook-principles.md` for the full 12-rule system with before/after examples.
+
+---
+
 ### Number Plays (all elements with quantitative claims)
 
 - Replace every vague quantity ("many", "most", "significant", "substantial") with a specific number.
