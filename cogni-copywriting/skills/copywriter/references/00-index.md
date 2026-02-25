@@ -58,6 +58,9 @@ ELSE IF deliverable_type SPECIFIED:
 2. `01-core-principles/conciseness-principles.md` - 3-5 sentence paragraphs, eliminating filler, strong verbs
 3. `01-core-principles/active-voice-principles.md` - 80%+ active voice, clear subjects, transformation patterns
 
+**Language-conditional core principles:**
+- `01-core-principles/german-style-principles.md` - **LOAD WHEN GERMAN detected.** Wolf Schneider Satzbauregeln: 12-Woerter-Teilsaetze, Satzklammer aufbrechen, Mittelfeld verkuerzen, Subjekt-Verb-Naehe, Hauptsaetze reihen, deutsche Floskelliste, Rhythmus durch Abwechslung
+
 **Optional core principles (load when needed):**
 - `01-core-principles/plain-language-principles.md` - When technical content needs accessibility
 - `01-core-principles/readability-principles.md` - When visual hierarchy and scannability are priorities
@@ -67,6 +70,9 @@ ELSE IF deliverable_type SPECIFIED:
 READ: references/01-core-principles/clarity-principles.md
 READ: references/01-core-principles/conciseness-principles.md
 READ: references/01-core-principles/active-voice-principles.md
+
+IF document_language == de:
+  READ: references/01-core-principles/german-style-principles.md
 ```
 
 ---

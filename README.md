@@ -10,7 +10,7 @@ claude plugins add cogni-copywriting
 
 ## What It Does
 
-- **Document polishing** — Takes any markdown document and transforms it for executive readers. Applies messaging frameworks (BLUF, Pyramid, SCQA, STAR, PSB, FAB, Inverted Pyramid), optimizes readability, and adds visual hierarchy. Works with memos, emails, briefs, reports, proposals, one-pagers, executive summaries, business letters, and blogs. Supports English (Flesch Reading Ease) and German (Amstad readability) with full preservation of German characters and citations.
+- **Document polishing** — Takes any markdown document and transforms it for executive readers. Applies messaging frameworks (BLUF, Pyramid, SCQA, STAR, PSB, FAB, Inverted Pyramid), optimizes readability, and adds visual hierarchy. Works with memos, emails, briefs, reports, proposals, one-pagers, executive summaries, business letters, and blogs. Supports English (Flesch Reading Ease) and German (Amstad readability + Wolf Schneider style rules) with full preservation of German characters and citations.
 - **Stakeholder review** — Runs your document through five simulated reader personas (executive, technical, legal, marketing, end-user) in parallel. Synthesizes cross-persona feedback, flags blind spots, and auto-applies improvements — with a backup of the original.
 - **Arc-aware polishing** — When paired with cogni-narrative, detects story arcs and applies element-specific techniques (Number Plays, Power Words, forcing functions) tuned to each arc element's purpose. Structure is preserved; impact is strengthened.
 
@@ -83,10 +83,14 @@ Claude: [Detects arc_id in frontmatter — activates arc-aware mode]
 You: /copywrite vorstandsbericht.md
 
 Claude: [Detects German language]
-        [Applies messaging framework with German readability scoring (Amstad)]
-        [Preserves special characters: ä, ö, ü, ß — never converts to ASCII]
-        [Preserves all citations and source references exactly]
-        [Validates: Amstad 58, active voice 81%, visual hierarchy added]
+        [Loads Wolf Schneider style rules instead of English defaults]
+        [Breaks Satzklammer: "stellt ... dar" → "beschreibt"]
+        [Shortens Mittelfeld: max 12 words per clause]
+        [Eliminates Floskeln: "im Rahmen von" → "bei"]
+        [Keeps Subjekt and Verb close together]
+        [Chains Hauptsätze for rhythm: short — long — short]
+        [Preserves ä, ö, ü, ß and all citations exactly]
+        [Validates: Amstad 55, avg clause 9.2 words, 0 Floskeln, rhythm ✓]
 ```
 
 ### Quick Scope: Tone Only
@@ -114,8 +118,24 @@ Claude: [Runs all 5 personas — does NOT modify the document]
 
 | Skill | Description |
 |-------|-------------|
-| `copywriter` | Document polishing with 7 messaging frameworks, 9 deliverable types, readability scoring, arc-aware mode, and sales enhancement |
+| `copywriter` | Document polishing with 7 messaging frameworks, 9 deliverable types, readability scoring, Wolf Schneider German style rules, arc-aware mode, and sales enhancement |
 | `reader` | Multi-stakeholder review through 5 parallel personas with synthesized feedback and auto-improvement |
+
+## German Language Support
+
+When a German document is detected, the plugin applies **Wolf Schneider style rules** instead of the English defaults:
+
+| Rule | What it does | Target |
+|------|-------------|--------|
+| 3-Sekunden-Regel | Limits clause length for fast comprehension | Max 12 words per clause |
+| Satzklammer | Replaces split verbs with single verbs | "stellt dar" becomes "beschreibt" |
+| Mittelfeld | Shortens the middle field between verb parts | Max 6 words between subject and verb |
+| Floskeln | Detects and replaces bureaucratic phrases | 0 matches against 40+ known phrases |
+| Hauptsatz-Reihung | Chains main clauses instead of nesting | Hauptsatz before Nebensatz |
+| Attribut-Tilgung | Replaces stacked adjectives with relative clauses | Max 2 attributes before a noun |
+| Rhythmus | Varies sentence length for natural flow | Std dev > 3.0 words |
+
+The readability script (`readability.sh`) reports these metrics automatically when German is detected.
 
 ## Prerequisites
 

@@ -90,6 +90,14 @@ FILE_PATH=""
 JSON_ONLY=false
 LANG_FLAG="auto"
 
+# German style variables (initialized for overall assessment)
+AVG_CLAUSE="N/A"
+MAX_CLAUSE="N/A"
+OVER_12="N/A"
+SENT_STD="N/A"
+FLOSKEL_COUNT="N/A"
+FLOSKELN_FOUND=""
+
 while [[ $# -gt 0 ]]; do
     case $1 in
         --file)
@@ -283,19 +291,80 @@ else
 fi
 echo ""
 
+# German Style Analysis (Wolf Schneider) - only when German detected
+if [ "$DETECTED_LANG" = "de" ]; then
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "WOLF SCHNEIDER STYLE ANALYSIS (German)"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo ""
+
+    AVG_CLAUSE="$(echo "$OUTPUT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d.get('german_style',{}).get('avg_clause_length','N/A'))" 2>/dev/null || echo "N/A")"
+    MAX_CLAUSE="$(echo "$OUTPUT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d.get('german_style',{}).get('max_clause_length','N/A'))" 2>/dev/null || echo "N/A")"
+    OVER_12="$(echo "$OUTPUT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d.get('german_style',{}).get('clauses_over_12','N/A'))" 2>/dev/null || echo "N/A")"
+    SENT_STD="$(echo "$OUTPUT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d.get('german_style',{}).get('sentence_length_std_dev','N/A'))" 2>/dev/null || echo "N/A")"
+    FLOSKEL_COUNT="$(echo "$OUTPUT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d.get('german_style',{}).get('floskel_count','N/A'))" 2>/dev/null || echo "N/A")"
+    FLOSKELN_FOUND="$(echo "$OUTPUT" | python3 -c "import sys, json; d=json.load(sys.stdin); print(', '.join(d.get('german_style',{}).get('floskeln_found',[])))" 2>/dev/null || echo "")"
+
+    # Clause length
+    echo "Avg Clause Length: $AVG_CLAUSE words (target: ≤12)"
+    if [ "$AVG_CLAUSE" != "N/A" ] && (( $(echo "$AVG_CLAUSE <= 12" | bc -l 2>/dev/null || echo 0) )); then
+        success "  ✓ Within Wolf Schneider target"
+    else
+        warning "  ⚠ Clauses too long — break Satzklammer, shorten Mittelfeld"
+    fi
+
+    echo "Max Clause Length: $MAX_CLAUSE words"
+    echo "Clauses Over 12 Words: $OVER_12"
+    if [ "$OVER_12" != "N/A" ] && [ "$OVER_12" -gt 0 ]; then
+        warning "  ⚠ $OVER_12 clause(s) exceed 12-word limit"
+    fi
+    echo ""
+
+    # Rhythm
+    echo "Sentence Length Variation: $SENT_STD (std dev, target: >3.0)"
+    if [ "$SENT_STD" != "N/A" ] && (( $(echo "$SENT_STD >= 3.0" | bc -l 2>/dev/null || echo 0) )); then
+        success "  ✓ Good rhythmic variety (Maxime 11)"
+    else
+        warning "  ⚠ Monotone sentence lengths — vary short/long (Maxime 11)"
+    fi
+    echo ""
+
+    # Floskeln
+    echo "Floskeln Detected: $FLOSKEL_COUNT (target: 0)"
+    if [ "$FLOSKEL_COUNT" != "N/A" ] && [ "$FLOSKEL_COUNT" -eq 0 ]; then
+        success "  ✓ No Floskeln found (Maxime 2)"
+    else
+        error "  ✗ Floskeln found: $FLOSKELN_FOUND"
+    fi
+    echo ""
+fi
+
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
 # Overall assessment
 ISSUES=0
 if ! (( $(echo "$FLESCH >= 50 && $FLESCH <= 60" | bc -l 2>/dev/null || echo 0) )); then
-    ((ISSUES++))
+    ((ISSUES++)) || true
 fi
 if ! (( $(echo "$AVG_PARA >= 3 && $AVG_PARA <= 5" | bc -l 2>/dev/null || echo 0) )); then
-    ((ISSUES++))
+    ((ISSUES++)) || true
 fi
 if [ "$HEADERS" -gt 3 ]; then
-    ((ISSUES++))
+    ((ISSUES++)) || true
+fi
+
+# German-specific issues
+if [ "$DETECTED_LANG" = "de" ]; then
+    if [ "$AVG_CLAUSE" != "N/A" ] && (( $(echo "$AVG_CLAUSE > 12" | bc -l 2>/dev/null || echo 0) )); then
+        ((ISSUES++)) || true
+    fi
+    if [ "$FLOSKEL_COUNT" != "N/A" ] && [ "$FLOSKEL_COUNT" -gt 0 ]; then
+        ((ISSUES++)) || true
+    fi
+    if [ "$SENT_STD" != "N/A" ] && (( $(echo "$SENT_STD < 3.0" | bc -l 2>/dev/null || echo 0) )); then
+        ((ISSUES++)) || true
+    fi
 fi
 
 if [ $ISSUES -eq 0 ]; then

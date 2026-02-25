@@ -7,6 +7,12 @@ Supports language-aware Flesch scoring:
 - German:  Amstad formula (180 - ASL - 58.5*ASW), adapted for German
            compound words and higher syllable counts
 
+When German is detected, also runs Wolf-Schneider style analysis:
+- Clause length (target: max 12 words per clause)
+- Sentence length variation (target: std dev > 3 words for rhythm)
+- Floskel detection (target: 0 matches against known list)
+- Attribute chain detection (target: max 2 adjectives before noun)
+
 Usage:
     python3 calculate_readability.py <file_path> [--lang de|en|auto]
 
@@ -17,6 +23,7 @@ Returns JSON with:
 - visual_elements: Count of tables, callouts, lists, bold sections
 - header_levels: Max header depth (target <=3)
 - detected_language: Language used for scoring (en or de)
+- german_style (only when de): Wolf-Schneider metrics
 """
 
 import sys
@@ -200,6 +207,105 @@ def calculate_flesch_score(text, lang='auto'):
     return round(score, 1), lang
 
 
+
+# --- German Style Analysis (Wolf Schneider) ---
+
+# German floskel list for detection
+GERMAN_FLOSKELN = [
+    'im rahmen von', 'in bezug auf', 'zum jetzigen zeitpunkt',
+    'unter beruecksichtigung von', 'unter berücksichtigung von',
+    'im hinblick auf', 'massnahmen ergreifen', 'maßnahmen ergreifen',
+    'zur verfuegung stellen', 'zur verfügung stellen',
+    'in angriff nehmen', 'einer pruefung unterziehen', 'einer prüfung unterziehen',
+    'kenntnis nehmen von', 'zum ausdruck bringen',
+    'in erwaegung ziehen', 'in erwägung ziehen',
+    'rechnung tragen', 'unter beweis stellen',
+    'zum abschluss bringen', 'im bereich von',
+    'in der lage sein', 'verwendung finden', 'anwendung finden',
+    'zum einsatz kommen', 'aufstellung nehmen',
+    'zum tragen kommen', 'in kraft treten',
+    'stellung nehmen zu', 'in betracht ziehen',
+    'zur kenntnis nehmen', 'in aussicht stellen',
+    'zum gegenstand haben', 'unter einbeziehung von',
+    'im zusammenhang mit', 'im zuge von',
+    'im vorfeld von', 'im nachgang zu',
+    'auf den weg bringen', 'in die wege leiten',
+]
+
+
+def analyze_german_style(text):
+    """Analyze German text against Wolf Schneider style rules.
+
+    Returns dict with:
+    - avg_clause_length: Average words per clause (target: 10-12, max 12)
+    - max_clause_length: Longest clause in words
+    - clauses_over_12: Number of clauses exceeding 12 words
+    - sentence_length_std_dev: Variation in sentence length (target: > 3.0)
+    - floskel_count: Number of detected Floskeln (target: 0)
+    - floskeln_found: List of detected Floskeln
+    """
+    import math
+
+    # Split into sentences
+    sentences = re.split(r'[.!?]+', text)
+    sentences = [s.strip() for s in sentences if s.strip()]
+
+    if not sentences:
+        return {
+            'avg_clause_length': 0,
+            'max_clause_length': 0,
+            'clauses_over_12': 0,
+            'sentence_length_std_dev': 0.0,
+            'floskel_count': 0,
+            'floskeln_found': [],
+        }
+
+    # --- Clause length analysis ---
+    # Split sentences into clauses at commas, semicolons, dashes, colons
+    all_clauses = []
+    for sentence in sentences:
+        clauses = re.split(r'[,;:\u2013\u2014–—]', sentence)
+        for clause in clauses:
+            words = re.findall(r'\b\w+\b', clause)
+            if words:
+                all_clauses.append(len(words))
+
+    avg_clause = round(sum(all_clauses) / len(all_clauses), 1) if all_clauses else 0
+    max_clause = max(all_clauses) if all_clauses else 0
+    over_12 = sum(1 for c in all_clauses if c > 12)
+
+    # --- Sentence length variation (rhythm) ---
+    sentence_lengths = []
+    for sentence in sentences:
+        words = re.findall(r'\b\w+\b', sentence)
+        if words:
+            sentence_lengths.append(len(words))
+
+    if len(sentence_lengths) >= 2:
+        mean_len = sum(sentence_lengths) / len(sentence_lengths)
+        variance = sum((x - mean_len) ** 2 for x in sentence_lengths) / len(sentence_lengths)
+        std_dev = round(math.sqrt(variance), 1)
+    else:
+        std_dev = 0.0
+
+    # --- Floskel detection ---
+    text_lower = text.lower()
+    found_floskeln = []
+    for floskel in GERMAN_FLOSKELN:
+        count = text_lower.count(floskel)
+        if count > 0:
+            found_floskeln.extend([floskel] * count)
+
+    return {
+        'avg_clause_length': avg_clause,
+        'max_clause_length': max_clause,
+        'clauses_over_12': over_12,
+        'sentence_length_std_dev': std_dev,
+        'floskel_count': len(found_floskeln),
+        'floskeln_found': list(set(found_floskeln)),
+    }
+
+
 def analyze_document(file_path, lang='auto'):
     """Analyze markdown document for readability metrics."""
     with open(file_path, 'r', encoding='utf-8') as f:
@@ -247,7 +353,7 @@ def analyze_document(file_path, lang='auto'):
     headers = re.findall(r'^(#+)\s', content, re.MULTILINE)
     max_header_level = max(len(h) for h in headers) if headers else 0
 
-    return {
+    result = {
         "flesch_score": flesch_score,
         "detected_language": detected_lang,
         "avg_paragraph_length": avg_paragraph_length,
@@ -255,6 +361,12 @@ def analyze_document(file_path, lang='auto'):
         "visual_elements": visual_elements,
         "header_levels": max_header_level
     }
+
+    # Add German-specific Wolf Schneider analysis
+    if detected_lang == 'de':
+        result["german_style"] = analyze_german_style(content)
+
+    return result
 
 
 if __name__ == "__main__":

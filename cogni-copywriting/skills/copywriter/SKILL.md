@@ -193,9 +193,34 @@ Ask user for:
 
 ### Step 4: Apply Writing Principles
 
+**Detect document language** (from content or `--lang` parameter). Then load language-appropriate principles:
+
+**If German detected:**
+
+```text
+READ: references/01-core-principles/german-style-principles.md
+```
+
+Apply Wolf Schneider rules for German:
+- **Satzlaenge**: Max 12 Woerter pro Teilsatz (strenger als Englisch)
+- **Vorfeld**: Max 6 Woerter / 12 Silben vor dem Verb
+- **Satzklammer**: Aufbrechen — einteilige Verben bevorzugen, Mittelfeld verkuerzen
+- **Subjekt-Verb-Naehe**: Subjekt und Verb nicht trennen (max 3 Woerter Abstand)
+- **Hauptsaetze reihen**: Hauptsaetze statt verschachtelter Nebensaetze
+- **Nebensatz anhaengen**: Hauptsatz vor Nebensatz, max 2 Nebensaetze
+- **Attribute aufloesen**: Max 2 Attribute vor Nomen, sonst Relativsaetze
+- **Floskeln eliminieren**: Gegen deutsche Floskelliste pruefen (siehe Reference)
+- **Rhythmus**: Satzlaengen abwechseln (kurz-lang-kurz)
+- **Fuer die Ohren schreiben**: Natuerlicher Klang, keine akademische Abstraktion
+
+**If English detected (or default):**
+
 **Clarity**: 15-20 word sentences, concrete language, simple words
 **Conciseness**: 3-5 sentence paragraphs, no filler phrases, strong verbs
 **Active voice**: 80%+ active voice usage
+
+**Both languages:**
+
 **Formatting**: Max 3 heading levels, visual elements every 2 paragraphs
 
 ### Step 5: Apply Impact Techniques
@@ -471,8 +496,13 @@ READ: references/10-stakeholder-review/synthesis-guidelines.md
 - **Citations preserved** (all `[P1-1](URL)` markers MUST retain their URLs, format unchanged)
 - Framework pattern applied correctly (standard mode only)
 - Deliverable requirements met (length, structure, tone) (standard mode only)
-- Readability: Flesch 50-60 target
+- Readability: Flesch/Amstad 50-60 target
 - Active voice: 80%+ usage
+- **German-specific validation** (when `detected_language: de`):
+  - Average clause length: target 10-12 words (max 12)
+  - Floskel count: 0 (check against german-style-principles.md Floskelliste)
+  - Sentence length variation: standard deviation > 3 words (rhythmic variety)
+  - No attribute chains > 2 before a noun
 - Impact techniques applied (if specified)
 - **Critical stakeholder improvements applied** (if review conducted)
 - **Protected content preserved** (diagram placeholders, figure references, captions unchanged)
@@ -551,6 +581,7 @@ Citation Formatting: {citations formatted, if applicable}
 - clarity-principles.md - 15-20 word sentences, concrete language
 - conciseness-principles.md - 3-5 sentence paragraphs, strong verbs
 - active-voice-principles.md - 80%+ active voice usage
+- german-style-principles.md - Wolf Schneider rules for German: 12-word clauses, Satzklammer, Mittelfeld, Floskeln
 
 **Formatting Standards** (03-formatting-standards/):
 
