@@ -570,6 +570,8 @@ Backup: {backup_path if created, or "None (new file)"}
 Quality: Framework ✓ | Structure ✓ | Readability ✓
 Impact Techniques: {techniques applied, if any}
 Citation Formatting: {citations formatted, if applicable}
+
+Next step: Run `/review-doc {path}` to get multi-stakeholder feedback before distribution
 ```
 
 ## Bundled Resources

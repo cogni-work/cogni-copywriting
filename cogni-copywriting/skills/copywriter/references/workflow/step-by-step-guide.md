@@ -554,6 +554,8 @@ Quality: Framework {pass/fail} | Structure {pass/fail} | Readability {score}
 Impact Techniques: {techniques applied, or "None"}
 Citation Formatting: {applied/not applicable}
 Review: {review outcome summary, or "Skipped"}
+
+Next step: Run `/review-doc {output_path}` to get multi-stakeholder feedback before distribution
 ```
 
 ### Step 8 Gate (Final)

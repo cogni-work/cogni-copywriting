@@ -66,6 +66,8 @@ Polishes entire document with McKinsey Pyramid structure, executive tone, and op
 3. Added 8 visual elements for scannability
 
 **Status**: ✅ Ready for executive presentation
+
+**Next step:** Run `/review-doc research-report.md` to get stakeholder feedback from multiple perspectives
 ```
 
 ### Example 2: Structure-Only Polishing
@@ -89,6 +91,8 @@ Applies McKinsey Pyramid Principle restructuring without changing tone or format
 - Preserved original tone and formatting
 
 **Status**: ✅ Restructured with answer-first approach
+
+**Next step:** Run `/review-doc research-findings.md` to validate with stakeholder perspectives
 ```
 
 ### Example 3: Tone Transformation Only
@@ -114,6 +118,8 @@ Transforms academic writing to executive voice while preserving structure.
 **Flesch Score**: 48 → 58 (20% improvement)
 
 **Status**: ✅ Executive tone applied
+
+**Next step:** Run `/review-doc technical-report.md` to get multi-stakeholder feedback
 ```
 
 ### Example 4: Formatting and Visual Hierarchy
@@ -139,6 +145,8 @@ Optimizes scannability through visual elements and paragraph optimization.
 **Visual Elements**: 6 → 18 (3x improvement)
 
 **Status**: ✅ Highly scannable with visual hierarchy
+
+**Next step:** Run `/review-doc analysis.md` to validate readability with stakeholder personas
 ```
 
 ### Example 5: Custom Flesch Target
@@ -166,6 +174,8 @@ Polishes document targeting easier readability for broader audiences.
 3. Enhanced scannability with visual elements
 
 **Status**: ✅ Accessible for broad executive audience
+
+**Next step:** Run `/review-doc executive-summary.md` to get stakeholder feedback
 ```
 
 ## Features
@@ -292,6 +302,8 @@ DISPLAY formatted output:
   ""
 
   "**Status**: {status_icon} {status_message}"
+  ""
+  "**Next step:** Run `/review-doc {filename}` to get multi-stakeholder feedback before distribution"
 ```
 
 ### 5. Error Handling
