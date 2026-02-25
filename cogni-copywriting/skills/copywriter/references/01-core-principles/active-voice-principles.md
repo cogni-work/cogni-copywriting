@@ -7,182 +7,225 @@ audience: [all]
 related:
   - clarity-principles
   - conciseness-principles
-version: 1.0
-last_updated: 2025-10-29
+version: 2.0
+last_updated: 2026-02-25
 ---
 
 # Active Voice Principles
 
-## Quick Reference
-**Use when:** Every deliverable type (>80% active voice target)
-**Core principle:** Subject performs action directly
-**Key benefit:** Clarity, accountability, conciseness, energy
-**Pattern:** Subject + Verb + Object (not Object + "be" + Verb + "by" + Subject)
+## Purpose
 
-## Active vs Passive Voice
+This reference teaches you how to detect passive voice constructions and convert them to active voice when writing or polishing business documents. Active voice makes writing shorter, clearer, and more accountable. Apply these principles to every deliverable unless a specific exception applies.
 
-### Passive Voice Structure
-**Pattern:** Object + "be" + past participle + "by" + Subject
-**Example:** "The report **was written by** the team."
+## Target
 
-### Active Voice Structure
-**Pattern:** Subject + Verb + Object
-**Example:** "The team **wrote** the report."
+Produce text where at least 80% of sentences use active voice. Reserve passive voice for the narrow set of justified exceptions listed below.
 
-**Impact:** Active voice is typically 20-30% shorter and clearer.
+## Core Rule
+
+Active voice places the actor (the doer) as the grammatical subject, followed by the verb, followed by the object receiving the action.
+
+```
+Active:  [Actor] + [verb] + [object]
+Passive: [Object] + [form of "be"] + [past participle] + [by actor]
+```
+
+## Detection: How to Identify Passive Voice
+
+Before you can fix passive voice, you must recognize it. Scan for these structural markers.
+
+### Marker 1: "be" + past participle
+
+Any form of "be" (is, are, was, were, been, being) followed by a past participle (typically ending in -ed, -en, -t) signals passive voice.
+
+| Passive marker | Example |
+|---|---|
+| was + past participle | "The report **was written** by the team." |
+| is being + past participle | "The proposal **is being reviewed** by management." |
+| has been + past participle | "The fix **has been deployed** by IT." |
+| will be + past participle | "The system **will be upgraded** next week." |
+
+### Marker 2: "by" phrase revealing the hidden actor
+
+When you see "by [someone/something]" after a verb phrase, the sentence is almost certainly passive. The actor has been displaced from subject position.
+
+### Marker 3: Missing actor entirely
+
+The most problematic passive constructions omit the actor altogether: "Mistakes were made." "The deadline was missed." These hide accountability and should be your top priority to fix.
+
+### Marker 4: "It was" / "It is" + past participle
+
+Impersonal constructions like "It was decided," "It is recommended," and "It was found that" are passive and vague. They eliminate the actor completely.
+
+## Conversion: Step-by-Step Transformation
+
+When you identify a passive construction, follow this reasoning chain to convert it.
+
+### Step 1: Find the actor
+
+Ask: "Who or what performs this action?" Look after "by" if present. If no actor is stated, infer the most logical one from context (the team, management, we, the system, etc.).
+
+### Step 2: Make the actor the subject
+
+Move the actor to the front of the sentence.
+
+### Step 3: Convert the verb to active form
+
+Change the "be + past participle" construction to a simple active verb in the appropriate tense.
+
+### Step 4: Place the former subject as the object
+
+The thing that was being acted upon moves to after the verb.
+
+### Worked example
+
+```
+Passive:  "The proposal was approved by the board on Tuesday."
+           ^object      ^be+pp     ^actor        ^time
+
+Step 1 - Actor: "the board"
+Step 2 - Actor as subject: "The board..."
+Step 3 - Active verb: "approved" (past tense)
+Step 4 - Object after verb: "...the proposal on Tuesday."
+
+Active:   "The board approved the proposal on Tuesday."
+```
 
 ## Transformation Patterns
 
-### Pattern 1: Simple Subject-Object Flip
+Use these patterns as templates. Each covers a distinct passive construction you will encounter frequently.
 
-| Passive | Active |
-|---------|--------|
-| "The system was designed by engineers." | "Engineers designed the system." |
-| "Results were obtained through testing." | "Testing obtained results." or "The team obtained results through testing." |
-| "The analysis was conducted by researchers." | "Researchers conducted the analysis." |
-| "Improvements were made by the team." | "The team made improvements." or "The team improved..." |
-| "The decision was reached by executives." | "Executives decided." |
+### Pattern 1: Simple subject-object flip
 
-### Pattern 2: Remove "To Be" Verbs
+The actor appears in a "by" phrase. Move it to subject position.
 
-| Passive (with "to be") | Active |
-|------------------------|--------|
-| "The proposal is being reviewed by management." | "Management is reviewing the proposal." |
-| "The project will be completed by Friday." | "The team will complete the project by Friday." |
-| "Changes have been implemented by IT." | "IT implemented the changes." or "IT has implemented changes." |
-| "The issue was identified by QA." | "QA identified the issue." |
+| Before (passive) | After (active) |
+|---|---|
+| The system was designed by engineers. | Engineers designed the system. |
+| The analysis was conducted by researchers. | Researchers conducted the analysis. |
+| The decision was reached by executives. | Executives reached the decision. |
 
-### Pattern 3: Convert Nominalizations with Passive Voice
+### Pattern 2: Supply a missing actor
 
-| Passive + Nominalization | Active + Verb |
-|--------------------------|---------------|
-| "Implementation of the system was done by..." | "Engineers implemented the system..." |
-| "An evaluation of the data was conducted..." | "The team evaluated the data..." |
-| "Consideration was given to alternatives..." | "We considered alternatives..." |
-| "A determination was made..." | "Management determined..." or "We determined..." |
+No "by" phrase exists. Infer the actor from document context.
 
-## When Passive Voice Is Acceptable
+| Before (passive, no actor) | After (active, actor supplied) |
+|---|---|
+| Results were obtained through testing. | The team obtained results through testing. |
+| Improvements were made last quarter. | We improved performance last quarter. |
+| The deadline was missed. | The project team missed the deadline. |
 
-### Acceptable Use Case 1: Unknown Actor
-When the actor is unknown or irrelevant:
-✅ "The server was compromised at 3 AM." (Actor unknown)
-✅ "The package was delivered yesterday." (Delivery person irrelevant)
+**Choosing the right actor:** Use "we" for the authoring organization. Use a specific team or role name when attribution matters. Use "the team" as a safe default when the exact actor is unclear but clearly internal.
 
-### Acceptable Use Case 2: Emphasizing Object
-When the object is more important than the subject:
-✅ "The president was elected in 2024." (Focus on president, not voters)
-✅ "The building was constructed in 1985." (Focus on building)
+### Pattern 3: Remove "to be" auxiliaries
 
-### Acceptable Use Case 3: Diplomatic Language
-When avoiding direct attribution for sensitivity:
-✅ "Mistakes were made in the previous quarter." (Softer than "You made mistakes")
-✅ "The deadline was missed." (Less confrontational than "You missed the deadline")
+Convert progressive and future passive forms to their active equivalents.
 
-**Rule:** Use passive voice strategically (<20% of sentences), not by default.
+| Before (passive) | After (active) |
+|---|---|
+| The proposal is being reviewed by management. | Management is reviewing the proposal. |
+| The project will be completed by Friday. | The team will complete the project by Friday. |
+| Changes have been implemented by IT. | IT has implemented the changes. |
 
-## Passive Voice Red Flags
+### Pattern 4: Eliminate nominalizations paired with passive voice
 
-Watch for these constructions indicating passive voice:
-- "was/were + [verb]ed" → "was designed", "were completed"
-- "is/are being + [verb]ed" → "is being reviewed", "are being processed"
-- "has/have been + [verb]ed" → "has been approved", "have been delivered"
-- "will be + [verb]ed" → "will be implemented", "will be evaluated"
+Nominalizations (verbs turned into nouns: "implementation," "evaluation," "determination") combined with passive voice produce the worst business writing. Convert both at once.
 
-## Sentence-Level Transformations
+| Before (passive + nominalization) | After (active + strong verb) |
+|---|---|
+| Implementation of the system was done by engineers. | Engineers implemented the system. |
+| An evaluation of the data was conducted. | The team evaluated the data. |
+| Consideration was given to alternatives. | We considered alternatives. |
+| A determination was made regarding next steps. | Management determined the next steps. |
 
-### Example 1: Research Findings
-❌ **Passive:** "It was found that iterative refinement leads to quality improvements."
-✅ **Active:** "Researchers found that iterative refinement improves quality." or "Research shows iterative refinement improves quality."
+### Pattern 5: Convert impersonal "it" constructions
 
-### Example 2: Recommendations
-❌ **Passive:** "It is recommended that the new process be adopted."
-✅ **Active:** "We recommend adopting the new process." or "Management should adopt the new process."
+These are the most common passive constructions in business writing. They always have a better active alternative.
 
-### Example 3: Decisions
-❌ **Passive:** "The decision was made to proceed with the pilot."
-✅ **Active:** "The executive team decided to proceed with the pilot."
+| Before (impersonal passive) | After (active) |
+|---|---|
+| It was found that iterative refinement improves quality. | Research shows iterative refinement improves quality. |
+| It is recommended that the new process be adopted. | We recommend adopting the new process. |
+| It was decided to proceed with the pilot. | The executive team decided to proceed with the pilot. |
+| It was observed that users prefer the new interface. | Users prefer the new interface. |
 
-### Example 4: Problems
-❌ **Passive:** "Challenges were encountered during implementation."
-✅ **Active:** "The team encountered challenges during implementation." or "Implementation challenges arose."
+## Paragraph-Level Transformation
 
-## Application by Deliverable Type
+Individual sentence fixes matter, but the real impact comes at the paragraph level. Compare these two versions of the same content.
 
-**Emails:** Strong active voice essential; creates urgency and clarity
-**Memos:** Active voice shows accountability and decisiveness
-**Briefs:** Active voice keeps executives engaged
-**Reports:** Mix allowed (80% active, 20% passive for variety)
-**Proposals:** Active voice demonstrates confidence and capability
-**Executive Summaries:** Active voice mandatory; no hedging
+### Before: passive throughout
 
-## Common Passive Voice Mistakes
+> The project was initiated by the team in January. A proposal was developed and submitted to management for review. Approval was received after three weeks of deliberation. Implementation was begun immediately following the approval, and the first phase was completed ahead of schedule.
 
-### Mistake 1: Hiding Responsibility
-❌ **Bad:** "Mistakes were made in the last quarter."
-✅ **Good:** "The team made mistakes in the last quarter." (Accountable)
-or "We made mistakes in the last quarter." (Ownership)
+**Problems:** No clear actor driving events. Reads as a list of things that happened to no one. Low energy. 47 words.
 
-### Mistake 2: Weakening Recommendations
-❌ **Bad:** "It is suggested that consideration be given to the proposal."
-✅ **Good:** "We recommend approving the proposal."
+### After: active throughout
 
-### Mistake 3: Obscuring Action
-❌ **Bad:** "The system will be upgraded by IT next week."
-✅ **Good:** "IT will upgrade the system next week."
+> The team launched the project in January. They developed a proposal and submitted it to management. Management approved it within three weeks. The team began implementation immediately and completed the first phase ahead of schedule.
 
-### Mistake 4: Academic Hedging
-❌ **Bad:** "It was observed that users prefer the new interface."
-✅ **Good:** "Users prefer the new interface." or "Studies show users prefer the new interface."
+**Improvements:** Clear actors throughout. Each sentence drives forward. Higher energy. 39 words (17% shorter).
 
-## Active Voice Energy
+## When Passive Voice Is Justified
 
-Active voice creates forward momentum and reader engagement.
+Do not mechanically convert every passive sentence. These three cases justify keeping passive voice.
 
-### Passive (Low Energy)
-```markdown
-The project was initiated by the team. A proposal was developed and
-submitted to management. Approval was received after three weeks.
-Implementation was begun immediately.
-```
+### Exception 1: The actor is genuinely unknown
 
-### Active (High Energy)
-```markdown
-The team launched the project. They developed a proposal and submitted
-it to management. Management approved it within three weeks. Implementation
-began immediately.
-```
+Use passive when no one knows who performed the action, and finding out is not the point.
 
-**Feel the difference:** Active voice reads faster and feels more dynamic.
+- "The server was compromised at 3 AM." (The attacker is unknown.)
+- "Three files were deleted from the shared drive." (Investigating who did it.)
 
-## Transformation Algorithm
+**Test:** If you could reasonably name the actor, use active voice instead.
 
-To convert passive to active:
+### Exception 2: The object matters far more than the actor
 
-1. **Identify passive construction:** Look for "be" + past participle
-2. **Find the actor:** Who/what performed the action? (often after "by")
-3. **Make actor the subject:** Move actor to sentence start
-4. **Convert verb:** Change from passive form to active form
-5. **Reorder components:** Subject + Active Verb + Object
+Use passive when the receiver of the action is the clear topic and the actor would be a distraction.
 
-**Example:**
-- Original: "The report was written by the team last Friday."
-- Actor: "the team"
-- Active verb: "wrote"
-- Result: "The team wrote the report last Friday."
+- "The Eiffel Tower was completed in 1889." (Focus is the tower, not construction workers.)
+- "The policy was enacted in 2019." (Focus is the policy, not the legislature.)
 
-## Active Voice Checklist
+**Test:** If the reader would ask "who did it?" the actor matters and you should use active voice.
 
-Before finalizing content:
+### Exception 3: Deliberate diplomatic softening
 
-- ☐ 80%+ sentences use active voice
-- ☐ "By [actor]" phrases eliminated or converted
-- ☐ "Was/were/is/are being + verb" constructions minimized
-- ☐ Clear subjects performing actions
-- ☐ Passive voice used only strategically
-- ☐ Sentences feel energetic and forward-moving
-- ☐ Responsibility and accountability clear
-- ☐ Could identify actor in every sentence?
+Use passive to reduce blame or confrontation in sensitive contexts. Use this sparingly and intentionally.
+
+- "The deadline was missed." (softer than "Your team missed the deadline.")
+- "Errors were introduced during migration." (softer than "The contractor introduced errors.")
+
+**Test:** If accountability and clarity matter more than diplomacy in this context, use active voice.
+
+### Frequency rule
+
+Even with justified exceptions, passive voice should appear in fewer than 20% of sentences across any document. If you find yourself using more passive than that, re-examine whether the exceptions truly apply.
+
+## Application by Document Type
+
+Adjust your active voice strictness based on document type.
+
+| Document type | Active voice target | Guidance |
+|---|---|---|
+| Emails | 90%+ | Direct, action-oriented. "Please review" not "This should be reviewed." |
+| Executive summaries | 90%+ | No hedging. Clear actors and decisions throughout. |
+| Proposals | 85%+ | Demonstrates confidence. "We will deliver" not "Delivery will be ensured." |
+| Memos | 85%+ | Shows accountability and decisiveness. |
+| Reports | 80%+ | Some passive acceptable for findings/methodology sections. |
+| Briefs | 85%+ | Keeps readers engaged with forward momentum. |
+
+## Quality Checklist
+
+After writing or polishing any document, verify the following.
+
+1. At least 80% of sentences use active voice (90%+ for emails and executive summaries).
+2. Every sentence has an identifiable actor as its grammatical subject.
+3. No "by [actor]" phrases remain unless the passive is justified by one of the three exceptions.
+4. All "It was [verbed]" and "It is [verbed]" constructions have been converted or are justified.
+5. Nominalizations paired with passive voice have been converted to active verb forms.
+6. The document reads with forward momentum when scanned top to bottom.
+7. Responsibility and accountability are clear throughout.
 
 ## See Also
-- `clarity-principles.md` (Main things in main clauses)
-- `conciseness-principles.md` (Active voice is more concise)
+
+- `clarity-principles.md` - Main things in main clauses; complements active voice by ensuring important content is not buried.
+- `conciseness-principles.md` - Active voice naturally produces shorter sentences; these principles reinforce each other.

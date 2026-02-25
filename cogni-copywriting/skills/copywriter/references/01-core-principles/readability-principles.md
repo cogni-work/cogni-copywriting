@@ -9,8 +9,8 @@ related:
   - plain-language-principles
   - visual-elements
   - heading-hierarchy
-version: 1.0
-last_updated: 2025-10-29
+version: 2.0
+last_updated: 2026-02-25
 ---
 
 # Readability and Scannability Principles
@@ -19,400 +19,331 @@ last_updated: 2025-10-29
 **Use when:** All deliverable types
 **Core principle:** Enable fast comprehension through visual structure
 **Key techniques:** Headers, white space, bullets, emphasis, short paragraphs
-**Standard:** Reader can grasp main points in 30 seconds of scanning
+**Standard:** A reader can grasp the main points in 30 seconds of scanning
 
-## Overview
+## Purpose
 
-Readability is about making text easy to read and understand. Scannability is about enabling readers to quickly find what they need. Most business readers scan before reading—if they can't quickly determine relevance, they'll move on.
+This reference teaches you how to structure and format business documents so readers absorb information quickly and accurately. Business readers scan before they read. If they cannot determine relevance within seconds, they move on.
 
-**Key Statistics:**
-- 79% of web users scan pages rather than reading word-by-word
-- Readers typically see only 20-28% of words on a page
-- Well-formatted documents are read 47% more thoroughly than dense text
-- Scannable content improves comprehension by 124%
+Your job is to make every document pass two tests:
+1. **The scan test:** Can a reader extract the main message and structure in 30 seconds without reading full sentences?
+2. **The read test:** When the reader commits to reading, does each section deliver its point immediately and clearly?
 
-## Core Principles
+Apply every principle below during document creation and during polish/revision passes.
 
-### 1. Create Clear Visual Hierarchy
+## Decision Logic
 
-Use headers, size, and white space to show information structure.
+When formatting any document, follow this sequence:
 
-**Header Hierarchy Standards:**
-- **H1 (#):** Document title only (one per document)
-- **H2 (##):** Major sections
-- **H3 (###):** Subsections
-- **Maximum:** 3 levels (avoid H4 or deeper)
-
-**Visual Weight Pattern:**
 ```
-# Largest - Document Title
-
-## Large - Major Section
-Content paragraphs...
-
-### Medium - Subsection
-Content paragraphs...
-
-More content...
-
-## Large - Next Major Section
+Step 1: Identify the single main message
+Step 2: Place it at the very top (BLUF)
+Step 3: Break remaining content into logical sections
+Step 4: Write descriptive headers for each section
+Step 5: Within each section, front-load the key point
+Step 6: Convert any sequence of 3+ related items into a list
+Step 7: Convert any comparison or structured data into a table
+Step 8: Apply emphasis sparingly to critical terms only
+Step 9: Verify white space separates every distinct idea
+Step 10: Run the 30-second scan test
 ```
 
-❌ **Avoid:** Flat structure with no headers or too many header levels
+## Principles
 
-✅ **Better:** Clear 2-3 level hierarchy that reveals document structure at a glance
+### 1. Front-Load Important Information
 
-### 2. Front-Load Important Information
+Put the most important content at the beginning of every level: document, section, paragraph, and sentence.
 
-Put key information at the beginning of:
-- Documents (BLUF principle)
-- Sections (topic sentences)
-- Paragraphs (main point first)
-- Sentences (subject and verb early)
-- Headers (keywords first)
+**The reasoning:** Readers who stop early (and most do) should still walk away with the core message. This applies recursively at every structural level.
 
-**Document Level:**
-❌ **Avoid:** Background → Analysis → Conclusion
-✅ **Better:** Conclusion → Analysis → Background
+**At the document level** -- state the conclusion or recommendation first, then provide supporting analysis:
 
-**Sentence Level:**
-❌ **Avoid:** "After careful consideration of all available options and extensive stakeholder consultation, we decided to proceed with Option B."
-✅ **Better:** "We chose Option B after consulting stakeholders and evaluating all options."
+<example>
+<input>
+Our team analyzed three approaches to reducing customer churn. We examined historical data from the past 18 months, interviewed 45 account managers, and benchmarked against industry standards. After weighing cost, timeline, and expected impact, we recommend investing in proactive outreach.
+</input>
+<output>
+We recommend investing in proactive outreach to reduce customer churn.
 
-**Header Level:**
-❌ **Avoid:** "Analysis of Customer Satisfaction Decline"
-✅ **Better:** "Customer Satisfaction Declined 15%"
+This recommendation is based on 18 months of historical data, interviews with 45 account managers, and industry benchmarking. Proactive outreach scores highest on cost efficiency, implementation speed, and projected impact.
+</output>
+<reasoning>The original buries the recommendation at the end. The revision leads with it, so a reader who only sees the first line still gets the key message.</reasoning>
+</example>
 
-### 3. Use Short Paragraphs
+**At the sentence level** -- place the subject and verb early, before qualifiers:
 
-Long paragraphs intimidate readers and reduce comprehension.
+<example>
+<input>After careful consideration of all available options and extensive stakeholder consultation over the past quarter, we decided to proceed with Option B.</input>
+<output>We chose Option B after evaluating all options and consulting stakeholders last quarter.</output>
+<reasoning>The subject ("we") and action ("chose") now appear in the first three words instead of at position 18.</reasoning>
+</example>
 
-**Guidelines:**
-- **Optimal:** 3-5 sentences per paragraph
-- **Maximum:** 7 sentences
-- **Minimum:** 2 sentences (avoid single-sentence paragraphs unless for emphasis)
-- **Average:** 40-70 words per paragraph
+**At the header level** -- lead with the keyword or finding, not filler:
 
-**Visual Rule:** No paragraph should exceed 6-8 lines on screen or page. Break longer paragraphs into two.
+| Weak header | Strong header |
+|---|---|
+| Analysis of Customer Satisfaction Decline | Customer Satisfaction Declined 15% |
+| Considerations Regarding Policy Changes | Policy Changes: Three Key Considerations |
+| An Overview of Our Marketing Strategy | Marketing Strategy: Content-Led Growth |
 
-❌ **Avoid:** Dense 12-sentence paragraphs
-✅ **Better:** Multiple focused paragraphs with white space between
+### 2. Create Clear Visual Hierarchy
 
-**One idea per paragraph:** Each paragraph should make one main point. If you're covering multiple ideas, use multiple paragraphs.
+Use a consistent heading structure so readers can navigate by headers alone.
 
-### 4. Leverage White Space
+**Rules:**
+- **H1 (#):** Document title only. One per document.
+- **H2 (##):** Major sections. These are the primary navigation landmarks.
+- **H3 (###):** Subsections within a major section.
+- **Never go deeper than H3.** If you need H4, restructure instead. Deep nesting signals disorganized thinking.
 
-White space (blank areas) helps readers process information and find structure.
+**Make headers informative, not generic.** A reader who only reads your headers should understand the document's argument.
 
-**Techniques:**
-- Blank lines between paragraphs
-- Margins around text blocks
-- Space around headers
-- Indentation for nested content
-- Strategic use of horizontal rules (---)
+<example>
+<input>
+## Introduction
+## Background
+## Analysis
+## Recommendations
+## Conclusion
+</input>
+<output>
+## Recommendation: Migrate to Cloud Infrastructure by Q3
+## Current On-Premise Costs Are Unsustainable
+## Cloud Migration Saves 40% and Improves Uptime
+## Three-Phase Migration Plan
+## Next Steps: Approve Budget by March 15
+</output>
+<reasoning>The generic headers tell the reader nothing. The descriptive headers communicate the full argument even if the reader never opens a single section.</reasoning>
+</example>
 
-**Benefits:**
-- Reduces cognitive load
-- Creates visual breathing room
-- Highlights important sections
-- Makes long documents less intimidating
+**Parallel structure for sibling headers.** Headers at the same level should use the same grammatical form:
 
-**Rule:** Aim for 40-50% white space in business documents. Dense pages reduce readership.
-
-### 5. Use Lists Strategically
-
-Lists make information scannable and memorable.
-
-**When to Use Bullets:**
-- Items of equal importance
-- Unordered information
-- 3-7 items optimal (2 is too few, 8+ consider grouping)
-
-**When to Use Numbers:**
-- Sequential steps
-- Prioritized items
-- Anything with specific order or ranking
-
-**List Formatting:**
-
-✅ **Parallel structure:**
-- Reduce costs by 30%
-- Improve response time to 2 hours
-- Increase customer satisfaction to 4.5 stars
-
-❌ **Not parallel:**
-- Reduce costs by 30%
-- Response times should improve
-- Our goal is higher customer satisfaction
-
-**Introduction:** Always introduce lists with a complete sentence ending in a colon:
-- ✅ "We identified three problems:"
-- ❌ "We identified three problems, including:"
-
-### 6. Use Visual Emphasis Strategically
-
-Bold, italics, and other emphasis techniques guide attention.
-
-**Bold:**
-- Key terms on first use
-- Critical numbers or deadlines
-- Section headers
-- WARNING: Don't overuse—too much bold = no emphasis
-
-**Italics:**
-- Foreign phrases
-- Book/publication titles
-- Subtle emphasis (prefer bold for important points)
-
-**ALL CAPS:**
-- Avoid except for:
-  - Acronyms (API, ROI, CEO)
-  - Memo headers (TO:, FROM:, DATE:)
-  - Short warning labels (URGENT:, NOTE:)
-
-**Underlining:**
-- Avoid (confuses with hyperlinks)
-
-**Color:**
-- Use sparingly for emphasis
-- Ensure sufficient contrast (accessibility)
-- Consider red/green colorblind readers
-
-❌ **Avoid:** "The **critical** **deadline** is **Friday** and we **must** **complete** all **tasks**."
-✅ **Better:** "The critical deadline is **Friday, November 15**. We must complete all tasks by then."
-
-### 7. Create Scannable Headers
-
-Headers should be informative standalone phrases that convey meaning even when body text is skipped.
-
-**Descriptive Headers:**
-❌ **Avoid:** "Introduction," "Background," "Analysis," "Conclusion"
-✅ **Better:** "Why Customer Satisfaction Dropped 15%," "Three Options to Fix the Problem," "Recommended Solution: Multi-Channel Support"
-
-**Action-Oriented Headers:**
-❌ **Avoid:** "Marketing Strategy"
-✅ **Better:** "Increase Brand Awareness Through Content Marketing"
-
-**Front-Loaded Keywords:**
-❌ **Avoid:** "Considerations Regarding the New Policy Implementation"
-✅ **Better:** "New Policy Implementation: Three Key Considerations"
-
-**Parallel Structure:**
-When headers are at the same level, use parallel grammatical structure:
-
-✅ **Parallel (all questions):**
+All questions:
 - How Did Costs Increase?
 - Why Are Customers Leaving?
-- What Can We Do?
+- What Should We Do Next?
 
-✅ **Parallel (all noun phrases):**
-- Cost Drivers Analysis
+All noun phrases:
+- Cost Driver Analysis
 - Customer Churn Patterns
 - Recommended Actions
 
-### 8. Optimize Line Length
+All imperative/action:
+- Reduce Infrastructure Costs
+- Improve Customer Retention
+- Expand Into New Markets
 
-Line length affects reading speed and comprehension.
+### 3. Keep Paragraphs Short and Focused
 
-**Optimal:** 50-75 characters per line (about 10-12 words)
-**Maximum:** 90 characters per line
-**Too short:** <40 characters (choppy, too many line breaks)
-**Too long:** >100 characters (eye fatigue, lose place)
+Each paragraph should make exactly one point. If you find yourself making two points, split into two paragraphs.
 
-**In Practice:**
-- **Email/web:** 50-70 characters (mobile-optimized)
-- **Print documents:** 60-80 characters
-- **Multi-column:** 40-50 characters per column
+**Targets:**
+- 3-5 sentences per paragraph (optimal)
+- 40-70 words per paragraph (optimal)
+- Never exceed 7 sentences or 6-8 lines on screen
 
-### 9. Use Tables for Structured Data
+<example>
+<input>
+The quarterly review revealed several concerning trends. Customer satisfaction dropped by 15% compared to Q2, largely driven by longer response times in the support department. Additionally, we noticed a 23% increase in ticket volume, which our current staffing levels cannot sustain. Meanwhile, our competitor launched a self-service portal that has drawn positive reviews, and our own product team has been unable to prioritize a similar feature due to the ongoing platform migration. The finance team also flagged that support costs per ticket have risen from $8 to $15, which puts us over budget for Q4. The board has asked for a remediation plan by end of month.
+</input>
+<output>
+Customer satisfaction dropped 15% in Q3, driven by longer support response times and a 23% increase in ticket volume that our current staffing cannot handle.
 
-Tables make comparisons and data comprehension dramatically easier.
+The competitive landscape has shifted. Our main competitor launched a self-service portal to strong reviews. Our product team cannot prioritize a similar feature until the platform migration completes.
 
-**When to Use Tables:**
-- Comparing options or alternatives
-- Showing metrics over time
-- Displaying structured data (pricing, specifications)
-- Presenting before/after states
+Support costs have risen from $8 to $15 per ticket, putting us over budget for Q4. The board has asked for a remediation plan by end of month.
+</output>
+<reasoning>The original packs six distinct points into one dense paragraph. The revision separates them into three focused paragraphs: (1) the core problem, (2) the competitive context, (3) the financial urgency and deadline. Each paragraph has one job.</reasoning>
+</example>
 
-**Table Best Practices:**
-- Clear, descriptive headers
-- Left-align text, right-align numbers
-- Alternate row shading for readability
-- Limit to 5-7 columns (more = use multiple tables)
-- Caption or title above table
+### 4. Use Lists for Scannable Groups
 
-**Example Structure:**
-| Metric | Current | Target | Improvement |
-|--------|---------|--------|-------------|
-| Response Time | 11 min | 4 min | -64% |
-| CSAT Score | 3.8 ★ | 4.5 ★ | +18% |
-| Cost per Ticket | $15 | $8 | -47% |
+Convert any group of 3 or more parallel items from prose into a list. Lists are faster to scan, easier to reference, and harder to misread.
 
-### 10. Implement Progressive Disclosure
+**Use bullet lists** for items of equal importance with no inherent order.
+**Use numbered lists** for sequential steps, ranked items, or anything where order matters.
 
-Present information in layers, from general to specific.
+**Formatting rules:**
+- Keep 3-7 items per list. Fewer than 3 does not justify a list. More than 7 should be grouped into sub-categories.
+- Use parallel grammatical structure across all items.
+- Introduce every list with a complete sentence ending in a colon.
 
-**Pattern:**
-1. **Overview:** High-level summary
-2. **Key Points:** Main arguments or findings
-3. **Supporting Detail:** Evidence and explanation
-4. **Deep Detail:** Technical appendices or references
+<example>
+<input>
+The project achieved several outcomes. We reduced costs by 30%, and we also improved response time so it's now under 2 hours. Customer satisfaction increased to 4.5 stars as well.
+</input>
+<output>
+The project achieved three measurable outcomes:
 
-**Example Structure:**
-```
-## Executive Summary (1 paragraph)
-[Main message]
+- Reduced costs by 30%
+- Improved response time to under 2 hours
+- Increased customer satisfaction to 4.5 stars
+</output>
+<reasoning>Parallel items buried in prose become instantly scannable as a list. All items use the same verb-first structure.</reasoning>
+</example>
 
-## Key Findings (Bullets)
-- Finding 1
-- Finding 2
-- Finding 3
+**Parallel structure matters.** Every item in a list must use the same grammatical form:
 
-## Detailed Analysis (Sections)
-### Finding 1: Details
-[Explanation]
+| Not parallel | Parallel |
+|---|---|
+| Reduce costs by 30% | Reduce costs by 30% |
+| Response times should improve | Improve response time to 2 hours |
+| Our goal is higher customer satisfaction | Increase customer satisfaction to 4.5 stars |
 
-### Finding 2: Details
-[Explanation]
+### 5. Use Tables for Comparisons and Structured Data
 
-## Appendix (Optional)
-[Technical details]
-```
+When content involves comparison, metrics, or multi-attribute data, always use a table instead of prose or nested lists.
 
-**Benefits:**
-- Executives can read summary only
-- Analysts can dive into details
-- Everyone finds their appropriate depth
+**Use a table when:**
+- Comparing 2+ options across shared criteria
+- Presenting metrics over time periods
+- Showing before/after states
+- Displaying any data with rows and columns of related values
+
+**Table formatting rules:**
+- Left-align text columns, right-align number columns
+- Use clear, concise column headers
+- Limit to 5-7 columns; split wider data into multiple tables
+- Add a caption or introductory sentence above the table
+
+<example>
+<input>
+Currently our response time is 11 minutes and we want to get it down to 4 minutes, which would be a 64% improvement. Our CSAT score is 3.8 and our target is 4.5, an 18% improvement. Cost per ticket is $15 now and we want to bring it to $8, which is a 47% reduction.
+</input>
+<output>
+The improvement plan targets three metrics:
+
+| Metric | Current | Target | Change |
+|---|---:|---:|---:|
+| Response time | 11 min | 4 min | -64% |
+| CSAT score | 3.8 | 4.5 | +18% |
+| Cost per ticket | $15 | $8 | -47% |
+</output>
+<reasoning>Three parallel data points with shared attributes (current, target, change) are far easier to compare and reference in a table than buried in a paragraph.</reasoning>
+</example>
+
+### 6. Apply Emphasis Sparingly and Consistently
+
+Bold text guides the reader's eye. When everything is bold, nothing is.
+
+**Use bold for:**
+- Key terms on first mention
+- Critical numbers, dates, or deadlines
+- The single most important phrase in a section
+
+**Use italics for:**
+- Publication titles
+- Foreign phrases
+- Subtle emphasis where bold would be too strong
+
+**Never use:**
+- Underline (readers confuse it with hyperlinks)
+- ALL CAPS for emphasis (reserve for acronyms like API, ROI, and standard memo headers like TO:, FROM:)
+- Bold on more than 10-15% of text in any section
+
+<example>
+<input>The **critical** **deadline** is **Friday** and we **must** **complete** all **tasks** before the **end of business**.</input>
+<output>The critical deadline is **Friday, November 15**. All tasks must be complete by end of business.</output>
+<reasoning>The original bolds seven words, diluting all emphasis. The revision bolds only the specific date -- the one piece of information the reader must not miss.</reasoning>
+</example>
+
+### 7. Use White Space to Separate Ideas
+
+White space (blank lines, margins, spacing) reduces cognitive load and signals structure. Dense pages discourage reading.
+
+**Apply white space by:**
+- Inserting a blank line between every paragraph
+- Adding space above and below headers
+- Using horizontal rules (---) to separate major topic shifts
+- Breaking up long sections with sub-headers even when the hierarchy does not strictly require them
+
+**The density test:** If any section looks like a wall of text when you squint at it, it needs more white space or shorter paragraphs or both.
+
+### 8. Structure Documents with Progressive Disclosure
+
+Present information in layers so different readers can stop at their appropriate depth.
+
+**Standard pattern:**
+
+1. **Summary** (1 paragraph): The main message and recommendation. Executives can stop here.
+2. **Key findings** (bulleted list): The 3-5 main supporting points. Managers can stop here.
+3. **Detailed analysis** (full sections): Evidence, methodology, and explanation. Analysts read this.
+4. **Appendix** (optional): Raw data, technical details, references. Specialists consult this.
+
+This pattern ensures that the document serves every audience without forcing anyone to read more than they need.
 
 ## Readability Metrics
 
-### Flesch Reading Ease Score
-- **90-100:** Very easy (5th grade)
-- **70-80:** Easy (7th grade)
-- **60-70:** Standard (8th-9th grade)
-- **50-60:** Fairly difficult (10th-12th grade) ← **Target for business writing**
-- **30-50:** Difficult (college level)
-- **0-30:** Very difficult (professional/academic)
+Use these metrics as quality checks during revision. They are targets, not rigid rules. Adjust for audience and document type.
 
-**English Formula:** 206.835 - 1.015(words/sentences) - 84.6(syllables/words)
+### Sentence and Paragraph Targets
 
-### German Flesch Reading Ease (Amstad, 1978)
+| Metric | Target | Acceptable range |
+|---|---|---|
+| Average sentence length | 15-20 words | 12-25 words |
+| Average paragraph length | 3-5 sentences | 2-7 sentences |
+| Passive voice usage | Below 10% | Below 20% |
 
-The standard English Flesch formula produces wildly negative scores for German text because German words have significantly more syllables on average (compound nouns like Qualitaetssicherungssysteme). Toni Amstad adapted the formula for German in his 1978 dissertation.
+### Flesch Reading Ease (English)
 
-**German Formula:** 180 - ASL - 58.5 * ASW
+**Formula:** 206.835 - 1.015 x (words / sentences) - 84.6 x (syllables / words)
 
-Where ASL = words/sentences, ASW = syllables/words.
+| Score | Level | Use for |
+|---|---|---|
+| 70-80 | Easy (7th grade) | General public communications |
+| 60-70 | Standard (8th-9th grade) | Most external business writing |
+| 50-60 | Fairly difficult (10th-12th grade) | Internal business writing, technical audiences |
+| 30-50 | Difficult (college) | Specialized professional audiences only |
 
-Key differences from English formula:
+**Target for business writing:** 50-70 depending on audience. When in doubt, aim simpler.
+
+### Flesch Reading Ease -- German (Amstad, 1978)
+
+German words average more syllables than English (compound nouns like Qualitaetssicherungssysteme), so the standard English formula produces inaccurate scores. Use the Amstad adaptation.
+
+**Formula:** 180 - (words / sentences) - 58.5 x (syllables / words)
+
+Key differences from the English formula:
 - Lower constant (180 vs 206.835)
-- No coefficient on ASL (1.0 vs 1.015)
-- Much lower syllable penalty (58.5 vs 84.6) -- compensates for German compound words
-
-**German Interpretation Scale:**
+- No coefficient on average sentence length (1.0 vs 1.015)
+- Lower syllable penalty (58.5 vs 84.6) to compensate for German compound words
 
 | Score | Level |
-|-------|-------|
-| 90-100 | Very easy |
-| 80-90 | Easy |
+|---|---|
 | 70-80 | Medium easy |
 | 60-70 | Medium |
 | 50-60 | Medium weight |
 | 30-50 | Heavy |
 | 0-30 | Very difficult (academic) |
 
-**Target for German business writing:** 50-60 (same target range, but using Amstad formula)
+**Target for German business writing:** 50-60 (same target range, using Amstad formula).
 
 The readability script auto-detects language and applies the correct formula. Use `--lang de` or `--lang en` to override detection.
 
-### Flesch-Kincaid Grade Level
-Target: 8-10 for general business writing
-Higher for technical/specialized audiences
+## Document Type Quick Reference
 
-### Other Metrics
-- **Average sentence length:** 15-20 words
-- **Average paragraph length:** 3-5 sentences
-- **Passive voice:** <20% (aim for <10%)
-- **Visual elements:** ~1 per 2 paragraphs
+Apply the general principles above, then adjust intensity based on document type:
 
-## Testing Scannability
+| Document type | Paragraph length | Header depth | Lists | Special notes |
+|---|---|---|---|---|
+| Email | 2-3 sentences | Minimal (keep emails short) | Use freely | Front-load the ask or key info in first 2 sentences |
+| Memo | 3-4 sentences | 2 levels (## and ###) | For details and next steps | Generous white space throughout |
+| Brief | 3-5 sentences | 2-3 levels, descriptive | For findings and options | Use progressive disclosure structure |
+| Report | 4-5 sentences | 3 levels max, highly descriptive | Every 2-3 paragraphs | Include table of contents for 5+ pages |
+| Proposal | 3-5 sentences | 2-3 levels, client-focused | For benefits and deliverables | Tables for pricing and ROI comparisons |
 
-**The 30-Second Test:**
-Can a reader grasp your document's main points in 30 seconds of scanning?
+## Revision Checklist
 
-**Checklist:**
-- ✓ Clear headers reveal structure
-- ✓ First sentences of sections state main points
-- ✓ Bullets and numbers highlight key information
-- ✓ Important terms are bold
-- ✓ White space separates ideas
-- ✓ No dense blocks of text >6 lines
+Run this checklist as a final pass on any document. Fix every item that fails.
 
-**The Squint Test:**
-Squint at your document so you can't read individual words. Do you see:
-- ✓ Clear visual breaks (white space)
-- ✓ Varied formatting (not all same size)
-- ✓ Strategic emphasis (dark spots = bold)
-- ✓ Structured layout (not uniform gray)
-
-## Mobile Optimization
-
-60%+ of business emails are read on mobile devices. Mobile-friendly = scannable.
-
-**Mobile Best Practices:**
-- **Shorter paragraphs:** 2-3 sentences ideal
-- **Shorter sentences:** 15 words average
-- **Front-loaded content:** Main point in first 1-2 sentences
-- **Bullets over prose:** Lists scan better on small screens
-- **Generous white space:** Tapping accuracy requires space
-- **Avoid wide tables:** Use stacked data or multiple narrow tables
-
-## Common Mistakes
-
-❌ **Wall of text:** Dense paragraphs with no breaks
-❌ **Generic headers:** "Introduction," "Background," "Conclusion"
-❌ **Buried leads:** Main point in paragraph 4
-❌ **Overuse of emphasis:** Everything bold = nothing bold
-❌ **Inconsistent formatting:** Random header sizes, bullet styles
-❌ **No visual hierarchy:** Everything same size and weight
-❌ **Too deep hierarchy:** H1 → H2 → H3 → H4 → H5 (overwhelming)
-❌ **No white space:** Margins and spacing too tight
-
-## Document Type Recommendations
-
-### Emails
-- **Paragraphs:** 2-3 sentences
-- **Total length:** 3-5 paragraphs maximum
-- **Headers:** Minimal (emails should be short)
-- **Lists:** Use freely
-
-### Memos
-- **Paragraphs:** 3-4 sentences
-- **Headers:** 2 levels (## and ###)
-- **White space:** Generous
-- **Lists:** For details and next steps
-
-### Briefs
-- **Paragraphs:** 3-5 sentences
-- **Headers:** 2-3 levels, descriptive
-- **Visual elements:** Tables, bullets, emphasis
-- **Progressive disclosure:** Summary → Detail → Appendix
-
-### Reports
-- **Paragraphs:** 4-5 sentences
-- **Headers:** 3 levels maximum, highly descriptive
-- **Visual elements:** Frequent (every 2-3 paragraphs)
-- **Navigation:** Table of contents, page numbers, cross-references
-
-### Proposals
-- **Paragraphs:** 3-5 sentences
-- **Headers:** 2-3 levels, client-focused language
-- **Visual elements:** Tables for pricing/ROI, bullets for benefits
-- **Layout:** Professional, generous white space
-
-## Related Resources
-
-- **Visual Elements:** Detailed guidance on tables, callouts, lists
-- **Heading Hierarchy:** Standards for header structure
-- **Clarity Principles:** Sentence-level clarity techniques
-- **Plain Language:** Word choice and accessibility
+- [ ] The main message appears in the first 1-2 sentences of the document
+- [ ] Every header is descriptive (not generic like "Introduction" or "Background")
+- [ ] Sibling headers use parallel grammatical structure
+- [ ] No paragraph exceeds 7 sentences or 6-8 lines on screen
+- [ ] Each paragraph makes exactly one point
+- [ ] Every group of 3+ parallel items is formatted as a list
+- [ ] Every comparison or multi-attribute data set uses a table
+- [ ] Bold is used on fewer than 15% of words and only on critical terms
+- [ ] No section appears as a dense wall of text (the squint test)
+- [ ] The document follows progressive disclosure: summary then details then appendix
+- [ ] A reader scanning only headers and first sentences of sections gets the full argument

@@ -7,204 +7,312 @@ audience: [all]
 related:
   - visual-elements
   - heading-hierarchy
-version: 1.0
-last_updated: 2025-10-29
+version: 2.0
+last_updated: 2026-02-25
 ---
 
-# Markdown Basics Reference
+# Markdown Formatting Standards for Business Documents
 
-## Quick Reference
-**Purpose:** Standard markdown syntax for business writing
-**Compatibility:** CommonMark specification
-**Key principle:** Simple, readable, portable
+<context>
+You are formatting business documents (memos, briefs, reports, proposals, emails, one-pagers, executive summaries, blog posts). Your markdown output must be syntactically correct, visually clean, and optimized for readability in rendered environments (Obsidian, GitHub, web previews). This reference defines the exact formatting rules to follow. When in doubt, favor the simpler construction.
+</context>
 
-## Essential Syntax
+## Syntax Conventions
 
-### Headers
+Use CommonMark-compliant markdown exclusively. Use these exact markers -- no alternatives.
+
+| Element | Use this | Do NOT use |
+|---------|----------|------------|
+| Bold | `**text**` | `__text__` |
+| Italic | `*text*` | `_text_` |
+| Unordered list | `- item` | `* item` or `+ item` |
+| Horizontal rule | `---` | `***` or `___` |
+| Heading | `## Title` (with space after `#`) | `##Title` (no space) |
+
+## Headings
+
+Use H1 exactly once per document as the document title. Use H2 through H4 for content structure. Never use H5 or H6.
+
 ```markdown
-# H1 - Document Title
-## H2 - Major Section
-### H3 - Subsection
-#### H4 - Detail Level (max)
+# Document Title (one per document)
+
+## Major Section (primary divisions)
+
+### Subsection (subdivisions within an H2)
+
+#### Detail Level (use sparingly -- consider bold text instead)
 ```
 
-**Rule:** Max 3 levels (H2-H4), use H1 once only
+Heading rules:
+- Always place a blank line before and after every heading
+- Do not skip levels (H2 directly to H4 without an H3 between them)
+- Keep headings concise: H2 at 2-6 words, H3 at 2-5 words, H4 at 2-4 words
+- See `heading-hierarchy.md` for parallel structure and keyword front-loading rules
 
-### Emphasis
-```markdown
-**Bold text** for key terms, critical findings
-*Italic text* for titles, subtle emphasis
-***Bold and italic*** for extreme emphasis (rare)
-```
+## Emphasis
 
-### Lists
+Apply emphasis with specific purpose, not for decoration.
 
-**Unordered:**
+| Formatting | Purpose | Frequency |
+|------------|---------|-----------|
+| **Bold** | Key terms (first use), critical findings, labels | 2-3 per paragraph max |
+| *Italic* | Titles of works, subtle emphasis, foreign terms | As needed |
+| ***Bold italic*** | Extreme emphasis | Rare -- 1-2 per document max |
+
+<wrong>
+**Entire sentences should never be bold because it defeats the purpose of emphasis and makes everything look equally important, which means nothing stands out.**
+</wrong>
+
+<right>
+The analysis revealed a **40x improvement** in error detection, making this the most effective approach tested.
+</right>
+
+## Lists
+
+### When to Use Each Type
+
+Use **unordered lists** (`-`) when items have no priority or sequence. Use **ordered lists** (`1.`) when sequence, priority, or ranking matters.
+
+### Unordered Lists
+
 ```markdown
 - First item
 - Second item
 - Third item
 ```
 
-**Ordered:**
+### Ordered Lists
+
 ```markdown
-1. First step
-2. Second step
-3. Third step
+1. Gather requirements
+2. Draft proposal
+3. Submit for review
 ```
 
-**Nested:**
+### Nested Lists
+
+Indent nested items by exactly 2 spaces. Limit nesting to 2 levels maximum.
+
 ```markdown
 - Main point
-  - Sub-point A
-  - Sub-point B
+  - Supporting detail A
+  - Supporting detail B
 - Another main point
+  - Supporting detail C
 ```
 
-### Links
-```markdown
-[Link text](https://example.com)
-[Link with title](https://example.com "Hover title")
-```
+### List Formatting Rules
 
-### Tables
+1. Always place a blank line before the first list item and after the last list item
+2. Keep list items parallel in grammatical structure (all verbs, all nouns, or all phrases)
+3. Do not create single-item lists -- use a sentence instead
+4. Break lists longer than 7 items into categorized sub-groups
+5. End list items with no punctuation (short phrases) or consistent punctuation (full sentences)
+
+<wrong>
+- Analyzing data
+- Cost reduction
+- To improve the workflow
+- The system deployment process is handled next
+</wrong>
+
+<right>
+- Analyze data
+- Reduce costs
+- Improve workflows
+- Deploy systems
+</right>
+
+## Tables
+
+Tables require a header row, a separator row, and at least one data row. Without the separator row, the table will not render.
+
+### Basic Table
+
 ```markdown
 | Column 1 | Column 2 | Column 3 |
 |----------|----------|----------|
-| Data 1   | Data 2   | Data 3   |
-| Data 4   | Data 5   | Data 6   |
+| Data A   | Data B   | Data C   |
+| Data D   | Data E   | Data F   |
 ```
 
-**Alignment:**
+### Column Alignment
+
 ```markdown
-| Left | Center | Right |
-|:-----|:------:|------:|
-| L1   | C1     | R1    |
+| Left-aligned | Center-aligned | Right-aligned |
+|:-------------|:--------------:|--------------:|
+| Text         | Text           |           123 |
+| Text         | Text           |         4,567 |
 ```
 
-### Code
+Default alignment is left. Use right alignment for numeric columns. Use center alignment sparingly (headers of narrow columns).
 
-**Inline code:**
+### Table Rules
+
+- Limit tables to 3-5 columns for readability
+- Keep cell content concise (1-5 words per cell)
+- Always place a blank line before and after every table
+- Use tables for 3+ rows of comparative or structured data -- for fewer items, use inline text or a list
+- Align pipe characters vertically for source readability when practical
+
+## Links
+
 ```markdown
-Use the `calculate_readability.py` script
+[Descriptive link text](https://example.com)
 ```
 
-**Code blocks:**
+Link text should describe the destination, not say "click here" or "this link." In business documents, links are less common than in web content. When referencing internal documents, use relative paths.
+
+## Block Quotes
+
+Use block quotes for testimonials, external citations, and key insight callouts.
+
+```markdown
+> "This solution reduced our processing time from 5 days to 4 hours."
+> -- Sarah Martinez, Engineering Director
+```
+
+For key insight callouts (see `visual-elements.md`):
+
+```markdown
+> **Key Insight**: Teams using automated review reduced wait times by 75%.
+```
+
+## Code
+
+### Inline Code
+
+Use backticks for file names, commands, variable names, and technical terms in running text.
+
+```markdown
+Run the `calculate_readability.py` script to validate the document.
+```
+
+### Code Blocks
+
+Use fenced code blocks with a language identifier for multi-line code, commands, or structured data.
+
 ````markdown
-```python
-def example():
-    return "Hello"
+```bash
+python3 scripts/calculate_readability.py document.md --lang auto
 ```
 ````
 
-### Block Quotes
-```markdown
-> This is a quote.
-> It can span multiple lines.
->
-> — Author Name
-```
+Always specify the language after the opening fence (`bash`, `python`, `json`, `markdown`, `text`). Use `text` when no specific language applies.
 
-### Horizontal Rules
+## Horizontal Rules
+
+Use `---` on its own line to create a horizontal rule. Place a blank line before and after it. Use horizontal rules only for major topic transitions -- not between every section.
+
 ```markdown
+Content of one major section ends here.
+
 ---
+
+A distinctly different topic begins here.
 ```
 
-or
+## Spacing Rules
+
+These spacing rules are mandatory. Incorrect spacing causes rendering failures or degraded readability.
+
+<rule>
+Place exactly one blank line before and after each of these elements:
+- Headings
+- Lists (before the first item and after the last item)
+- Tables
+- Code blocks
+- Block quotes
+- Horizontal rules
+</rule>
+
+Separate paragraphs with exactly one blank line. Never use multiple consecutive blank lines.
+
+### Correct Spacing
+
 ```markdown
-***
+## Section Title
+
+This is the first paragraph of content under the heading.
+
+This is the second paragraph. Note the single blank line between paragraphs.
+
+- List item one
+- List item two
+- List item three
+
+The paragraph continues after the list with a blank line separating them.
 ```
+
+### Incorrect Spacing (Common Failure Modes)
+
+```markdown
+## Section Title
+Text immediately after heading with no blank line.
+- List starts without blank line separation
+Another paragraph without blank line after list.
+```
+
+The incorrect version above will render with headings that visually collide with body text and lists that may not render as lists in some parsers.
 
 ## Less Common Elements
 
-### Footnotes
-```markdown
-Here's a sentence with a footnote.[^1]
+Use these only when the business document specifically requires them.
 
-[^1]: This is the footnote content.
+### Footnotes
+
+```markdown
+The analysis confirms a significant improvement.[^1]
+
+[^1]: Based on Q3 2025 internal benchmarking data (n=2,847).
 ```
 
 ### Task Lists
+
 ```markdown
-- [x] Completed task
-- [ ] Pending task
-- [ ] Another task
+- [x] Draft completed
+- [ ] Stakeholder review
+- [ ] Final approval
 ```
 
-### Strikethrough (if supported)
+### Strikethrough
+
 ```markdown
-~~Deleted text~~
+~~Previous approach~~ replaced by the new methodology.
 ```
 
-## Best Practices
+Strikethrough support varies across renderers. Use only when the tracked-change meaning is important to the document.
 
-### Spacing
-- Blank line before/after headers
-- Blank line before/after lists
-- Blank line before/after code blocks
-- Blank line before/after tables
-- Blank line between paragraphs
+## Decision Guide
 
-### Consistency
-- Use `-` for unordered lists (not `*`)
-- Use `**` for bold (not `__`)
-- Use `*` for italic (not `_`)
-- Consistent table column width for readability
+When you are unsure which formatting element to use, follow this logic:
 
-### Readability
-- Keep line length reasonable (80-100 chars)
-- Don't mix formatting styles
-- Use consistent indentation (2 or 4 spaces)
+1. **Comparing 3+ items across shared attributes?** Use a table.
+2. **Listing 3+ items without comparison?** Use a list (ordered if sequence matters, unordered otherwise).
+3. **Highlighting a single critical finding?** Use a block quote callout.
+4. **Introducing a technical term for the first time?** Use bold.
+5. **Showing a command or file reference?** Use inline code or a code block.
+6. **Separating two unrelated major topics?** Use a horizontal rule.
+7. **None of the above?** Use a regular paragraph. Prose is the default.
 
-## Common Mistakes
+## Validation Checklist
 
-### Mistake 1: Missing Blank Lines
-❌ **Bad:**
-```markdown
-## Header
-Text immediately after header
-- List item
-```
+Before finalizing any document, verify all of the following:
 
-✅ **Good:**
-```markdown
-## Header
-
-Text with blank line after header.
-
-- List item
-```
-
-### Mistake 2: Inconsistent List Markers
-❌ **Bad:**
-```markdown
-* Item 1
-- Item 2
-+ Item 3
-```
-
-✅ **Good:**
-```markdown
-- Item 1
-- Item 2
-- Item 3
-```
-
-### Mistake 3: Broken Tables
-❌ **Bad:**
-```markdown
-| Col1 | Col2 |
-| Data1 | Data2 |
-```
-(Missing separator row)
-
-✅ **Good:**
-```markdown
-| Col1 | Col2 |
-|------|------|
-| Data1 | Data2 |
-```
+- Exactly one H1 exists (the document title)
+- No heading levels are skipped (no H2 directly to H4)
+- Maximum heading depth is H4
+- Blank lines surround all headings, lists, tables, code blocks, and block quotes
+- All list items within a list use the same marker (`-` for unordered, `1.` etc. for ordered)
+- All tables have a separator row (`|---|---|`)
+- Bold uses `**` exclusively (never `__`)
+- Italic uses `*` exclusively (never `_`)
+- Unordered lists use `-` exclusively (never `*` or `+`)
+- No multiple consecutive blank lines appear anywhere
+- Code blocks specify a language identifier
 
 ## See Also
-- `visual-elements.md` (Using markdown for visual hierarchy)
-- `heading-hierarchy.md` (Header structure standards)
+
+- `heading-hierarchy.md` -- Parallel structure, keyword front-loading, and per-deliverable heading patterns
+- `visual-elements.md` -- When and how to deploy tables, callouts, lists, and bold for scannability
+- `citation-formatting.md` -- Citation marker placement and superscript formatting rules

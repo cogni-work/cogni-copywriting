@@ -1,464 +1,342 @@
 ---
 title: Copywriting Skills Master Index
 type: index
-version: 7.0
-last_updated: 2026-02-24
+version: 8.0
+last_updated: 2026-02-25
 ---
 
-# Copywriting Skills Master Index
+# Reference Loading Index
 
-This index enables progressive disclosure for copywriting tasks. Claude loads only the references needed for the specific deliverable and approach requested.
+<purpose>
+You are the copywriter skill's reference router. This file tells you exactly which reference files to load for any given task. You will read this file at the start of every copywriting task. Your job: parse the user's request, then load ONLY the references needed. Never load everything. Never guess -- follow the decision tree below.
+</purpose>
 
-## How to Use This System
+## Step 1: Detect Operating Mode
 
-**For users:** Specify your deliverable type and optionally a preferred framework:
-- "Write a memo using BLUF"
-- "Create a proposal with FAB framework"
-- "Draft an executive summary with Pyramid Principle"
-- "Write a brief" (framework auto-selected based on deliverable)
+Before loading any deliverable or framework references, check for these special modes. They override normal loading.
 
-**For Claude:** Load references based on user request using this logic:
+<mode_detection>
+Think through these checks in order. Stop at the FIRST match.
 
-### Loading Logic
+CHECK 1 -- ARC PRESERVATION MODE
+Trigger conditions (any one is sufficient):
+- Document YAML frontmatter contains `arc_id`
+- User says "polish this arc" or "arc preservation" or similar
+- Document H2 headings match a known arc pattern (corporate-visions, technology-futures, competitive-intelligence, strategic-foresight, industry-transformation)
 
-```
-IF document has arc_id in frontmatter OR arc preservation requested:
-  LOAD: references/09-preservation-modes/arc-preservation.md
-  LOAD: references/09-preservation-modes/arc-technique-map.md
-  LOAD: references/01-core-principles/ (clarity, conciseness, active-voice)
-  SKIP: framework and deliverable type loading (arc IS the structure)
-  SET: arc_mode = true
+If triggered, set `mode = arc` and go to the Arc Loading Block below.
 
-ELSE IF deliverable_type SPECIFIED:
-  LOAD: references/04-deliverable-types/{deliverable_type}.md
+CHECK 2 -- SALES MODE
+Trigger conditions:
+- User specifies `MODE: sales`
+- Content contains Power Position markers (`**IS**:`, `**DOES**:`, `**MEANS**:`)
 
-  IF framework SPECIFIED:
-    LOAD: references/02-messaging-frameworks/{framework}-framework.md
-  ELSE:
-    LOAD: Recommended framework from deliverable reference
+If triggered, set `mode = sales` and go to the Sales Loading Block below.
 
-  IF deliverable recommends specific principles:
-    LOAD: references/01-core-principles/{principles}.md
-
-  IF examples needed:
-    LOAD: references/05-examples/example-{deliverable}-{framework}.md
-
-  IF template requested:
-    LOAD: references/06-templates/template-{deliverable}.md
-```
-
-## Progressive Disclosure Tiers
-
-### Tier 1: Core Principles (ALWAYS LOAD)
-
-**When to load:** Every copywriting task requires core principles.
-
-**Files to load (3 files):**
-1. `01-core-principles/clarity-principles.md` - Wolf-Schneider clarity rules, 15-20 word sentences, concrete language
-2. `01-core-principles/conciseness-principles.md` - 3-5 sentence paragraphs, eliminating filler, strong verbs
-3. `01-core-principles/active-voice-principles.md` - 80%+ active voice, clear subjects, transformation patterns
-
-**Language-conditional core principles:**
-- `01-core-principles/german-style-principles.md` - **LOAD WHEN GERMAN detected.** Wolf Schneider Satzbauregeln: 12-Woerter-Teilsaetze, Satzklammer aufbrechen, Mittelfeld verkuerzen, Subjekt-Verb-Naehe, Hauptsaetze reihen, deutsche Floskelliste, Rhythmus durch Abwechslung
-
-**Optional core principles (load when needed):**
-- `01-core-principles/plain-language-principles.md` - When technical content needs accessibility
-- `01-core-principles/readability-principles.md` - When visual hierarchy and scannability are priorities
-
-**Loading pattern:**
-```bash
-READ: references/01-core-principles/clarity-principles.md
-READ: references/01-core-principles/conciseness-principles.md
-READ: references/01-core-principles/active-voice-principles.md
-
-IF document_language == de:
-  READ: references/01-core-principles/german-style-principles.md
-```
+CHECK 3 -- STANDARD MODE (default)
+No special mode detected. Set `mode = standard` and go to the Standard Loading Block below.
+</mode_detection>
 
 ---
 
-### Tier 2: Messaging Frameworks (LOAD BASED ON SELECTION)
+## Step 2: Load References by Mode
 
-**When to load:** After user specifies framework OR after deliverable recommends framework.
+### Arc Loading Block
 
-**Selection criteria:**
-- User explicitly requests framework → Load that framework
-- User doesn't specify → Load recommended framework from deliverable reference
-- Multiple frameworks suitable → Ask user to choose
+When `mode = arc`, the arc IS the document structure. Do NOT load messaging frameworks or deliverable types.
 
-**Available frameworks:**
+```
+LOAD: 09-preservation-modes/arc-preservation.md
+LOAD: 09-preservation-modes/arc-technique-map.md
+LOAD: 01-core-principles/clarity-principles.md
+LOAD: 01-core-principles/conciseness-principles.md
+LOAD: 01-core-principles/active-voice-principles.md
+LOAD: 07-impact-techniques/number-plays.md
+LOAD: 07-impact-techniques/power-words.md
 
-1. **BLUF (Bottom Line Up Front)** - `02-messaging-frameworks/bluf-framework.md`
-   - Use when: Time-sensitive, action-required, executive audience
-   - Deliverables: Memos, emails, briefs, executive summaries
-   - Pattern: Main point + action + deadline in first 1-2 sentences
+IF document language is German:
+  LOAD: 01-core-principles/german-style-principles.md
+```
 
-2. **Pyramid Principle** - `02-messaging-frameworks/pyramid-framework.md`
-   - Use when: Complex recommendations, consulting context, structured analysis
-   - Deliverables: Reports, briefs, proposals, executive summaries
-   - Pattern: Main point → supporting arguments → evidence (MECE structure)
+After loading, SKIP Steps 3-4 below. Proceed directly to skill workflow Step 3 (structure comes from the arc, not from a framework).
 
-3. **SCQA (Situation-Complication-Question-Answer)** - `02-messaging-frameworks/scqa-framework.md`
-   - Use when: Narrative flow needed, problem-solving focus, building urgency
-   - Deliverables: Memos, reports, briefs, proposals
-   - Pattern: Context → problem → solution question → answer
+---
 
-4. **Inverted Pyramid** - `02-messaging-frameworks/inverted-pyramid-framework.md`
-   - Use when: Web content, press releases, scannable documents
-   - Deliverables: Reports, emails
-   - Pattern: Key information → important details → background
+### Sales Loading Block
 
-5. **STAR (Situation-Task-Action-Result)** - `02-messaging-frameworks/star-framework.md`
-   - Use when: Examples, case studies, behavioral contexts
-   - Deliverables: Reports, proposals
-   - Pattern: Context → objective → approach → outcome
+When `mode = sales`, load Power Positions plus supporting impact techniques. Sales mode still uses a deliverable type and framework, so continue to Standard Loading Block after loading these.
 
-6. **PSB (Problem-Solution-Benefit)** - `02-messaging-frameworks/psb-framework.md`
-   - Use when: Marketing, sales, customer-facing content
-   - Deliverables: Proposals, one-pagers, emails
-   - Pattern: Pain point → solution → quantified benefits
+```
+LOAD: 08-sales-techniques/power-positions.md
+LOAD: 07-impact-techniques/number-plays.md
+LOAD: 07-impact-techniques/power-words.md
+```
 
-7. **FAB (Feature-Advantage-Benefit)** - `02-messaging-frameworks/fab-framework.md`
-   - Use when: Product focus, technical translation, feature-heavy content
-   - Deliverables: Proposals, one-pagers
-   - Pattern: Feature → advantage → benefit (for each feature)
+Then continue to the Standard Loading Block for deliverable + framework selection.
 
-**Loading pattern:**
-```bash
-IF user_specified_framework:
-  READ: references/02-messaging-frameworks/{framework}-framework.md
-ELSE:
-  READ: Recommended framework from deliverable reference
+---
+
+### Standard Loading Block
+
+This is the normal path for all non-arc tasks (including sales mode, which adds to this).
+
+#### 2a. Core Principles (always load these three)
+
+```
+LOAD: 01-core-principles/clarity-principles.md
+LOAD: 01-core-principles/conciseness-principles.md
+LOAD: 01-core-principles/active-voice-principles.md
+```
+
+#### 2b. Language-Conditional Principles
+
+```
+IF document language is German:
+  LOAD: 01-core-principles/german-style-principles.md
+```
+
+#### 2c. Optional Core Principles (load only when relevant)
+
+```
+IF content is technical and needs accessibility:
+  LOAD: 01-core-principles/plain-language-principles.md
+
+IF visual hierarchy and scannability are priorities:
+  LOAD: 01-core-principles/readability-principles.md
 ```
 
 ---
 
-### Tier 3: Formatting Standards (CONDITIONAL LOAD)
+## Step 3: Select and Load Deliverable Type
 
-**When to load:** When deliverable requires specific formatting or visual elements.
+Identify which deliverable the user wants. This is REQUIRED for standard mode.
 
-**Files available:**
+<deliverable_selection>
+Map the user's request to exactly one deliverable type. Use this lookup table:
 
-1. **visual-elements.md** - `03-formatting-standards/visual-elements.md`
-   - Load when: Deliverable needs tables, callouts, lists, emphasis
-   - Target density: ~1 visual element per 2 paragraphs
-   - Covers: Tables, bullets, callouts, bold emphasis, code blocks
+| User says                                      | deliverable_type     | File to load                              |
+|------------------------------------------------|----------------------|-------------------------------------------|
+| memo, memorandum, internal communication       | memo                 | 04-deliverable-types/memos.md             |
+| email, message, correspondence                 | email                | 04-deliverable-types/emails.md            |
+| brief, briefing, briefing document             | brief                | 04-deliverable-types/briefs.md            |
+| report, analysis, findings                     | report               | 04-deliverable-types/reports.md           |
+| proposal, pitch, business case                 | proposal             | 04-deliverable-types/proposals.md         |
+| one-pager, one pager, summary sheet            | one-pager            | 04-deliverable-types/one-pagers.md        |
+| executive summary, exec summary                | executive-summary    | 04-deliverable-types/executive-summaries.md |
+| letter, business letter, formal letter         | business-letter      | 04-deliverable-types/business-letters.md  |
+| blog, blog post, article, thought leadership   | blog                 | 04-deliverable-types/blogs.md             |
 
-2. **heading-hierarchy.md** - `03-formatting-standards/heading-hierarchy.md`
-   - Load when: Document structure needs header standards
-   - Guidelines: Max 3 levels (##, ###, ####), front-loaded keywords, parallel structure
+If the user's request does not clearly map to one of these, ask them to clarify before proceeding.
+</deliverable_selection>
 
-3. **markdown-basics.md** - `03-formatting-standards/markdown-basics.md`
-   - Load when: User needs markdown syntax reference
-   - Covers: Headers, lists, links, emphasis, code blocks, tables
-
-**Loading pattern:**
-```bash
-IF deliverable_recommends_visuals OR user_requests_visuals:
-  READ: references/03-formatting-standards/visual-elements.md
-
-IF deliverable_has_sections OR complex_structure:
-  READ: references/03-formatting-standards/heading-hierarchy.md
-
-IF user_needs_markdown_help:
-  READ: references/03-formatting-standards/markdown-basics.md
+```
+LOAD: 04-deliverable-types/{deliverable_type}.md
 ```
 
 ---
 
-### Tier 4: Deliverable Types (REQUIRED - LOAD BASED ON TYPE)
+## Step 4: Select and Load Messaging Framework
 
-**When to load:** After parsing user's deliverable_type parameter (required).
+<framework_selection>
+Apply this logic in order:
 
-**Files available (8 deliverable types):**
+1. If the user explicitly names a framework, load that framework.
+2. If the user does not name a framework, read the `recommended-frameworks` field from the deliverable file you loaded in Step 3. Use the FIRST listed framework as the default.
+3. If multiple frameworks seem equally suitable and the user has not chosen, pick the first recommended one -- do not ask unless genuinely ambiguous.
 
-1. **memos.md** - `04-deliverable-types/memos.md`
-   - Structure: TO/FROM/DATE/SUBJECT header + BLUF + context + details
-   - Length: 1 page typically
-   - Formality: Medium
-   - Recommended frameworks: BLUF, Pyramid, SCQA
+Available frameworks:
 
-2. **emails.md** - `04-deliverable-types/emails.md`
-   - Structure: Subject line + 3-5 paragraphs + clear CTA
-   - Length: 200-300 words
-   - Formality: Medium
-   - Recommended frameworks: BLUF, SCQA
+| Framework         | File                                                | Best for                                              |
+|-------------------|-----------------------------------------------------|-------------------------------------------------------|
+| BLUF              | 02-messaging-frameworks/bluf-framework.md           | Action-required, time-sensitive, executive audience    |
+| Pyramid           | 02-messaging-frameworks/pyramid-framework.md        | Complex recommendations, structured analysis           |
+| SCQA              | 02-messaging-frameworks/scqa-framework.md           | Narrative flow, problem-solving, building urgency      |
+| Inverted Pyramid  | 02-messaging-frameworks/inverted-pyramid-framework.md | Web content, press releases, scannable documents     |
+| STAR              | 02-messaging-frameworks/star-framework.md           | Case studies, examples, behavioral contexts            |
+| PSB               | 02-messaging-frameworks/psb-framework.md            | Marketing, sales, customer-facing content              |
+| FAB               | 02-messaging-frameworks/fab-framework.md            | Product focus, feature-heavy content                   |
+</framework_selection>
 
-3. **briefs.md** - `04-deliverable-types/briefs.md`
-   - Structure: Executive summary + 2-3 supporting sections + next steps
-   - Length: 1-3 pages
-   - Formality: Medium-high
-   - Recommended frameworks: BLUF, Pyramid, SCQA
-
-4. **reports.md** - `04-deliverable-types/reports.md`
-   - Structure: Table of contents + structured sections + conclusion
-   - Length: Variable (2-100+ pages)
-   - Formality: High
-   - Recommended frameworks: Pyramid, SCQA, Inverted Pyramid
-
-5. **proposals.md** - `04-deliverable-types/proposals.md`
-   - Structure: Exec summary + problem statement + solution + ROI + next steps
-   - Length: Variable (3-200 pages)
-   - Formality: High
-   - Recommended frameworks: FAB, PSB, Pyramid
-
-6. **one-pagers.md** - `04-deliverable-types/one-pagers.md`
-   - Structure: High-density single page + visual elements + scannable
-   - Length: Exactly 1 page
-   - Formality: Medium
-   - Recommended frameworks: PSB, FAB
-
-7. **executive-summaries.md** - `04-deliverable-types/executive-summaries.md`
-   - Structure: BLUF/Pyramid + condensed key points
-   - Length: 1-2 pages maximum
-   - Formality: High
-   - Recommended frameworks: BLUF, Pyramid
-
-8. **business-letters.md** - `04-deliverable-types/business-letters.md`
-   - Structure: Formal header + body + formal close
-   - Length: 1 page typically
-   - Formality: Very high
-   - Recommended frameworks: Direct/Indirect approach
-
-**Loading pattern:**
-```bash
-READ: references/04-deliverable-types/{deliverable_type}.md
+```
+LOAD: 02-messaging-frameworks/{framework}-framework.md
 ```
 
 ---
 
-### Tier 5: Examples (LOAD ON REQUEST OR FOR LEARNING)
+## Step 5: Load Conditional References
 
-**When to load:** When user requests examples OR when demonstrating a new combination.
+These references load only when specific conditions are met. Check each independently.
 
-**Files available:**
-- `05-examples/example-memo-bluf.md` - Complete memo with BLUF structure
-- `05-examples/example-email-bluf.md` - Complete email with BLUF structure
-- `05-examples/example-brief-pyramid.md` - Complete brief with Pyramid structure
-- `05-examples/example-proposal-fab.md` - Complete proposal with FAB structure
-- Additional examples per deliverable/framework combination
+### Impact Techniques
 
-**Loading pattern:**
-```bash
-IF user_requests_example OR first_time_framework:
-  READ: references/05-examples/example-{deliverable}-{framework}.md
+```
+IF impact_level = high OR audience is executive/C-suite OR deliverable is executive-summary:
+  LOAD: 07-impact-techniques/number-plays.md
+  LOAD: 07-impact-techniques/power-words.md
+  LOAD: 07-impact-techniques/rhetorical-devices.md
+  LOAD: 07-impact-techniques/executive-impact.md
+```
+
+### Formatting Standards
+
+```
+IF deliverable needs visual elements (one-pager, report, blog, proposal):
+  LOAD: 03-formatting-standards/visual-elements.md
+
+IF document has multi-section structure:
+  LOAD: 03-formatting-standards/heading-hierarchy.md
+
+IF document contains inline citations:
+  LOAD: 03-formatting-standards/citation-formatting.md
+
+IF user asks about markdown syntax:
+  LOAD: 03-formatting-standards/markdown-basics.md
+```
+
+### Stakeholder Review
+
+```
+IF review_mode = reader:
+  Delegate to cogni-copywriting:reader skill (handles its own reference loading)
+
+IF review_mode = automated OR review not explicitly skipped:
+  LOAD: 10-stakeholder-review/{perspective}-review.md (for each selected stakeholder)
+  LOAD: 10-stakeholder-review/synthesis-guidelines.md (after reviews complete)
+```
+
+Stakeholder defaults by audience:
+
+| Audience          | Default stakeholders              |
+|-------------------|-----------------------------------|
+| executive         | executive, technical, end-user    |
+| technical         | technical, executive              |
+| general           | end-user, marketing, executive    |
+| legal             | legal, executive, technical       |
+| sales / marketing | marketing, executive, end-user    |
+
+### Examples and Templates
+
+```
+IF user requests an example OR this is a new framework combination:
+  LOAD: 05-examples/example-{deliverable}-{framework}.md
+
+IF user requests a template OR wants a fillable structure:
+  LOAD: 06-templates/template-{deliverable}.md
+```
+
+### Workflow Guide
+
+```
+IF task is complex (multi-step, dependencies, first-time user):
+  LOAD: workflow/step-by-step-guide.md
 ```
 
 ---
 
-### Tier 6: Templates (LOAD ON REQUEST)
+## Quick Lookup: Deliverable to Default Load Set
 
-**When to load:** When user explicitly requests template OR wants fillable structure.
+Use this table to confirm you have the right references for common tasks. Each row shows the minimum set of files to load.
 
-**Files available:**
-- `06-templates/template-memo.md` - Fillable memo template with placeholders
-- `06-templates/template-email.md` - Fillable email template
-- `06-templates/template-brief.md` - Fillable brief template
-- `06-templates/template-proposal.md` - Fillable proposal template
-- Additional templates per deliverable type
-
-**Loading pattern:**
-```bash
-IF user_requests_template:
-  READ: references/06-templates/template-{deliverable}.md
-```
-
----
-
-## Workflow Reference
-
-For detailed step-by-step workflow implementation guidance, load:
-- `references/workflow/step-by-step-guide.md` - Complete Steps 1-7 with sub-step details, gate checks, and validation procedures
-
-**When to load workflow guide:**
-- Complex copywriting tasks requiring procedural tracking
-- First-time users learning the workflow
-- When gate checks or validation steps need clarification
-- Multi-step document creation with dependencies
+| Deliverable        | Default Framework | Core Principles | Conditional Loads                         |
+|--------------------|-------------------|-----------------|-------------------------------------------|
+| memo               | BLUF              | clarity, conciseness, active-voice | --                             |
+| email              | BLUF              | clarity, conciseness, active-voice | --                             |
+| brief              | BLUF              | clarity, conciseness, active-voice | --                             |
+| report             | Pyramid           | clarity, conciseness, active-voice | visual-elements, heading-hierarchy |
+| proposal           | FAB               | clarity, conciseness, active-voice | visual-elements, heading-hierarchy |
+| one-pager          | PSB               | clarity, conciseness, active-voice | visual-elements                |
+| executive-summary  | BLUF              | clarity, conciseness, active-voice | executive-impact               |
+| business-letter    | (Direct/Indirect) | clarity, conciseness, active-voice | --                             |
+| blog               | Inverted Pyramid  | clarity, readability, active-voice | visual-elements                |
 
 ---
 
-## Quick Reference by Deliverable
+## File Inventory
 
-### Emails
-- **Primary frameworks:** BLUF, SCQA
-- **Key principles:** Clarity, conciseness, active-voice
-- **Formality:** Medium
-- **Length:** 3-5 paragraphs maximum
-- **Load:** Tier 4 (emails.md), Tier 2 (bluf-framework.md), Tier 1 (3 core principles)
+All reference files in this system, organized by directory. Use this as the source of truth for valid file paths.
 
-### Memos
-- **Primary frameworks:** BLUF, Pyramid, SCQA
-- **Key principles:** Clarity, conciseness, active-voice
-- **Formality:** Medium
-- **Length:** 1 page typically
-- **Load:** Tier 4 (memos.md), Tier 2 (bluf-framework.md), Tier 1 (3 core principles)
+### 01-core-principles/
+- `clarity-principles.md` -- 15-20 word sentences, concrete language, simple words
+- `conciseness-principles.md` -- 3-5 sentence paragraphs, eliminate filler, strong verbs
+- `active-voice-principles.md` -- 80%+ active voice, clear subjects, transformation patterns
+- `german-style-principles.md` -- Wolf Schneider rules: 12-word clauses, Satzklammer, Mittelfeld, Floskeln
+- `plain-language-principles.md` -- Technical content accessibility
+- `readability-principles.md` -- Visual hierarchy and scannability
 
-### Reports
-- **Primary frameworks:** Pyramid, SCQA, Inverted Pyramid
-- **Key principles:** All core principles
-- **Formality:** High
-- **Length:** Variable (2-100+ pages)
-- **Load:** Tier 4 (reports.md), Tier 2 (pyramid-framework.md), Tier 1 (3 core principles)
+### 02-messaging-frameworks/
+- `bluf-framework.md` -- Bottom Line Up Front
+- `pyramid-framework.md` -- McKinsey Pyramid Principle (MECE)
+- `scqa-framework.md` -- Situation-Complication-Question-Answer
+- `inverted-pyramid-framework.md` -- Key info first, details second, background last
+- `star-framework.md` -- Situation-Task-Action-Result
+- `psb-framework.md` -- Problem-Solution-Benefit
+- `fab-framework.md` -- Feature-Advantage-Benefit
 
-### Briefs
-- **Primary frameworks:** BLUF, Pyramid, SCQA
-- **Key principles:** Clarity, conciseness
-- **Formality:** Medium-high
-- **Length:** 1-3 pages
-- **Load:** Tier 4 (briefs.md), Tier 2 (bluf-framework.md), Tier 1 (3 core principles)
+### 03-formatting-standards/
+- `visual-elements.md` -- Tables, callouts, lists, emphasis (~1 visual per 2 paragraphs)
+- `heading-hierarchy.md` -- Max 3 levels, front-loaded keywords, parallel structure
+- `citation-formatting.md` -- Citation placement, superscript commas, preservation rules
+- `markdown-basics.md` -- Standard markdown syntax reference
 
-### Proposals
-- **Primary frameworks:** FAB, PSB, Pyramid
-- **Key principles:** Clarity, persuasion-focused
-- **Formality:** High
-- **Length:** Variable (3-200 pages)
-- **Load:** Tier 4 (proposals.md), Tier 2 (fab-framework.md), Tier 1 (3 core principles)
+### 04-deliverable-types/
+- `memos.md` -- 1 page, medium formality, BLUF/Pyramid/SCQA
+- `emails.md` -- 200-300 words, medium formality, BLUF/SCQA
+- `briefs.md` -- 1-3 pages, medium-high formality, BLUF/Pyramid/SCQA
+- `reports.md` -- Variable length, high formality, Pyramid/SCQA/Inverted Pyramid
+- `proposals.md` -- Variable length, high formality, FAB/PSB/Pyramid
+- `one-pagers.md` -- Exactly 1 page, medium formality, PSB/FAB
+- `executive-summaries.md` -- 1-2 pages, high formality, BLUF/Pyramid
+- `business-letters.md` -- 1 page, very high formality, Direct/Indirect
+- `blogs.md` -- 800-1500 words, medium formality, Inverted Pyramid/SCQA
 
-### One-Pagers
-- **Primary frameworks:** PSB, FAB
-- **Key principles:** Conciseness, visual hierarchy
-- **Formality:** Medium
-- **Length:** Exactly 1 page
-- **Load:** Tier 4 (one-pagers.md), Tier 2 (psb-framework.md), Tier 1 (3 core principles), Tier 3 (visual-elements.md)
+### 05-examples/
+- `example-memo-bluf.md`
+- `example-email-scqa.md`
+- `example-brief-pyramid.md`
+- `example-proposal-fab.md`
 
-### Executive Summaries
-- **Primary frameworks:** BLUF, Pyramid
-- **Key principles:** Clarity, conciseness
-- **Formality:** High
-- **Length:** 1-2 pages maximum
-- **Load:** Tier 4 (executive-summaries.md), Tier 2 (bluf-framework.md), Tier 1 (3 core principles)
+### 06-templates/
+- `template-memo.md`
+- `template-email.md`
+- `template-brief.md`
+- `template-proposal.md`
 
-### Business Letters
-- **Primary frameworks:** Direct/Indirect approach based on news type
-- **Key principles:** All core principles, formality
-- **Formality:** Very high
-- **Length:** 1 page typically
-- **Load:** Tier 4 (business-letters.md), Tier 1 (3 core principles)
+### 07-impact-techniques/
+- `number-plays.md` -- Ratio framing, specific quantification, comparative anchoring, before/after
+- `power-words.md` -- Emotional triggers by category (urgency, exclusivity, trust, achievement)
+- `rhetorical-devices.md` -- Rule of Three, anaphora, antithesis, cadence
+- `executive-impact.md` -- C-suite optimization, lead with ask, quantify everything
 
-## Default Loading Pattern
+### 08-sales-techniques/
+- `power-positions.md` -- IS-DOES-MEANS structure, enhancement by layer, Value Wedge
 
-When deliverable type is unclear or general writing request:
-1. Load: `01-core-principles/clarity-principles.md`
-2. Load: `01-core-principles/conciseness-principles.md`
-3. Load: `01-core-principles/active-voice-principles.md`
-4. Ask user to clarify deliverable type for optimal guidance
+### 09-preservation-modes/
+- `arc-preservation.md` -- Arc detection, structure preservation, forbidden vs allowed modifications
+- `arc-technique-map.md` -- Per-arc per-element technique rules, Number Play variants, validation checklist
 
-### Tier 7: Impact Techniques (LOAD FOR HIGH-IMPACT DOCUMENTS)
+### 10-stakeholder-review/
+- `00-index.md` -- Stakeholder review system overview
+- `executive-review.md` -- Decision-readiness, clarity, ROI
+- `technical-review.md` -- Accuracy, precision, logical consistency
+- `legal-review.md` -- Risk language, regulatory alignment
+- `marketing-review.md` -- Persuasiveness, audience resonance
+- `end-user-review.md` -- Accessibility, plain language, actionability
+- `synthesis-guidelines.md` -- Multi-stakeholder feedback aggregation and conflict resolution
 
-**When to load:** When `impact_level: high` or audience is executive/C-suite.
-
-**Files available:**
-
-1. **number-plays.md** - `07-impact-techniques/number-plays.md`
-   - Ratio framing, specific quantification, comparative anchoring
-   - Before/after contrasts, compound impact, Rule of Three numbers
-   - Load when: Presenting data, results, benefits, or comparisons
-
-2. **power-words.md** - `07-impact-techniques/power-words.md`
-   - Emotional triggers by category (urgency, exclusivity, trust, achievement)
-   - Strategic placement guidelines, density control
-   - Load when: Writing headlines, CTAs, key benefit statements
-
-3. **rhetorical-devices.md** - `07-impact-techniques/rhetorical-devices.md`
-   - Rule of Three, anaphora, antithesis, cadence patterns
-   - Device selection by purpose, placement guidelines
-   - Load when: Crafting key messages, conclusions, persuasive sections
-
-4. **executive-impact.md** - `07-impact-techniques/executive-impact.md`
-   - C-suite optimization, decision-maker patterns
-   - Lead with ask, quantify everything, respect time
-   - Load when: Writing for executives, board members, senior leadership
-
-**Loading pattern:**
-
-```bash
-IF impact_level == high OR audience == executive:
-  READ: references/07-impact-techniques/number-plays.md
-  READ: references/07-impact-techniques/power-words.md
-  READ: references/07-impact-techniques/rhetorical-devices.md
-  READ: references/07-impact-techniques/executive-impact.md
-```
+### workflow/
+- `step-by-step-guide.md` -- Complete sub-steps, gate checks, validation procedures
 
 ---
 
-### Tier 8: Sales Techniques (LOAD WHEN MODE: SALES)
+## Fallback Behavior
 
-**When to load:** When `MODE: sales` is specified or content contains Power Positions.
+When the user's request is ambiguous or does not specify a deliverable type:
 
-**Files available:**
+1. Load the three core principles (clarity, conciseness, active-voice). These are always safe to load.
+2. Ask the user to specify their deliverable type. Present the nine options from the deliverable selection table above.
+3. Do NOT guess a deliverable type. Do NOT load all deliverable references. Wait for clarification.
 
-1. **power-positions.md** - `08-sales-techniques/power-positions.md`
-   - IS-DOES-MEANS message pyramid structure
-   - Enhancement rules by layer (specificity, quantification, resonance)
-   - Value Wedge criteria, proof point strengthening
-   - Structure marker preservation rules
-   - Load when: Enhancing sales proposals with Power Positions, value stories
+When a reference file does not exist at the expected path (e.g., an example for a deliverable-framework combination that has not been written yet):
 
-**Loading pattern:**
-
-```bash
-IF MODE == sales OR content_contains_power_positions:
-  READ: references/08-sales-techniques/power-positions.md
-  # Also load Tier 7 impact techniques for synergy
-  READ: references/07-impact-techniques/number-plays.md
-  READ: references/07-impact-techniques/power-words.md
-```
-
-**Integration with Impact Techniques:**
-
-- Number Plays: Apply primarily to DOES layer (quantify outcomes)
-- Power Words: Apply primarily to MEANS layer (emotional resonance)
-- Both techniques complement Power Positions enhancement
-
----
-
-### Tier 9: Arc-Aware Preservation (LOAD WHEN ARC DETECTED)
-
-**When to load:** When document has `arc_id` in YAML frontmatter, or arc preservation is requested, or H2 headings match a known arc pattern.
-
-**Files available:**
-
-1. **arc-preservation.md** - `09-preservation-modes/arc-preservation.md`
-   - Arc detection logic (frontmatter, pattern matching)
-   - Structure preservation rules (FORBIDDEN vs. ALLOWED modifications)
-   - Validation requirements (heading integrity, technique integrity)
-   - Integration patterns for cogni-narrative and cogni-research
-   - Load when: Any story arc narrative is being polished
-
-2. **arc-technique-map.md** - `09-preservation-modes/arc-technique-map.md`
-   - Per-arc, per-element technique strengthening rules
-   - Number Play variant selection by element (compound impact, ratio framing, etc.)
-   - Element-specific polish rules (what to strengthen, what to preserve)
-   - Cross-arc technique application table
-   - Technique validation checklist
-   - Load when: Arc-aware mode is active (always loaded alongside arc-preservation.md)
-
-**Supported arcs:** corporate-visions, technology-futures, competitive-intelligence, strategic-foresight, industry-transformation
-
-**Loading pattern:**
-
-```bash
-IF arc_id_detected OR arc_preservation_requested:
-  READ: references/09-preservation-modes/arc-preservation.md
-  READ: references/09-preservation-modes/arc-technique-map.md
-  # Also load core principles (still apply in arc mode)
-  READ: references/01-core-principles/clarity-principles.md
-  READ: references/01-core-principles/conciseness-principles.md
-  READ: references/01-core-principles/active-voice-principles.md
-  # Also load impact techniques (applied through arc-technique-map)
-  READ: references/07-impact-techniques/number-plays.md
-  READ: references/07-impact-techniques/power-words.md
-```
-
-**Key rule:** When arc mode is active, do NOT load messaging frameworks or deliverable types. The arc provides the structure. The copywriter strengthens techniques within each element, not restructures.
-
----
-
-## Architecture Principles
-
-1. **Progressive Disclosure:** Load only what's needed for the specific task
-2. **Modular Independence:** Each reference stands alone, no circular dependencies
-3. **Consistent Structure:** All references follow standard template (frontmatter, quick reference, detailed content, examples)
-4. **Extensibility:** New deliverables reference existing components, no duplication
-5. **Quality Standards:** All output targets Flesch 50-60, 3-5 sentences/paragraph, max 3 header levels
+1. Log a note that the reference was not found.
+2. Continue without it. The reference system is designed so that no single file is a hard dependency -- the deliverable and framework files together contain enough information to produce quality output.

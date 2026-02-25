@@ -10,245 +10,299 @@ formality: medium
 related:
   - bluf-framework
   - pyramid-framework
-version: 1.0
-last_updated: 2025-10-29
+version: 2.0
+last_updated: 2026-02-25
 ---
 
 # Inverted Pyramid Framework
 
 ## Quick Reference
 **Best for:** Web content, press releases, articles, blog posts
-**Structure:** Most important info → Supporting details → Background
+**Structure:** Most important information --> Supporting details --> Background
 **When to use:** Scannable documents, web content, journalism-style writing
 **Formality:** Medium
-**Key principle:** Front-load critical information, readers may stop at any point
+**Key principle:** Front-load critical information; readers may stop at any point and still walk away informed
 
-## Core Structure
+## Core Concept
 
-The Inverted Pyramid is a journalism framework that presents information in descending order of importance, allowing readers to get key facts immediately and stop reading at any point without missing essentials.
+The Inverted Pyramid places the single most important piece of information first and then adds layers of decreasing importance beneath it. Every paragraph must be less essential than the one before it, so an editor (or a distracted reader) can cut from the bottom without losing the story.
 
-### Three Layers
+Think of it as a **progressive disclosure contract**: the reader gets the complete headline-level story in sentence one, a richer version by paragraph two, and full context only if they keep going. The document is designed to be abandoned at any point.
 
-1. **Lead** (Most Important)
-   - Who, What, When, Where, Why, How (5 Ws + H)
-   - Most newsworthy or critical information
-   - Could stand alone as complete story
-
-2. **Body** (Supporting Details)
-   - Additional facts and context
-   - Quotes, statistics, evidence
-   - Elaboration on lead
-
-3. **Tail** (Background)
-   - Historical context
-   - Less critical details
-   - Related information
-
-### Visual Structure
 ```
-═════════════════════  ← Lead (Most Important)
- ══════════════════
-  ═════════════        ← Body (Supporting)
-   ══════════
-    ═══════           ← Tail (Background)
-     ════
+============================   LEAD: The complete story in miniature
+  ========================     BODY: Evidence, quotes, key details
+    ====================       BODY: Secondary facts, implications
+      ================         TAIL: Background, history, boilerplate
+        ============
 ```
 
-Readers can stop at any horizontal line and have complete story to that point.
+## The Three Layers
 
-## Application Pattern
+### Layer 1 -- Lead (Most Important)
 
-### Basic Template (Press Release)
+The lead paragraph must answer the 5 Ws + H: Who, What, When, Where, Why, How. A strong lead can stand entirely on its own as a complete story.
+
+**Decision test:** If the reader sees only this paragraph, do they understand the full story at headline level? If not, revise until they do.
+
+**Formula:**
+```
+[WHO] [DID WHAT] [WHEN], [RESULTING IN / BECAUSE OF WHAT]. [WHY IT MATTERS].
+```
+
+### Layer 2 -- Body (Supporting Details)
+
+The body adds evidence, stakeholder quotes, statistics, and elaboration that strengthen the lead. Organize body paragraphs in strict descending priority -- the most impactful supporting fact comes immediately after the lead, the next-most-impactful after that, and so on.
+
+**Priority ranking for body paragraphs (use this order):**
+1. Financial impact or key metrics
+2. Stakeholder quotes that add credibility
+3. Immediate consequences or next steps
+4. Supporting data and methodology
+5. Secondary stakeholder perspectives
+
+### Layer 3 -- Tail (Background)
+
+The tail holds historical context, related information, boilerplate company descriptions, and contact details. This is the section an editor would cut first and the section most readers never reach.
+
+## Step-by-Step Application
+
+When applying this framework, follow these steps in order:
+
+1. **Identify the single most newsworthy fact.** Ask: "If I could communicate only one sentence, what would it be?" That sentence is your lead.
+2. **Draft the lead using the 5 Ws + H formula.** Cover Who, What, When, Where (if relevant), Why, and How in one to two sentences.
+3. **List all remaining facts.** Write each on a separate line.
+4. **Rank those facts by importance.** Ask for each: "If the reader stopped here, would they miss something critical?" Facts that pass that test move higher.
+5. **Write body paragraphs in ranked order.** One key fact per paragraph, most important first.
+6. **Place background and boilerplate last.** Company descriptions, historical context, and contact information go in the tail.
+7. **Validate with the bottom-cut test.** Delete the last paragraph. Does the document still make sense? Repeat until you reach the lead. If any deletion breaks the story, you have a priority ordering problem -- move the critical fact higher.
+
+## Templates
+
+### Press Release Template
+
 ```markdown
-# [Compelling Headline with Key News]
+# [Headline: Lead fact as a complete statement with key number or outcome]
 
-## Lead Paragraph
-[Who] [did what] [when], [resulting in what outcome]. [Why it matters].
+[CITY, DATE] -- [Who] [did what] [when], [resulting in what outcome].
+[Why it matters in one sentence]. [How it was achieved in one sentence].
 
-## Body Paragraphs
-[Supporting details in descending order of importance]
-- Key fact 2
-- Key fact 3
-- Quote from stakeholder
+[Key supporting metric or quote from primary stakeholder. "Direct quote
+that adds credibility or emotional weight," said [Name], [Title] at
+[Organization].]
 
-## Background
-[Company/context information]
-[Historical details]
-[Contact information]
+[Secondary details: additional metrics, timeline, partner involvement,
+or scope of impact. Organized in descending importance.]
+
+## About [Organization]
+[Boilerplate: 2-3 sentences describing the organization, founding date,
+scale, and mission.]
+
+## Contact
+[Name, email, phone]
 ```
 
 ### Web Content Template
-```markdown
-# [SEO-Optimized Headline]
 
-**TL;DR**: [1-2 sentence summary]
+```markdown
+# [SEO-Optimized Headline Containing Primary Keyword]
+
+**TL;DR:** [1-2 sentence summary that could replace the entire article]
 
 ## Key Takeaway
-[Most important information readers need]
+[Most important information the reader needs, expanded to one paragraph]
 
-## Supporting Details
-[Elaboration in priority order]
+## [Subheading for Supporting Detail 1]
+[Evidence, data, or elaboration -- most important support first]
 
-## Additional Context
-[Background, methodology, related topics]
+## [Subheading for Supporting Detail 2]
+[Next most important support]
+
+## Background
+[Historical context, methodology, related topics]
+
+## Further Reading
+[Related resources, links]
 ```
 
-## Real-World Examples
+### Blog Post Template
+
+```markdown
+# [Engaging Headline with Concrete Benefit or Number]
+
+[Hook sentence that states the main point]. [1-2 sentences expanding
+on why this matters to the reader personally].
+
+## [Core Argument or Finding]
+[Most important supporting evidence with data]
+
+## [Secondary Evidence]
+[Next most important support, examples, quotes]
+
+## Context
+[Background, history, related developments]
+
+## What This Means for You
+[Conclusion, call to action, related posts]
+```
+
+## Before and After Examples
 
 ### Example 1: Press Release
 
-**Headline:** TechCorp Acquires DataSystems for $500M to Expand AI Capabilities
+**BEFORE (buried lead -- do not produce this):**
 
-**Lead:** TechCorp announced today the acquisition of DataSystems for $500 million, immediately adding 200 AI engineers and industry-leading machine learning platforms to accelerate product development by 40%.
+> Founded in 2015, TechCorp has grown to serve over 10,000 businesses globally with cloud infrastructure solutions. The company has been exploring strategic growth opportunities throughout 2025. After months of negotiations, TechCorp today announced it has reached an agreement to acquire DataSystems, a company specializing in enterprise AI solutions, for $500 million.
 
-**Body:** The acquisition, expected to close Q1 2026, brings DataSystems' proprietary neural network technology and customer base of 500 enterprise clients. TechCorp CEO Sarah Martinez stated, "This acquisition positions us as the AI infrastructure leader and accelerates our roadmap by 18 months."
+Problems: Three sentences of background before the news. The reader must wade through history to find the actual announcement. An editor cutting from the bottom would remove the only newsworthy sentence.
 
-**Background:** TechCorp, founded in 2015, provides cloud infrastructure to 10,000+ businesses globally. DataSystems, established in 2018, specializes in enterprise AI solutions with $50M annual revenue.
+**AFTER (proper inverted pyramid -- produce this):**
+
+> TechCorp announced today the acquisition of DataSystems for $500 million, immediately adding 200 AI engineers and industry-leading machine learning platforms to accelerate product development by 40%.
+>
+> The acquisition, expected to close Q1 2026, brings DataSystems' proprietary neural network technology and a customer base of 500 enterprise clients. "This acquisition positions us as the AI infrastructure leader and accelerates our roadmap by 18 months," said CEO Sarah Martinez.
+>
+> TechCorp, founded in 2015, provides cloud infrastructure to 10,000+ businesses globally. DataSystems, established in 2018, specializes in enterprise AI solutions with $50M annual revenue.
+
+Why this works: The lead sentence delivers the complete story (who, what, how much, why it matters). Paragraph two adds the strongest supporting evidence (timeline, technology, quote). Paragraph three holds background that could be cut without losing the story.
 
 ### Example 2: Web Article
 
-**Headline:** Code Review Process Cuts 75% Off Developer Wait Time
+**BEFORE (chronological -- do not produce this):**
 
-**Lead:** Engineering teams adopting automated code review systems reduced average review time from 72 hours to 18 hours (75% improvement) while maintaining code quality, according to analysis of 127 projects across 50 organizations.
+> For decades, code review delays have plagued software development teams. Studies have shown that developers spend 15-30% of their time waiting for reviews. In 2020, automated solutions began to emerge. Adoption accelerated dramatically through 2024-2025. Now, new analysis from 127 projects across 50 organizations shows that these systems cut wait times by 75%.
 
-**Body:** The study identified three key factors: automated routine checks (saving 12 hours), intelligent reviewer assignment (saving 24 hours), and enforced 24-hour SLAs (saving 18 hours). Teams reported improved morale and doubled release frequency.
+Problems: The actual finding is buried at the end. The reader must read five sentences of history before reaching the news. The chronological approach treats background and findings as equally important.
 
-Quality metrics remained stable at 1.2% defect rates. "The bottleneck wasn't review quality, it was review logistics," noted one engineering director.
+**AFTER (proper inverted pyramid -- produce this):**
 
-**Background:** Code review delays have plagued software teams for decades, with studies showing 15-30% of development time spent waiting for reviews. Automated solutions emerged in 2020 but adoption accelerated dramatically in 2024-2025.
+> Engineering teams adopting automated code review systems reduced average review time from 72 hours to 18 hours -- a 75% improvement -- while maintaining code quality, according to analysis of 127 projects across 50 organizations.
+>
+> The study identified three key factors: automated routine checks (saving 12 hours), intelligent reviewer assignment (saving 24 hours), and enforced 24-hour SLAs (saving 18 hours). Teams reported improved morale and doubled release frequency. Quality metrics remained stable at a 1.2% defect rate.
+>
+> "The bottleneck was not review quality -- it was review logistics," noted one engineering director.
+>
+> Code review delays have plagued software teams for decades, with studies showing 15-30% of development time spent waiting for reviews. Automated solutions emerged in 2020 but adoption accelerated in 2024-2025.
+
+Why this works: The lead delivers the finding with specifics (75%, 72h to 18h, 127 projects). Body paragraphs add the mechanism and a supporting quote. Background history sits at the bottom where it belongs.
+
+### Example 3: Blog Post
+
+**BEFORE (throat-clearing -- do not produce this):**
+
+> Remote work has transformed the modern workplace. Many companies have been experimenting with different approaches. We surveyed 500 companies to understand what is working. Here is what we found: fully remote companies report 23% lower turnover than hybrid companies.
+
+Problems: Three generic sentences before the finding. "Here is what we found" is a classic throat-clearing phrase that delays the point.
+
+**AFTER (proper inverted pyramid -- produce this):**
+
+> Fully remote companies report 23% lower employee turnover than hybrid companies, according to our survey of 500 organizations across 12 industries.
+>
+> The gap widens for technical roles: remote-first engineering teams see 31% lower attrition, saving an estimated $45,000 per retained employee in hiring and onboarding costs.
+>
+> Three factors drive the difference: schedule flexibility (cited by 78% of remote employees), elimination of commute time (71%), and improved focus time (64%).
+
+Why this works: The finding appears in the first sentence with specifics. Each subsequent paragraph adds a more granular layer of evidence. No throat-clearing, no preamble.
 
 ## Deliverable-Specific Guidance
 
-### For Press Releases
-- Lead: Who, what, when in first sentence
-- Body: Quotes, data, significance
-- Tail: Boilerplate company info, contact
-- Format: Standard press release structure
+### Press Releases
+- Lead: Who, what, when, outcome in the first sentence
+- Body: Stakeholder quote, key metrics, significance
+- Tail: Boilerplate company description, contact information
+- Keep paragraphs to 2-3 sentences maximum
 
-### For Web Content
-- Lead: TL;DR or key takeaway box
-- Body: H2/H3 subheadings for scannability
-- Tail: "Learn More" or related resources
-- Format: Short paragraphs (3-5 sentences)
+### Web Content
+- Lead: TL;DR box or key takeaway callout at the top
+- Body: H2/H3 subheadings every 2-3 paragraphs for scannability
+- Tail: "Learn More" section or related resource links
+- Paragraphs: 3-5 sentences, shorter than print
+- Add bullet lists for any sequence of three or more related facts
 
-### For Blog Posts
-- Lead: Hook + main point in first 2 paragraphs
-- Body: Supporting arguments with examples
-- Tail: Conclusion, CTA, related posts
-- Format: Conversational tone, visuals
+### Blog Posts
+- Lead: Hook plus main point in the first 1-2 paragraphs
+- Body: Supporting arguments with concrete examples
+- Tail: Conclusion, call to action, related posts
+- Tone: More conversational than press releases, but still front-loaded
 
-### For News Articles
-- Lead: Hard news in first paragraph
-- Body: Descending importance with quotes
-- Tail: Background, context, related events
-- Format: AP style journalism
+### News Articles
+- Lead: Hard news in the first paragraph, AP style
+- Body: Descending importance with attributed quotes
+- Tail: Background, historical context, related events
+- Attribution: Every claim tied to a named source or cited study
 
-## Integration with Writing Principles
-
-**Clarity:** Lead must be immediately understandable
-**Conciseness:** Every paragraph could be the last
-**Front-loading:** Most important first, always
-**Scannability:** Structure supports skim reading
-
-## Common Mistakes
+## Common Mistakes and How to Fix Them
 
 ### Mistake 1: Burying the Lead
-❌ **Bad:** 3 paragraphs of background before revealing key news
-✅ **Good:** Key news in first sentence
 
-### Mistake 2: Equal Weight Throughout
-❌ **Bad:** All information presented as equally important
-✅ **Good:** Clear priority gradient from lead to tail
+The most frequent error. Background, history, or preamble appears before the actual news.
 
-### Mistake 3: Missing 5 Ws in Lead
-❌ **Bad:** Vague opening missing key facts
-✅ **Good:** Who, what, when, where, why in first paragraph
+**Detection:** Read only your first sentence. Does it contain the most newsworthy fact? If not, find that fact elsewhere in your draft and move it to sentence one.
 
-### Mistake 4: Chronological Organization
-❌ **Bad:** Starting from beginning of story timeline
-✅ **Good:** Starting from most newsworthy moment
+**Bad:** "After three years of development and extensive beta testing with 50 partner organizations, we are excited to announce the launch of ProductX."
+**Good:** "ProductX launched today, giving 50,000 developers automated code analysis that reduces bugs by 40%."
 
-## Lead Paragraph Formula
+### Mistake 2: Chronological Organization
 
-Effective leads answer 5 Ws + H:
+Writing events in the order they happened instead of the order of importance.
 
-- **Who:** [Actor/company]
-- **What:** [Action/announcement]
-- **When:** [Timing]
-- **Where:** [Location if relevant]
-- **Why:** [Significance]
-- **How:** [Method if relevant]
+**Detection:** Check whether your opening paragraph describes the earliest event rather than the most important event. If so, reorganize.
 
-**Example:** "TechCorp [WHO] acquired DataSystems for $500M [WHAT] today [WHEN] to expand AI capabilities [WHY], adding 200 engineers [HOW]."
+**Bad:** "In 2020, we identified the problem. In 2022, we began research. In 2024, we piloted solutions. Today, we have results."
+**Good:** "Pilot results show a 60% reduction in processing errors. The solution, developed over four years of research, launches company-wide next month."
 
-**Rule:** Can a reader understand the complete story from the lead alone? If no, revise.
+### Mistake 3: Equal Weight Throughout
 
-## Paragraph Priority Guidelines
+Every paragraph feels equally important, with no clear priority gradient.
 
-Organize body paragraphs by importance, not chronology:
+**Detection:** Apply the bottom-cut test. Delete your last paragraph. If the document feels incomplete, that paragraph contains information that should have appeared earlier.
 
-**High Priority (Paragraphs 2-3):**
+### Mistake 4: Missing 5 Ws in the Lead
 
-- Financial impact
-- Key statistics
-- Stakeholder quotes
-- Immediate consequences
+The opening paragraph is vague or omits critical facts.
 
-**Medium Priority (Paragraphs 4-6):**
+**Detection:** Check your lead against this list -- Who? What? When? Where (if relevant)? Why? How? If more than one W is missing, revise.
 
-- Supporting details
-- Additional context
-- Secondary stakeholders
-- Methodology
+**Bad:** "A major partnership was announced that will impact the industry."
+**Good:** "Acme Corp partnered with GlobalTech today to co-develop autonomous logistics systems, targeting a $2B market by 2027."
 
-**Low Priority (Final paragraphs):**
+## When NOT to Use Inverted Pyramid
 
-- Historical background
-- Related events
-- Boilerplate information
-- Contact details
+- **Persuasion of skeptical audiences:** When you need to build a case before revealing your conclusion, use SCQA or Pyramid instead
+- **Delivering sensitive news diplomatically:** When context must soften the message before the main point
+- **Technical tutorials or learning content:** When readers need scaffolded understanding and cannot skip ahead
+- **Narrative storytelling:** When chronological or dramatic structure is the point (case studies, origin stories)
 
-## Inverted Pyramid Checklist
-
-Before publishing:
-
-- ☐ Lead answers 5 Ws + H
-- ☐ Most important information in first paragraph
-- ☐ Each paragraph less critical than previous
-- ☐ Could cut from bottom without losing key facts
-- ☐ No critical information buried deep
-- ☐ Short paragraphs (3-5 sentences)
-- ☐ Scannable structure with subheadings
-- ☐ Could reader stop at any point and understand story?
+**Rule of thumb:** Use Inverted Pyramid when readers value speed over narrative. Use SCQA when building urgency matters. Use BLUF when a single action is required.
 
 ## Inverted Pyramid vs. BLUF
 
-| Framework | Origin | Best For |
-|-----------|--------|----------|
-| Inverted Pyramid | Journalism | Public-facing content, press releases, articles |
-| BLUF | Military | Internal communication, action requests, executives |
+| Dimension | Inverted Pyramid | BLUF |
+|-----------|-----------------|------|
+| Origin | Journalism | Military |
+| Best for | Public-facing content, articles, press releases | Internal memos, action requests, executive emails |
+| Structure | Gradual importance decline across many paragraphs | Sharp first-line emphasis, then supporting context |
+| Tone | Neutral, informational | Direct, action-oriented |
+| Typical length | 300-1000+ words | 50-300 words |
 
-**Similarity:** Both front-load critical information
-**Difference:** Inverted Pyramid has gradual importance decline; BLUF has sharp first-line emphasis
+**Similarity:** Both front-load critical information.
+**Key difference:** Inverted Pyramid has a smooth gradient of declining importance. BLUF has a hard break between the bottom line and everything else.
 
-**When to choose:**
+## Validation Checklist
 
-- **Inverted Pyramid:** External/public content, journalism-style, varied audiences
-- **BLUF:** Internal docs, military/government, action-oriented communication
+Before finalizing any Inverted Pyramid document, verify each item:
 
-## Web Writing Adaptations
-
-For web content, enhance Inverted Pyramid with:
-
-- **TL;DR box** at top (ultra-compressed lead)
-- **Subheadings every 2-3 paragraphs** (scannability)
-- **Bullet lists** for key points (visual breaks)
-- **Pull quotes** highlighting key statements
-- **Related links** in sidebar (context without bulk)
-- **Jump links** to sections (skip to relevant parts)
+- Lead answers at least 4 of the 5 Ws + H
+- Most important information appears in the first paragraph
+- Each paragraph is less critical than the one before it
+- Cutting from the bottom preserves the core story at every cut point
+- No critical information is buried below paragraph three
+- Paragraphs are short (2-4 sentences for web, 3-5 for print)
+- Subheadings appear every 2-3 paragraphs (for web content)
+- A reader who stops after the lead still understands the story
 
 ## See Also
-- `bluf-framework.md` (Similar answer-first approach)
-- `pyramid-framework.md` (McKinsey cousin with MECE structure)
+- `bluf-framework.md` (Similar answer-first approach, optimized for action requests)
+- `pyramid-framework.md` (McKinsey-style top-down with MECE structure)
 - `../01-core-principles/readability-principles.md` (Scannability requirements)
 - `../03-formatting-standards/visual-elements.md` (Web formatting best practices)

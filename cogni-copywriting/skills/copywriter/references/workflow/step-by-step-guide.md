@@ -2,1136 +2,615 @@
 title: Step-by-Step Workflow Guide
 type: process-documentation
 category: workflow
-version: 5.0
-updated: 2025-12-02
+version: 6.0
+updated: 2026-02-25
 ---
 
 # Copywriter Skill: Step-by-Step Workflow Guide
 
-## Overview
+<context>
+This is the detailed execution guide for the copywriter skill's 8-step workflow. It supplements SKILL.md by providing sub-step procedures, decision logic, and validation criteria for each phase. SKILL.md is the authoritative source for the workflow definition. This guide is the authoritative source for how to execute each step.
+</context>
 
-This guide provides a sequential workflow for creating professional business documents using the copywriter skill. Follow each step in order, using TodoWrite to track progress through the 7-phase process.
+<critical_rules>
+- Initialize TodoWrite at the start with all 8 workflow steps. Mark each step as you complete it.
+- Load references progressively: only load what the current step requires.
+- SKILL.md defines two critical preservation constraints that override all other guidance:
+  1. German characters (ae, oe, ue, ss) must NEVER replace (a-umlaut, o-umlaut, u-umlaut, eszett).
+  2. Citations must NEVER be removed, reformatted, relocated, or reduced in count.
+- When a step fails, log the failure reason and continue to the next step. Never block document delivery.
+</critical_rules>
 
-**Workflow Phases:**
+## Workflow Overview
 
-1. Parse Parameters & Load References
-2. Gather Content Requirements
-3. Apply Deliverable Structure
-4. Apply Writing Principles
-5. Optimize Formatting & Visual Hierarchy
-6. Validate Quality Standards
-7. Write Document & Report
-
-**Key Principles:**
-
-- Use TodoWrite for all multi-step tasks (≥3 steps)
-- Complete todos sequentially, marking each done before proceeding
-- Load references progressively (only when needed)
-- Validate at each step before advancing
+```text
+Step 1: Parse Parameters & Load References
+Step 2: Gather Content Requirements
+Step 3: Apply Structure & Framework
+Step 4: Apply Writing Principles
+Step 5: Apply Impact Techniques (optional)
+Step 6: Stakeholder Review (optional)
+Step 7: Synthesis & Refinement (optional)
+Step 8: Validate & Write Document
+```
 
 ---
 
 ## Step 1: Parse Parameters & Load References
 
-### Step 1.1: Initialize TodoWrite
+### 1A: Extract Parameters from User Request
 
-**ALWAYS start with TodoWrite initialization for multi-step workflows.**
+Parse the user's request to extract these parameters. Think through what the user is asking for before proceeding.
 
-Create 7 main workflow todos:
+**Required parameters:**
+
+| Parameter | Values | Extraction Guidance |
+|-----------|--------|-------------------|
+| `deliverable_type` | memo, email, brief, report, proposal, one-pager, executive-summary, business-letter, blog | Infer from request context if not explicit. "Can you write me an email..." = email. |
+| `topic` | Free text | The subject matter of the document. |
+| `audience` | Free text | Who will read this. Default to "general business audience" if unstated. |
+
+**Optional parameters:**
+
+| Parameter | Values | Default |
+|-----------|--------|---------|
+| `framework` | bluf, pyramid, scqa, star, psb, fab, inverted-pyramid | Use deliverable's recommended framework (see Quick Reference in SKILL.md) |
+| `impact_level` | standard, high | standard (set to high for executive/C-suite audiences) |
+| `MODE` | standard, sales | standard |
+| `output_path` | File path | Current working directory |
+| `tone` | formal, semi-formal, casual | semi-formal |
+| `length` | Word count or page count | Use deliverable default |
+| `review_mode` | reader, automated, skip | automated |
+| `skip_review` | true, false | false |
+| `stakeholders` | List of perspective names | Use audience-based defaults from SKILL.md |
+
+### 1B: Detect Mode -- Arc-Aware vs. Standard
+
+Before loading any framework, check whether the input document is an arc narrative.
+
+**Arc detection criteria (if ANY are true, activate arc mode):**
+
+1. Input document has YAML frontmatter containing `arc_id`
+2. Task prompt explicitly mentions arc preservation
+3. Document H2 headings match a known arc pattern (e.g., "Why Change", "Why Now", "Why Pay", "Why Us")
+
+**If arc mode activates:**
 
 ```text
-TodoWrite:
-1. Parse parameters and load core references [in_progress]
-2. Gather content requirements from user [pending]
-3. Apply deliverable structure and framework [pending]
-4. Apply writing principles and style [pending]
-5. Optimize formatting and visual hierarchy [pending]
-6. Validate quality standards [pending]
-7. Write document and present summary [pending]
+READ: references/09-preservation-modes/arc-preservation.md
+READ: references/09-preservation-modes/arc-technique-map.md
 ```
 
-**Mark Step 1.1 todo as completed** before proceeding to Step 1.2.
+Set `arc_mode: true` and `arc_id: {detected_arc_id}`. Do NOT load a messaging framework or deliverable type -- the arc IS the structure.
 
----
+**If arc mode does NOT activate (standard mode):**
 
-### Step 1.2: Extract Task Parameters
+Proceed to 1C.
 
-Parse user input to identify:
+### 1C: Load References (Standard Mode)
 
-**Required Parameters:**
+Load exactly these three references and no more:
 
-- **Deliverable Type:** memo, email, brief, report, proposal, one-pager, executive-summary, business-letter
-- **Topic/Purpose:** What the document is about
-- **Audience:** Who will read this document
+```text
+READ: references/04-deliverable-types/{deliverable_type}.md
+READ: references/02-messaging-frameworks/{framework}-framework.md
+READ: references/01-core-principles/clarity-principles.md
+```
 
-**Optional Parameters:**
+If framework was not specified, use the deliverable's recommended framework from the Quick Reference table in SKILL.md.
 
-- **Framework:** BLUF, Pyramid, SCQA, STAR, PSB, FAB, Inverted Pyramid (defaults to BLUF)
-- **Output File:** Where to write the document (if specified)
-- **Length:** Approximate word count or page count
-- **Tone:** Formal, semi-formal, casual (defaults to semi-formal)
+**Conditional additional loads:**
 
-**Mark Step 1.2 todo as completed** before proceeding to Step 1.3.
+- If `impact_level: high` OR audience is executive/C-suite:
+  ```text
+  READ: references/07-impact-techniques/executive-impact.md
+  ```
+- If `MODE: sales`:
+  ```text
+  READ: references/08-sales-techniques/power-positions.md
+  READ: references/07-impact-techniques/number-plays.md
+  READ: references/07-impact-techniques/power-words.md
+  ```
 
----
+### Step 1 Gate
 
-### Step 1.3: Load Core References
-
-**Progressive Disclosure Principle:** Only load references you need NOW.
-
-**Load immediately (required for all tasks):**
-
-1. **Deliverable-specific guide:** `references/01-deliverable-types/{deliverable-type}.md`
-2. **Selected framework guide:** `references/02-messaging-frameworks/{framework}.md`
-3. **Formatting standards:** `references/03-formatting-standards/markdown-standards.md`
-
-**Examples:**
-
-- Creating a memo with BLUF → Load `memo.md` + `bluf-framework.md` + `markdown-standards.md`
-- Creating a proposal with PSB → Load `proposal.md` + `psb-framework.md` + `markdown-standards.md`
-
-**Do NOT load yet:**
-
-- Advanced examples (load only if user requests specific patterns)
-- Framework alternatives (already loaded selected framework)
-
-**Mark Step 1.3 todo as completed** before proceeding to Step 1.4.
-
----
-
-### Step 1.4: Before Confirming Step 1 Complete
-
-**Self-Verification Questions:**
-
-1. Did you initialize Step 1 TodoWrite? ✅ YES / ❌ NO
-2. Did you extract all required parameters? ✅ YES / ❌ NO
-3. Did you load only essential references? ✅ YES / ❌ NO
-4. Did you mark all Step 1 sub-todos as completed? ✅ YES / ❌ NO
-
-⛔ **IF ANY NO: STOP.** Return to incomplete step.
-
-**Mark Step 1 (main workflow) todo as completed.**
+Before proceeding, verify:
+- All required parameters have values (extracted or defaulted)
+- Mode determination is complete (arc_mode true or false)
+- Correct references are loaded (and only those references)
 
 ---
 
 ## Step 2: Gather Content Requirements
 
-### Step 2.1: Initialize Step 2 Sub-Todos
+### 2A: Ask Clarifying Questions
 
-Create Step 2 sub-tasks in TodoWrite:
+Present questions to the user to fill information gaps. Select questions based on deliverable type and framework. Do not ask questions whose answers are already evident from the user's request.
 
-```text
-Step 2 Sub-Todos:
-2.1 Ask clarifying questions about content [in_progress]
-2.2 Gather key messages and supporting points [pending]
-2.3 Identify visual element needs (tables, lists) [pending]
-```
+**Core questions (ask for all deliverables unless already answered):**
 
-**Mark Step 2.1 todo as completed** before proceeding to Step 2.2.
-
----
-
-### Step 2.2: Ask Clarifying Questions
-
-Based on deliverable type and framework, ask targeted questions:
-
-**Universal Questions (all deliverables):**
-
-- What is the primary goal/purpose of this document?
-- Who is the intended audience? (role, seniority, technical level)
+- What is the primary purpose of this document?
 - What action should readers take after reading?
-- What are 2-3 key messages/takeaways?
+- What are the 2-3 key messages or takeaways?
 
-**Framework-Specific Questions:**
+**Framework-specific questions (ask only for the selected framework):**
 
-**BLUF Framework:**
+| Framework | Key Questions |
+|-----------|--------------|
+| BLUF | What is the bottom line recommendation? What are the top 3 supporting facts? |
+| Pyramid | What is the main argument? What MECE groups support it? |
+| SCQA | What is the current Situation? What Complication has arisen? What is the Answer? |
+| STAR | What was the Situation? What Task was needed? What Action was taken? What Result occurred? |
+| PSB | What is the Problem? What is the proposed Solution? What are the Benefits? |
+| FAB | What are the key Features? What Advantages do they provide? What Benefits result? |
+| Inverted Pyramid | What is the most critical information? What details support it? |
 
-- What is the bottom line recommendation/finding?
-- What are the top 3 supporting facts?
+**Deliverable-specific questions (ask only for the selected deliverable):**
 
-**Pyramid Framework:**
+| Deliverable | Additional Questions |
+|-------------|---------------------|
+| memo | Are there action items or decisions needed? Is there a deadline? |
+| email | What is the specific call-to-action? Is this first contact or follow-up? |
+| proposal | What is the problem/opportunity? What are costs and expected ROI? |
+| report | What are key findings? What methodology was used? |
+| one-pager | What are the 3-5 most important points? |
+| blog | What is the hook? What keywords matter for SEO? |
 
-- What is the main argument/claim?
-- What MECE groups support this claim?
-- What evidence supports each group?
+**For high-impact documents, also ask:**
 
-**SCQA Framework:**
+- What quantifiable data supports the message? (needed for number plays)
+- What timeline or scarcity factor exists? (needed for urgency/power words)
 
-- What is the current Situation?
-- What Complication has arisen?
-- What Question does this raise?
-- What is the Answer/recommendation?
+### 2B: Identify Visual Element Needs
 
-**STAR Framework:**
+Based on the content gathered, determine what visual elements the document needs:
 
-- What was the Situation/context?
-- What was the Task/challenge?
-- What Action was taken?
-- What was the Result/outcome?
+- **Tables**: Use when comparing options, showing multi-attribute data, or presenting structured metrics
+- **Numbered lists**: Use for sequential steps, ranked priorities, or process flows
+- **Bullet lists**: Use for unordered items, features, benefits, or key points
+- **Bold/callout elements**: Use for critical facts, deadlines, or key metrics
 
-**PSB Framework:**
+### Step 2 Gate
 
-- What is the Problem?
-- What is the proposed Solution?
-- What are the Benefits?
-
-**FAB Framework:**
-
-- What are the key Features?
-- What Advantages do these provide?
-- What Benefits do users/stakeholders receive?
-
-**Inverted Pyramid Framework:**
-
-- What is the most critical information (lead)?
-- What important details support this?
-- What background/context rounds out the story?
-
-**Deliverable-Specific Questions:**
-
-**Memo:**
-
-- Are there action items or decisions needed?
-- Is there a deadline or urgency?
-
-**Email:**
-
-- What is the specific call-to-action?
-- Is this a first contact or follow-up?
-
-**Proposal:**
-
-- What is the problem/opportunity?
-- What is the proposed solution/approach?
-- What are the costs and expected ROI?
-- What are the next steps?
-
-**Report:**
-
-- What are the key findings/insights?
-- What methodology was used?
-- What recommendations follow from findings?
-
-**One-Pager:**
-
-- What are the 3-5 most important points?
-- What visual elements will support scannability?
-
-**Mark Step 2.2 todo as completed** before proceeding to Step 2.3.
+Before proceeding, verify:
+- All required content information has been gathered (or reasonable defaults applied)
+- The user has confirmed key messages and purpose
+- Visual element needs are identified
 
 ---
 
-### Step 2.3: Identify Visual Element Needs
+## Step 3: Apply Structure & Framework
 
-Based on content type and complexity, determine:
+**If `arc_mode: true`:** SKIP this step entirely. The arc provides all structure. Proceed directly to Step 4.
 
-**Tables:**
+### 3A: Apply Deliverable Structure
 
-- Comparative data (features, costs, options)
-- Multi-attribute information
-- Structured lists with 3+ columns
+Use the structural template from the loaded deliverable reference file. The deliverable reference contains the canonical section structure, required components, and length constraints.
 
-**Lists:**
+Do NOT duplicate deliverable structures from memory. The loaded reference file is the authoritative source.
 
-- Sequential steps or processes
-- Feature/benefit enumerations
-- Key findings or recommendations
+### 3B: Integrate Framework Pattern
 
-**Mark Step 2.3 todo as completed** before proceeding to Step 2.4.
+Layer the selected messaging framework onto the deliverable structure. The framework determines the logical flow of content within each section.
 
----
+| Framework | Integration Pattern |
+|-----------|-------------------|
+| BLUF | First sentence/paragraph = bottom line. Remaining content = supporting facts ordered by importance. Final section = next steps. |
+| Pyramid | Opening = main argument. Body sections = MECE groupings. Each group = evidence underneath. Close = summary + CTA. |
+| SCQA | Open with Situation (context). Introduce Complication (problem). Pose Question (implicit or explicit). Provide Answer (recommendation). |
+| STAR | Background = Situation. Challenge = Task. Execution = Action. Impact = Result. |
+| PSB | First section = Problem definition. Middle = Solution proposal. Close = Benefits and value. |
+| FAB | Lead with Features. Explain Advantages. Conclude with Benefits to reader. |
+| Inverted Pyramid | Lead = most critical information. Middle = important supporting details. End = background/context. |
 
-### Step 2.4: Before Confirming Step 2 Complete
+### 3C: Map Content to Structure
 
-**Self-Verification Questions:**
+Place the gathered content (from Step 2) into the structural framework. For each section:
 
-1. Did you initialize Step 2 TodoWrite? ✅ YES / ❌ NO
-2. Did you ask appropriate clarifying questions? ✅ YES / ❌ NO
-3. Did you identify visual element needs? ✅ YES / ❌ NO
-4. Did you mark all Step 2 sub-todos as completed? ✅ YES / ❌ NO
+1. Identify which content points belong in this section
+2. Arrange them according to the framework's logic
+3. Flag any sections that lack sufficient content (may need to ask user for more)
 
-⛔ **IF ANY NO: STOP.** Return to incomplete step.
+### Step 3 Gate
 
-**Mark Step 2 (main workflow) todo as completed.**
-
----
-
-## Step 3: Apply Deliverable Structure
-
-### Step 3.1: Initialize Step 3 Sub-Todos
-
-Create Step 3 sub-tasks in TodoWrite:
-
-```text
-Step 3 Sub-Todos:
-3.1 Apply deliverable-specific structure [in_progress]
-3.2 Apply framework messaging pattern [pending]
-3.3 Map content to structure [pending]
-```
-
-**Mark Step 3.1 todo as completed** before proceeding to Step 3.2.
-
----
-
-### Step 3.2: Apply Deliverable Structure
-
-Use structure from loaded deliverable guide:
-
-**Memo Structure:**
-
-```text
-TO: [Recipient]
-FROM: [Sender]
-DATE: [Date]
-SUBJECT: [Descriptive subject line]
-
-[Opening paragraph: Purpose/bottom line]
-[Body paragraphs: Supporting details]
-[Closing paragraph: Next steps/action items]
-```
-
-**Email Structure:**
-
-```text
-Subject: [Specific, action-oriented subject]
-
-[Greeting]
-[Opening (1-2 sentences): Purpose/context]
-[Body (2-3 paragraphs): Details]
-[Closing: Call-to-action]
-[Sign-off]
-```
-
-**Brief Structure:**
-
-```markdown
-# [Title]
-
-## Executive Summary
-
-[2-3 sentences: Bottom line + key recommendation]
-
-## [Section 1: Background/Context]
-
-## [Section 2: Analysis/Findings]
-
-## [Section 3: Recommendations]
-
-## Next Steps
-
-[Bulleted action items]
-```
-
-**Proposal Structure:**
-
-```markdown
-# [Title]
-
-## Executive Summary
-
-## Problem Statement
-
-## Proposed Solution
-
-## Implementation Approach
-
-## Budget & Timeline
-
-## Expected Outcomes/ROI
-
-## Next Steps
-```
-
-**Report Structure:**
-
-```markdown
-# [Title]
-
-## Executive Summary
-
-## Introduction/Background
-
-## Methodology
-
-## Findings
-
-## Analysis
-
-## Recommendations
-
-## Conclusion
-
-## Appendices (if needed)
-```
-
-**One-Pager Structure:**
-
-```markdown
-# [Bold Title]
-
-[Tagline/hook - 1 sentence]
-
-## The Challenge
-
-[2-3 sentences]
-
-## Our Approach
-
-[3-5 bullet points]
-
-## Key Benefits
-
-[3-5 bullet points]
-
-## Results/Impact
-
-[Quantitative metrics, 2-3 data points]
-
-## Next Steps
-
-[1-2 sentences with CTA]
-```
-
-**Executive Summary Structure:**
-
-```markdown
-# Executive Summary: [Document Title]
-
-[Bottom line - 1-2 sentences]
-
-## Key Findings
-
-- [Finding 1]
-- [Finding 2]
-- [Finding 3]
-
-## Recommendations
-
-- [Recommendation 1]
-- [Recommendation 2]
-- [Recommendation 3]
-
-## Conclusion
-
-[1-2 sentences: Urgency/importance]
-```
-
-**Business Letter Structure:**
-
-```text
-[Sender's Address]
-[Date]
-
-[Recipient's Name]
-[Recipient's Title]
-[Company]
-[Address]
-
-Dear [Recipient Name],
-
-[Opening paragraph: Purpose]
-[Body paragraph(s): Details]
-[Closing paragraph: Call-to-action/next steps]
-
-Sincerely,
-
-[Sender's Name]
-[Sender's Title]
-```
-
-**Mark Step 3.2 todo as completed** before proceeding to Step 3.3.
-
----
-
-### Step 3.3: Apply Framework Pattern
-
-Integrate framework messaging into structure:
-
-**BLUF Integration:**
-
-- Lead with bottom line in first sentence/paragraph
-- Follow with supporting facts in order of importance
-- End with implications/next steps
-
-**Pyramid Integration:**
-
-- State main argument/claim upfront
-- Group supporting points into MECE categories
-- Present evidence under each grouping
-- Conclude with summary and call-to-action
-
-**SCQA Integration:**
-
-- Open with Situation (context)
-- Introduce Complication (problem/challenge)
-- Pose Question (what needs to be answered)
-- Provide Answer (recommendation/solution)
-
-**STAR Integration:**
-
-- Begin with Situation (background)
-- Define Task (what was needed)
-- Describe Action (what was done)
-- Present Result (outcome/impact)
-
-**PSB Integration:**
-
-- Define Problem (what's wrong/missing)
-- Present Solution (proposed approach)
-- Highlight Benefits (value/impact)
-
-**FAB Integration:**
-
-- List Features (what it is/does)
-- Explain Advantages (why it's better)
-- Demonstrate Benefits (value to user/org)
-
-**Inverted Pyramid Integration:**
-
-- Lead with most critical information
-- Follow with important supporting details
-- End with background/context
-
-**Mark Step 3.3 todo as completed** before proceeding to Step 3.4.
-
----
-
-### Step 3.4: Before Confirming Step 3 Complete
-
-**Self-Verification Questions:**
-
-1. Did you initialize Step 3 TodoWrite? ✅ YES / ❌ NO
-2. Did you apply correct deliverable structure? ✅ YES / ❌ NO
-3. Did you integrate framework pattern? ✅ YES / ❌ NO
-4. Did you mark all Step 3 sub-todos as completed? ✅ YES / ❌ NO
-
-⛔ **IF ANY NO: STOP.** Return to incomplete step.
-
-**Mark Step 3 (main workflow) todo as completed.**
+Before proceeding, verify:
+- Document has a complete structural outline
+- Framework pattern is correctly integrated
+- All gathered content is mapped to sections
 
 ---
 
 ## Step 4: Apply Writing Principles
 
-### Step 4.1: Initialize Step 4 Sub-Todos
+### 4A: Detect Document Language
 
-Create Step 4 sub-tasks in TodoWrite:
+Determine the language from content, user request, or `--lang` parameter.
 
-```text
-Step 4 Sub-Todos:
-4.1 Apply clarity principles (simple language, concrete examples) [in_progress]
-4.2 Apply conciseness principles (eliminate filler, tighten prose) [pending]
-4.3 Apply active voice and strong verbs [pending]
-4.4 Apply plain language standards [pending]
-```
-
-**Mark Step 4.1 todo as completed** before proceeding to Step 4.2.
-
----
-
-### Step 4.2: Clarity Principles
-
-**Target Metrics:**
-
-- Average sentence length: 15-20 words
-- Flesch Reading Ease: 50-60 (college level)
-- Paragraph length: 3-5 sentences
-
-**Techniques:**
-
-- Use concrete examples instead of abstractions
-- Choose simple words over complex synonyms
-- Break long sentences into shorter ones
-- One idea per sentence
-
-**Before:**
-
-> The implementation of the aforementioned strategic initiative will necessitate the allocation of substantial organizational resources across multiple functional domains, thereby enabling the realization of synergistic operational efficiencies.
-
-**After:**
-
-> Rolling out this strategy will require significant resources from several departments. The coordinated effort will improve operational efficiency.
-
-**Mark Step 4.2 todo as completed** before proceeding to Step 4.3.
-
----
-
-### Step 4.3: Conciseness Principles
-
-**Target:**
-
-- 3-5 sentences per paragraph
-- No filler phrases
-- Strong verbs (not verb + noun combinations)
-
-**Eliminate Filler Phrases:**
-
-- ❌ "In order to" → ✅ "To"
-- ❌ "Due to the fact that" → ✅ "Because"
-- ❌ "At this point in time" → ✅ "Now"
-- ❌ "With regard to" → ✅ "About"
-- ❌ "In the event that" → ✅ "If"
-
-**Use Strong Verbs:**
-
-- ❌ "Make a decision" → ✅ "Decide"
-- ❌ "Provide assistance" → ✅ "Help"
-- ❌ "Conduct an analysis" → ✅ "Analyze"
-- ❌ "Give consideration to" → ✅ "Consider"
-
-**Before:**
-
-> In order to make a decision about the best course of action, we will need to conduct an analysis of the available options with regard to their respective costs and benefits.
-
-**After:**
-
-> To decide the best approach, we must analyze each option's costs and benefits.
-
-**Mark Step 4.3 todo as completed** before proceeding to Step 4.4.
-
----
-
-### Step 4.4: Active Voice & Plain Language
-
-**Active Voice Target:** 80%+ of sentences
-
-**Active vs Passive:**
-
-- ✅ Active: "The team completed the project." (subject acts)
-- ❌ Passive: "The project was completed by the team." (subject receives action)
-
-**Plain Language Standards:**
-
-- Use common words instead of jargon
-- Define technical terms on first use
-- Avoid bureaucratic language
-- Write as you would speak to an intelligent colleague
-
-**Before (Passive + Jargon):**
-
-> It has been determined by the executive committee that the utilization of the new CRM platform should be prioritized in order to facilitate enhanced customer engagement metrics.
-
-**After (Active + Plain):**
-
-> The executive committee decided to prioritize the new CRM platform. This will improve customer engagement.
-
-**Mark Step 4.4 todo as completed** before proceeding to Step 4.5.
-
----
-
-### Step 4.5: Before Confirming Step 4 Complete
-
-**Self-Verification Questions:**
-
-1. Did you initialize Step 4 TodoWrite? ✅ YES / ❌ NO
-2. Did you apply clarity principles? ✅ YES / ❌ NO
-3. Did you apply conciseness principles? ✅ YES / ❌ NO
-4. Did you use active voice and plain language? ✅ YES / ❌ NO
-5. Did you mark all Step 4 sub-todos as completed? ✅ YES / ❌ NO
-
-⛔ **IF ANY NO: STOP.** Return to incomplete step.
-
-**Mark Step 4 (main workflow) todo as completed.**
-
----
-
-## Step 5: Optimize Formatting & Visual Hierarchy
-
-### Step 5.1: Initialize Step 5 Sub-Todos
-
-Create Step 5 sub-tasks in TodoWrite:
+**If German detected:**
 
 ```text
-Step 5 Sub-Todos:
-5.1 Apply heading hierarchy and white space [in_progress]
-5.2 Format lists and tables [pending]
-5.3 Add emphasis (bold, italics) strategically [pending]
-5.4 Ensure scannability (descriptive headers, bullets) [pending]
+READ: references/01-core-principles/german-style-principles.md
 ```
 
-**Mark Step 5.1 todo as completed** before proceeding to Step 5.2.
+Apply Wolf Schneider rules:
+- Max 12 words per clause (stricter than English)
+- Max 6 words / 12 syllables before the verb (Vorfeld)
+- Break open sentence brackets (Satzklammer) -- prefer single-part verbs
+- Keep subject and verb within 3 words of each other
+- Chain main clauses instead of nesting subordinate clauses
+- Max 2 attributes before a noun; use relative clauses for more
+- Eliminate all items on the Floskelliste (check against the reference)
+- Vary sentence lengths for rhythm (short-long-short)
+
+**If English detected (or default):**
+
+Apply these principles during drafting (do not load additional references -- these rules are self-contained):
+
+| Principle | Target | Technique |
+|-----------|--------|-----------|
+| Clarity | 15-20 word average sentence length | One idea per sentence. Concrete over abstract. Simple words over complex synonyms. |
+| Conciseness | 3-5 sentences per paragraph | Eliminate filler phrases ("in order to" -> "to", "due to the fact that" -> "because"). Use strong verbs ("decide" not "make a decision"). |
+| Active voice | 80%+ of sentences | Subject performs the action. Convert passive: "The project was completed by the team" -> "The team completed the project." |
+| Plain language | No undefined jargon | Define technical terms on first use. Write as you would explain to an intelligent colleague. |
+
+### 4B: Draft the Document
+
+Using the structural outline from Step 3 and the writing principles from 4A, write the complete document draft. Apply all principles during drafting rather than as a separate editing pass.
+
+**For arc-aware mode:** Apply writing principles to each arc element individually. Do NOT restructure or reorder elements. Strengthen prose within each element while preserving:
+- Exact heading text
+- Element boundaries (no content moves between elements)
+- The distinct purpose of each element
+
+### Step 4 Gate
+
+Before proceeding, verify:
+- Complete draft exists with all sections populated
+- Writing principles are applied throughout (not just in spots)
+- Language-specific rules are followed (German Schneider rules OR English clarity/conciseness)
+- If arc mode: all element headings and boundaries are preserved
 
 ---
 
-### Step 5.2: Heading Hierarchy
+## Step 5: Apply Impact Techniques (Optional)
 
-**Standards:**
+**Skip this step if:** `impact_level: standard` AND no executive audience AND `MODE: standard`
 
-- **H1 (#):** Document title only (1 per document)
-- **H2 (##):** Major sections (3-7 per document)
-- **H3 (###):** Subsections within H2 sections
-- **H4 (####):** Rare, only for complex hierarchies
+**If `arc_mode: true`:** Apply techniques PER ELEMENT using the arc-technique-map.
 
-**Descriptive Headers:**
+For each arc element:
+1. Look up the element's row in the technique map for the active `arc_id`
+2. Apply the element's specific Number Play variant (e.g., compound impact for "Why Pay", ratio framing for "Why Change")
+3. Strengthen the element's primary technique (e.g., forcing functions in "Why Now", PSB in "Why Change")
+4. Apply Power Words sparingly (3-5 per element) in body text only
+5. Follow element-specific polish rules from the technique map
 
-- ✅ "Implementation Costs 30% Below Budget"
-- ❌ "Costs"
-- ✅ "Security Vulnerabilities Require Immediate Attention"
-- ❌ "Issues"
+Do NOT apply techniques generically across the whole document in arc mode.
 
-**White Space:**
+**If `MODE: sales`:** Apply Power Positions enhancement.
 
-- Blank line before and after headings
-- Blank line between paragraphs
-- Blank line before and after lists/tables
+Load `references/08-sales-techniques/power-positions.md` (if not already loaded in Step 1).
 
-**Mark Step 5.2 todo as completed** before proceeding to Step 5.3.
+Enhancement rules by layer:
+- **IS layer**: Make specific and concrete (add numbers, specs, timeframes)
+- **DOES layer**: Quantify outcomes using Number Plays
+- **MEANS layer**: Strengthen resonance using Power Words
 
----
+Critical: NEVER merge IS into DOES or DOES into MEANS. Preserve all structure markers exactly.
 
-### Step 5.3: Lists and Tables
+**Standard high-impact mode:** Apply techniques from `references/07-impact-techniques/`.
 
-**Lists (bullets or numbered):**
-
-**Use bullets for:**
-
-- Unordered items
-- Features or benefits
-- Key points without sequence
-
-**Use numbered lists for:**
-
-- Sequential steps
-- Ranked priorities
-- Process flows
-
-**Formatting:**
-
-```markdown
-## Key Recommendations
-
-1. **Implement new CRM platform** (Q1 2024)
-   - Migrate customer data from legacy system
-   - Train sales team on new interface
-   - Monitor adoption metrics weekly
-
-2. **Optimize checkout flow** (Q2 2024)
-   - Reduce steps from 5 to 3
-   - Add guest checkout option
-   - A/B test payment options
+Load as needed:
+```text
+READ: references/07-impact-techniques/number-plays.md
+READ: references/07-impact-techniques/power-words.md
+READ: references/07-impact-techniques/rhetorical-devices.md
 ```
 
-**Tables:**
+Application targets:
+- **Number Plays**: Transform vague claims into specific data. Apply to key metrics, comparisons, and outcomes.
+- **Power Words**: 3-5 per page, concentrated in headlines and CTAs. Match category to context (urgency for deadlines, trust for risk reduction).
+- **Rhetorical Devices**: 2-3 per document, placed at opening and closing. Rule of Three for key messages, antithesis for contrasts.
+- **Executive Impact**: Lead with the ask, quantify everything, one page max, decision clarity.
 
-Use for comparative data:
+### Step 5 Gate
 
-```markdown
-| Feature | Current System | Proposed Solution |
-|---------|---------------|-------------------|
-| Speed | 5-7 days | 1-2 days |
-| Cost | $15/unit | $10/unit |
-| Accuracy | 92% | 98% |
-```
-
-**Mark Step 5.3 todo as completed** before proceeding to Step 5.4.
-
----
-
-### Step 5.4: Emphasis & Scannability
-
-**Bold Text (use sparingly):**
-
-- Key terms on first mention
-- Critical facts or metrics
-- Action items or deadlines
-- Emphasis (≤5% of text)
-
-**Italic Text (even more sparingly):**
-
-- Book/publication titles
-- Foreign words/phrases
-- Subtle emphasis
-
-**Scannability Checklist:**
-
-- [ ] Descriptive headers summarize section content
-- [ ] Key points in bulleted lists
-- [ ] Important facts bolded
-- [ ] White space between sections
-- [ ] Short paragraphs (3-5 sentences)
-
-**Before:**
-
-> We need to address the security issues in our infrastructure. There are several critical vulnerabilities that have been identified and these need to be fixed immediately. The cost to fix these is estimated at $50,000 and the timeline is 6 weeks.
-
-**After:**
-
-> ## Security Vulnerabilities Require Immediate Action
->
-> Our infrastructure has **three critical vulnerabilities** requiring immediate remediation:
->
-> - SQL injection risk in customer portal
-> - Unpatched authentication system
-> - Exposed API endpoints
->
-> **Cost:** $50,000 | **Timeline:** 6 weeks
-
-**Mark Step 5.4 todo as completed** before proceeding to Step 5.5.
+Before proceeding, verify:
+- Impact techniques are applied to appropriate locations (not sprayed everywhere)
+- Power word density is within target (3-5 per page)
+- Number plays use real data from the gathered content (do not fabricate numbers)
+- If arc mode: techniques match the per-element technique map
+- If sales mode: IS-DOES-MEANS structure markers are preserved exactly
 
 ---
 
-### Step 5.5: Before Confirming Step 5 Complete
+## Step 6: Stakeholder Review (Optional)
 
-**Self-Verification Questions:**
+**Skip this step if:** `skip_review: true` OR `review_mode: skip` OR deliverable is informal (email, casual memo).
 
-1. Did you initialize Step 5 TodoWrite? ✅ YES / ❌ NO
-2. Did you apply heading hierarchy? ✅ YES / ❌ NO
-3. Did you format lists and tables? ✅ YES / ❌ NO
-4. Did you add emphasis strategically? ✅ YES / ❌ NO
-5. Did you mark all Step 5 sub-todos as completed? ✅ YES / ❌ NO
+### Option A: Interactive Review via Reader Skill (Recommended)
 
-⛔ **IF ANY NO: STOP.** Return to incomplete step.
-
-**Mark Step 5 (main workflow) todo as completed.**
-
----
-
-## Step 6: Validate Quality Standards
-
-### Step 6.1: Initialize Step 6 Sub-Todos
-
-Create Step 6 sub-tasks in TodoWrite:
+If `review_mode: reader`:
 
 ```text
-Step 6 Sub-Todos:
-6.1 Validate framework compliance [in_progress]
-6.2 Validate deliverable requirements [pending]
-6.3 Validate writing principles [pending]
-6.4 Validate formatting and visual hierarchy [pending]
-6.5 Final polish (spelling, grammar, links) [pending]
+Delegate to: cogni-copywriting:reader
+Args: FILE_PATH={{output_path}} PERSONAS={{stakeholders}} AUTO_IMPROVE=true
 ```
 
-**Mark Step 6.1 todo as completed** before proceeding to validation checks.
+The reader skill handles parallel multi-persona Q&A and automatic improvement. After delegation, skip Step 7 (the reader skill handles its own synthesis).
+
+### Option B: Automated Checklist Review (Default)
+
+If `review_mode: automated` (or default):
+
+**Select stakeholders** based on audience parameter:
+
+| Audience | Default Stakeholders |
+|----------|---------------------|
+| executive | executive, technical, end-user |
+| technical | technical, executive |
+| general | end-user, marketing, executive |
+| legal | legal, executive, technical |
+| sales/marketing | marketing, executive, end-user |
+
+Override with explicit `stakeholders` parameter if provided.
+
+**For each stakeholder:**
+
+1. Load review criteria:
+   ```text
+   READ: references/10-stakeholder-review/{perspective}-review.md
+   ```
+2. Evaluate the document against the perspective's 5 weighted criteria
+3. Score each criterion: PASS (100), CONCERN (60), FAIL (0)
+4. Calculate weighted overall score (0-100)
+5. Generate structured feedback: strengths, concerns, recommendations (with priority labels)
+
+**Scoring thresholds:**
+
+| Score | Assessment |
+|-------|-----------|
+| 85-100 | Excellent -- meets stakeholder expectations |
+| 70-84 | Good -- minor improvements recommended |
+| 50-69 | Concerns -- significant improvements needed |
+| 0-49 | Failing -- major issues detected |
+
+**Graceful degradation:**
+- Single stakeholder review fails -> Log warning, continue with remaining stakeholders
+- All stakeholder reviews fail -> Skip to Step 8 with `fallback_reason: "review_failure"`
+
+### Step 6 Gate
+
+Before proceeding, verify:
+- All selected stakeholders have been reviewed (or failures logged)
+- Feedback is structured with clear priority labels (CRITICAL, HIGH, OPTIONAL)
 
 ---
 
-### Step 6.2: Framework Compliance
+## Step 7: Synthesis & Refinement (Optional)
 
-Validate document follows selected framework pattern:
+**Skip this step if:** Step 6 used reader skill (Option A) OR Step 6 was skipped.
 
-**TodoWrite Checklist:**
+### 7A: Aggregate and Prioritize Feedback
+
+Load synthesis guidelines:
+```text
+READ: references/10-stakeholder-review/synthesis-guidelines.md
+```
+
+Priority determination:
+
+| Condition | Priority |
+|-----------|----------|
+| 3+ stakeholders mention same issue | CRITICAL |
+| Executive + 1 other stakeholder on same issue | CRITICAL |
+| 2 stakeholders mention same issue | HIGH |
+| High-weight criterion (>=20%) flagged | HIGH |
+| 1 stakeholder, low-weight criterion (<15%) | OPTIONAL |
+
+### 7B: Apply Improvements
+
+For each improvement by priority:
+
+- **CRITICAL**: Apply the change. Validate it improved the relevant section. Mark complete.
+- **HIGH**: Assess feasibility. Apply if feasible. Log if skipped with reason.
+- **OPTIONAL**: Log for manual review. Do NOT apply automatically.
+
+### 7C: Resolve Conflicts
+
+When stakeholders disagree, apply these resolution patterns:
+
+| Conflict | Resolution |
+|----------|-----------|
+| Executive wants brevity vs. Technical wants detail | Executive summary + technical appendix |
+| Marketing wants emotion vs. Executive wants data | Lead with data, use power words for emphasis |
+| End-user wants simple vs. Technical wants precision | Plain language with technical glossary |
+| Legal wants hedging vs. Marketing wants bold claims | Strong but hedged: "designed to deliver" |
+
+**Tiebreaker hierarchy:**
+1. Primary audience perspective (if specified)
+2. Deliverable requirements (framework, regulatory)
+3. Impact technique effectiveness
+4. User-specified preference
+
+**Graceful degradation:**
+- Individual improvement fails -> Revert change, log failure, continue with remaining
+- Synthesis calculation fails -> Continue to Step 8 with original document, log `fallback_reason: "synthesis_failure"`
+
+### Step 7 Gate
+
+Before proceeding, verify:
+- All CRITICAL improvements are applied
+- HIGH improvements are applied or logged with skip reason
+- Conflict resolutions follow the hierarchy
+
+---
+
+## Step 8: Validate & Write Document
+
+### 8A: Run Validation Checks
+
+Evaluate the final document against all applicable criteria. Think through each check carefully.
+
+**Universal checks (always apply):**
+
+| Check | Criterion | Action on Failure |
+|-------|-----------|------------------|
+| German characters | All umlauts and eszett preserved as-is | Fix: restore original characters |
+| Citations | Count >= source document count, format unchanged | Fix: restore missing citations from source |
+| Protected content | Diagram placeholders, figure refs, captions unchanged | Fix: restore from source |
+| Readability | Flesch/Amstad score 50-60 | Fix: simplify complex sentences |
+| Active voice | 80%+ usage | Fix: convert passive constructions |
+| Formatting | Consistent markdown, heading hierarchy correct | Fix: standardize |
+
+**Standard-mode checks (skip if arc_mode):**
+
+| Check | Criterion | Action on Failure |
+|-------|-----------|------------------|
+| Framework compliance | Document follows selected framework pattern | Fix: restructure to match framework |
+| Deliverable requirements | Length, structure, tone match deliverable type | Fix: adjust to requirements |
+| Required components | All mandatory sections present (e.g., CTA for email, next steps for brief) | Fix: add missing components |
+
+**Arc-mode checks (only if arc_mode):**
+
+| Check | Criterion | Action on Failure |
+|-------|-----------|------------------|
+| Heading text | All H2 headings unchanged from source | Revert failing element to original |
+| Element count | H2 count matches source exactly | Revert to original structure |
+| Primary technique | Each element's technique intact per technique map | Revert failing element |
+| Number Play variant | Correct variant applied per element per technique map | Revert failing element |
+| Word count | Each element within +/-50 words of arc definition target | Trim or expand as needed |
+| Element boundaries | No content moved between elements | Revert failing element |
+| Bridge section | Unchanged from source | Restore from source |
+
+**German-specific checks (only if detected_language is German):**
+
+| Check | Criterion | Action on Failure |
+|-------|-----------|------------------|
+| Clause length | Average 10-12 words, max 12 | Break long clauses |
+| Floskel count | 0 (check against Floskelliste) | Remove all Floskeln |
+| Sentence variation | Standard deviation > 3 words | Vary sentence lengths |
+| Attribute chains | Max 2 before a noun | Convert to relative clauses |
+
+**Review checks (only if stakeholder review was conducted):**
+
+| Check | Criterion | Action on Failure |
+|-------|-----------|------------------|
+| Critical improvements | All CRITICAL items applied | Apply missing critical improvements |
+
+If arc validation fails for a specific element: revert that element to its original text. Log with `fallback_reason="arc_technique_violation"`. Continue with remaining elements.
+
+### 8B: Run Readability Script (if available)
+
+```bash
+python3 scripts/calculate_readability.py "{output_path}" --lang auto
+```
+
+This script auto-detects German vs English and applies the correct formula. Target range 50-60 applies to both languages.
+
+### 8C: Backup Original Document
+
+Before writing, check if a file already exists at the output path and back it up:
+
+```bash
+if [[ -f "{output_path}" ]]; then
+  dir=$(dirname "{output_path}")
+  filename=$(basename "{output_path}")
+  cp "{output_path}" "${dir}/.${filename}"
+fi
+```
+
+Report backup creation if applicable.
+
+### 8D: Apply Citation Formatting (if document contains citations)
 
 ```text
-- [ ] BLUF: Bottom line in first paragraph, supporting facts follow importance order
-- [ ] Pyramid: Main argument stated, MECE groupings, evidence under each group
-- [ ] SCQA: Situation → Complication → Question → Answer structure
-- [ ] STAR: Situation → Task → Action → Result structure
-- [ ] PSB: Problem → Solution → Benefits structure
-- [ ] FAB: Features → Advantages → Benefits structure
-- [ ] Inverted Pyramid: Critical info first, important details second, context last
+READ: references/03-formatting-standards/citation-formatting.md
 ```
 
-**Mark Step 6.2 todo as completed** before proceeding to Step 6.3.
+1. Move citations from "Begruendung:" paragraphs to individual "Umsetzung:" list items (place at end of specific claim)
+2. Add superscript commas between consecutive citations:
+   ```bash
+   perl -pi -e 's/<\/sup><sup>/<\/sup><sup>,<\/sup> <sup>/g' "{output_path}"
+   ```
 
----
+### 8E: Write Final Document
 
-### Step 6.3: Deliverable Requirements
+Use the Write tool to create the document file.
 
-Validate document meets deliverable-specific standards:
+**File naming:** Use descriptive kebab-case names including deliverable type (e.g., `proposal-crm-implementation.md`).
 
-**TodoWrite Checklist:**
+**File location:** Use specified `output_path`. If none specified, use current working directory. Confirm with user if ambiguous.
+
+**Content:** Include all validated content. Add YAML frontmatter if appropriate for the deliverable type.
+
+### 8F: Present Summary to User
 
 ```text
-- [ ] Correct structural elements (headers, sections)
-- [ ] Appropriate length for deliverable type
-- [ ] Tone matches deliverable formality
-- [ ] Required components present (e.g., CTA for email, next steps for brief)
-- [ ] Format follows markdown standards
+Document: {deliverable_type} using {framework}
+File: {output_path}
+Backup: {backup_path or "None (new file)"}
+Quality: Framework {pass/fail} | Structure {pass/fail} | Readability {score}
+Impact Techniques: {techniques applied, or "None"}
+Citation Formatting: {applied/not applicable}
+Review: {review outcome summary, or "Skipped"}
 ```
 
-**Deliverable-Specific Requirements:**
+### Step 8 Gate (Final)
 
-- **Memo:** Header block (TO/FROM/DATE/SUBJECT) + 1 page max
-- **Email:** Subject line + 200-300 words + clear CTA
-- **Brief:** Exec summary + 2-3 supporting sections + next steps
-- **Proposal:** Exec summary + problem statement + solution + ROI + next steps
-- **Report:** Table of contents + structured sections + conclusion
-- **One-Pager:** Exactly 1 page + visual elements + scannable
-- **Executive Summary:** 1-2 pages max + BLUF/Pyramid structure
-- **Business Letter:** Formal header + body + formal close + 1 page
+Confirm all of the following:
+- Document is written to the specified path
+- All validation checks passed (or failures were handled with fixes/reverts)
+- Backup was created if overwriting an existing file
+- Summary was presented to the user
+- All 8 TodoWrite steps are marked complete
 
-### Step 6.4: Core Writing Principles
+---
 
-Validate adherence to fundamental writing quality:
+## Decision Trees
 
-**TodoWrite Checklist:**
+### Framework Selection (when not specified by user)
 
 ```text
-- [ ] Clarity: Sentences average 15-20 words, concrete language, simple words
-- [ ] Conciseness: No filler phrases, strong verbs, 3-5 sentences per paragraph
-- [ ] Active voice: 80%+ active voice usage
-- [ ] Plain language: Common words, defined technical terms
-- [ ] Scannability: Descriptive headers, bullets, bold emphasis, white space
+Is the audience executive/C-suite?
+  YES -> Is it analytical? -> Pyramid
+         Is it a recommendation? -> BLUF
+         Is it a problem to solve? -> SCQA
+  NO  -> Is it a sales document? -> FAB or PSB
+         Is it a case study? -> STAR
+         Is it news/announcement? -> Inverted Pyramid
+         Default -> BLUF
 ```
 
-### Step 6.5: Content Quality
-
-Check substance and accuracy:
-
-**TodoWrite Checklist:**
+### When to Load Additional References
 
 ```text
-- [ ] Accuracy: All facts, figures, and claims are accurate
-- [ ] Completeness: All necessary information included
-- [ ] Relevance: No unnecessary information or tangents
-- [ ] Evidence: Claims supported by data or sources
-- [ ] Consistency: Terms, formatting, and tone consistent throughout
+User mentions quantifiable data -> READ: number-plays.md
+User mentions executive audience -> READ: executive-impact.md
+User mentions persuasion/impact -> READ: power-words.md, rhetorical-devices.md
+Document contains German text -> READ: german-style-principles.md
+Document contains citations -> READ: citation-formatting.md (at Step 8)
+Document has arc_id -> READ: arc-preservation.md, arc-technique-map.md
+MODE is sales -> READ: power-positions.md, number-plays.md, power-words.md
 ```
 
-### Step 6.6: Final Polish
+### Handling Insufficient Information
 
-Review presentation quality:
+If the user provides insufficient information to complete a step:
 
-**TodoWrite Checklist:**
+1. Ask targeted questions (from Step 2 question bank) for only the missing information
+2. If the user declines to provide details, apply reasonable defaults:
+   - Missing audience -> "general business audience"
+   - Missing framework -> deliverable's recommended framework
+   - Missing tone -> semi-formal
+   - Missing key messages -> extract from any source material provided
+3. State which defaults you are applying so the user can correct them
 
-```text
-- [ ] Spelling: No typos or spelling errors
-- [ ] Grammar: Correct grammar throughout
-- [ ] Punctuation: Proper punctuation
-- [ ] Formatting: Consistent markdown syntax
-- [ ] Links/References: All functional and relevant
-- [ ] Frontmatter: Preserved if required
-```
+### Handling Ambiguous Deliverable Type
 
-### Step 6.7: Example TodoWrite Integration
+If multiple deliverable types could work:
 
-**Complete validation checklist in TodoWrite:**
-
-```text
-Step 6 Validation Sub-Todos:
-6.1 Framework compliance validated [completed]
-6.2 Deliverable requirements met [completed]
-6.3 Core writing principles applied [completed]
-6.4 Content quality verified [completed]
-6.5 Final polish complete [completed]
-```
-
-**Mark all Step 6 sub-todos as completed** before proceeding to Step 7.
-
----
-
-### Step 6.8: Before Confirming Step 6 Complete
-
-**Self-Verification Questions:**
-
-1. Did you initialize Step 6 TodoWrite? ✅ YES / ❌ NO
-2. Did you validate framework compliance? ✅ YES / ❌ NO
-3. Did you validate deliverable requirements? ✅ YES / ❌ NO
-4. Did you validate writing principles? ✅ YES / ❌ NO
-5. Did you validate content quality? ✅ YES / ❌ NO
-6. Did you complete final polish? ✅ YES / ❌ NO
-7. Did you mark all Step 6 sub-todos as completed? ✅ YES / ❌ NO
-
-⛔ **IF ANY NO: STOP.** Return to incomplete step.
-
-**Mark Step 6 (main workflow) todo as completed.**
-
----
-
-## Step 7: Write Document & Report
-
-### Step 7.1: Initialize Step 7 Sub-Todos
-
-Create Step 7 sub-tasks in TodoWrite:
-
-```text
-Step 7 Sub-Todos:
-7.1 Write final document to file [in_progress]
-7.2 Present summary to user [pending]
-```
-
-**Mark Step 7.1 todo as completed** before proceeding to Step 7.2.
-
----
-
-### Step 7.2: Write Final Document
-
-Use Write tool to create document file:
-
-**File Naming:**
-
-- Use descriptive names: `proposal-crm-implementation.md`
-- Use kebab-case (lowercase with hyphens)
-- Include deliverable type if helpful
-
-**File Location:**
-
-- Use specified output path if provided
-- Otherwise, use current working directory
-- Confirm path with user if ambiguous
-
-**Content:**
-
-- Include all validated content from Steps 1-6
-- Apply all formatting standards
-- Add frontmatter if appropriate for deliverable type
-
-**Example Frontmatter (optional):**
-
-```yaml
----
-title: CRM Implementation Proposal
-author: [Your Name]
-date: 2024-01-15
-deliverable: proposal
-framework: psb
-audience: executive-team
----
-```
-
-**Mark Step 7.2 todo as completed** before proceeding to Step 7.3.
-
----
-
-### Step 7.3: Present Summary to User
-
-**Present concise summary:**
-
-```markdown
-**Document Created**: {deliverable_type} using {framework} framework
-
-**File**: {path}
-
-**Quality Metrics** (if measured):
-- Flesch Reading Ease: {score} (target: 50-60)
-- Avg Paragraph Length: {avg} sentences (target: 3-5)
-- Visual Elements: {count}
-- Length: {word_count} words ({page_estimate} pages)
-
-**Structure Applied**:
-- Framework: {framework name}
-- Key sections: {list main sections}
-- Deliverable standards: Met
-```
-
-**Mark Step 7.3 todo as completed** before proceeding to Step 7.4.
-
----
-
-### Step 7.4: Before Confirming Step 7 Complete
-
-**Self-Verification Questions:**
-
-1. Did you initialize Step 7 TodoWrite? ✅ YES / ❌ NO
-2. Did you write the final document? ✅ YES / ❌ NO
-3. Did you present summary to user? ✅ YES / ❌ NO
-4. Did you mark all Step 7 sub-todos as completed? ✅ YES / ❌ NO
-
-⛔ **IF ANY NO: STOP.** Return to incomplete step.
-
-**Mark Step 7 (main workflow) todo as completed.**
-
----
-
-### Step 7.5: Workflow Completion Confirmation
-
-**All Steps Complete:**
-
-```text
-✅ Copywriter Workflow Complete
-
-Steps Executed:
-1. ✅ Parse parameters and load references
-2. ✅ Gather content requirements
-3. ✅ Apply deliverable structure
-4. ✅ Apply writing principles
-5. ✅ Optimize formatting and visual hierarchy
-6. ✅ Validate quality standards
-7. ✅ Write document and report
-
-Document delivered: {path}
-Quality standards met: All validations passed
-```
-
----
-
-## Progressive Disclosure Summary
-
-**Core References (Load in Step 1):**
-
-- Deliverable-specific guide
-- Selected framework guide
-- Markdown standards
-
-**Advanced References (Load only on request):**
-
-- Alternative framework guides (if user asks to compare)
-- Specific examples (if user requests pattern matching)
-
----
-
-## Quality Checklist Quick Reference
-
-**Framework Compliance:**
-
-- [ ] Correct framework pattern applied
-- [ ] Bottom line/main argument stated upfront
-- [ ] Supporting structure matches framework
-
-**Deliverable Standards:**
-
-- [ ] Correct structural elements
-- [ ] Appropriate length
-- [ ] Required components present
-
-**Writing Principles:**
-
-- [ ] Average sentence length: 15-20 words
-- [ ] Flesch Reading Ease: 50-60
-- [ ] Active voice: 80%+
-- [ ] Paragraph length: 3-5 sentences
-
-**Formatting:**
-
-- [ ] Heading hierarchy correct
-- [ ] Lists and tables formatted
-- [ ] Strategic emphasis (bold/italic)
-- [ ] White space for scannability
-
-**Final Polish:**
-
-- [ ] No spelling/grammar errors
-- [ ] Consistent formatting
-- [ ] Functional links/references
-
----
-
-## Troubleshooting
-
-**Problem:** User provides insufficient information
-
-**Solution:** Ask targeted questions based on deliverable type and framework (see Step 2.2)
-
----
-
-**Problem:** Document exceeds appropriate length
-
-**Solution:**
-
-- Review for filler phrases and redundancy
-- Consolidate similar points
-- Move detailed information to appendix
-- Consider splitting into multiple deliverables
-
----
-
-**Problem:** Unclear which framework to use
-
-**Solution:**
-
-- Default to BLUF for most business documents
-- Use Pyramid for analytical reports
-- Use SCQA for problem-solving memos
-- Ask user if multiple frameworks seem appropriate
-
----
-
-**Problem:** Multiple deliverable types could work
-
-**Solution:**
-
-- Ask user about context (audience, purpose, formality)
-- Recommend based on length and complexity needs
-- Err toward simpler deliverable type if uncertain
-
----
+1. Consider the audience (executives prefer brief formats)
+2. Consider the purpose (decisions need memos/briefs, information sharing needs reports)
+3. Consider the length (short = memo/email/one-pager, medium = brief/proposal, long = report)
+4. If still ambiguous, ask the user with a recommendation: "I recommend a {type} because {reason}. Would you prefer a different format?"

@@ -7,156 +7,192 @@ audience: [all]
 related:
   - clarity-principles
   - readability-principles
-version: 1.0
-last_updated: 2025-10-29
+version: 2.0
+last_updated: 2026-02-25
 ---
 
 # Conciseness Principles
 
+<context>
+You are applying conciseness principles to business documents. Your goal is to make every word earn its place. Readers are busy professionals who scan, not read. Shorter text with the same information is always better text.
+</context>
+
 ## Quick Reference
+
 **Use when:** Every deliverable type, especially memos, emails, briefs, one-pagers
 **Core principle:** Every word must earn its place
-**Key techniques:** Remove filler phrases, eliminate redundancy, use strong verbs
-**Target:** 3-5 sentences per paragraph maximum
+**Key techniques:** Cut filler phrases, eliminate redundancy, use strong verbs, compress paragraphs
+**Target:** 3-5 sentences per paragraph, 20-30% word reduction from first draft to final
 
-## Detailed Principles
+## How to Apply Conciseness: Step by Step
 
-### 1. Remove Filler Phrases
-Business writing is full of unnecessary phrases that add length without meaning.
+When polishing or creating a document, work through these five passes in order. Each pass targets a different source of bloat.
 
-| Verbose | Concise |
-|---------|---------|
-| "In order to" | "To" |
-| "With regard to" | "Regarding" or "About" |
-| "Due to the fact that" | "Because" |
-| "In the event that" | "If" |
-| "At this point in time" | "Now" |
-| "For the purpose of" | "To" or "For" |
-| "In light of the fact that" | "Since" |
-| "With the exception of" | "Except" |
-| "In accordance with" | "Following" or "Per" |
-| "In the vicinity of" | "Near" |
-| "Taking into consideration" | "Considering" |
-| "It has been observed that" | "Studies show" or "We found" |
-| "A significant proportion of" | "Most" or "Many" |
-| "In the majority of cases" | "Usually" or "Often" |
+### Pass 1: Strip Filler Phrases
 
-**Impact:** Removing these phrases typically reduces word count by 15-20%.
+Filler phrases add words without adding meaning. Replace each one with its concise equivalent on sight.
 
-### 2. Eliminate Redundancy
-Many common phrases contain redundant words that can be removed.
+<substitution_table>
+| Filler phrase | Replace with |
+|---|---|
+| in order to | to |
+| with regard to | about |
+| due to the fact that | because |
+| in the event that | if |
+| at this point in time | now |
+| for the purpose of | to / for |
+| in light of the fact that | since |
+| with the exception of | except |
+| in accordance with | per / following |
+| in the vicinity of | near |
+| taking into consideration | considering |
+| it has been observed that | [delete entirely, start with the observation] |
+| a significant proportion of | most / many |
+| in the majority of cases | usually / often |
+| it is important to note that | [delete entirely, state the point directly] |
+| as a matter of fact | [delete entirely] |
+| in terms of | [delete or rephrase] |
+| on the basis of | based on |
+| for all intents and purposes | effectively |
+| in the process of | [delete; use the verb directly] |
+</substitution_table>
 
-| Redundant | Concise |
-|-----------|---------|
-| "Past history" | "History" |
-| "Future plans" | "Plans" |
-| "End result" | "Result" |
-| "Close proximity" | "Proximity" or "Near" |
-| "Final outcome" | "Outcome" |
-| "Advance planning" | "Planning" |
-| "Basic fundamentals" | "Fundamentals" or "Basics" |
-| "Completely unanimous" | "Unanimous" |
-| "Each and every" | "Each" or "Every" |
-| "First and foremost" | "First" or "Foremost" |
-| "New innovation" | "Innovation" |
-| "True facts" | "Facts" |
-| "Unexpected surprise" | "Surprise" |
+<example>
+<input>In order to achieve our goals in terms of customer satisfaction, we need to take into consideration the fact that in the majority of cases users prefer a simpler experience.</input>
+<output>To improve customer satisfaction, we should recognize that users usually prefer simpler experiences.</output>
+<reasoning>Removed "in order to" (to), "in terms of" (deleted), "take into consideration the fact that" (recognize that), "in the majority of cases" (usually). Word count: 32 to 15 (53% reduction).</reasoning>
+</example>
 
-### 3. Use Strong Verbs
-Replace weak verb + noun combinations with single strong verbs.
+### Pass 2: Eliminate Redundancy
 
-| Weak Construction | Strong Verb |
-|-------------------|-------------|
-| "Make a decision" | "Decide" |
-| "Give consideration to" | "Consider" |
-| "Conduct an analysis" | "Analyze" |
-| "Make an adjustment" | "Adjust" |
-| "Provide assistance" | "Assist" or "Help" |
-| "Take action" | "Act" |
-| "Make a recommendation" | "Recommend" |
-| "Perform an evaluation" | "Evaluate" |
-| "Reach a conclusion" | "Conclude" |
-| "Hold a meeting" | "Meet" |
+Redundant modifiers repeat what the base word already means. Delete the redundant word.
 
-**Impact:** Strong verbs reduce word count and increase impact.
+<substitution_table>
+| Redundant phrase | Replace with |
+|---|---|
+| past history | history |
+| future plans | plans |
+| end result | result |
+| close proximity | near |
+| final outcome | outcome |
+| advance planning | planning |
+| basic fundamentals | fundamentals |
+| completely unanimous | unanimous |
+| each and every | each OR every |
+| first and foremost | first |
+| new innovation | innovation |
+| true facts | facts |
+| unexpected surprise | surprise |
+| brief summary | summary |
+| mutual cooperation | cooperation |
+| joint collaboration | collaboration |
+| revert back | revert |
+| free gift | gift |
+| general consensus | consensus |
+| still remains | remains |
+</substitution_table>
 
-## Application by Deliverable Type
+### Pass 3: Strengthen Verbs
 
-**Memos:** Extreme conciseness required; 1 page maximum standard
-**Emails:** Critical—busy readers scan for key points; 3-5 paragraphs max
-**Briefs:** Dense information in minimal space; every word counts
-**One-Pagers:** Exactly 1 page constraint demands ruthless editing
-**Executive Summaries:** 1-2 pages maximum; executives value brevity
-**Reports:** Body sections can be longer, but executive summary must be concise
+Weak verb-plus-noun constructions hide the action behind extra words. Collapse them into single strong verbs.
 
-## Paragraph Optimization
+<substitution_table>
+| Weak construction | Strong verb |
+|---|---|
+| make a decision | decide |
+| give consideration to | consider |
+| conduct an analysis of | analyze |
+| make an adjustment to | adjust |
+| provide assistance to | help |
+| take action on | act on |
+| make a recommendation | recommend |
+| perform an evaluation of | evaluate |
+| reach a conclusion | conclude |
+| hold a meeting | meet |
+| have a discussion about | discuss |
+| make an improvement to | improve |
+| put an emphasis on | emphasize |
+| give an indication of | indicate |
+| carry out an investigation | investigate |
+</substitution_table>
 
-Target 3-5 sentences per paragraph for optimal scannability.
+<example>
+<input>The team needs to make a decision about whether to conduct an analysis of the current workflow and provide a recommendation to management.</input>
+<output>The team needs to decide whether to analyze the current workflow and recommend changes to management.</output>
+<reasoning>Collapsed three weak constructions: "make a decision" (decide), "conduct an analysis" (analyze), "provide a recommendation" (recommend). Word count: 23 to 16.</reasoning>
+</example>
 
-### Before (Dense, 8 sentences)
-```markdown
-The investigation into the various methodological approaches utilized in deep
-research contexts has revealed a number of interesting findings pertaining to
-the optimal structuring of information architecture. The organization of entity
-models appears to contribute significantly to overall quality. The sequencing
-of phases throughout the research workflow is also important. Various
-researchers have proposed different frameworks over the years. Each framework
-contributes different perspectives on these issues. Our analysis examined all
-major approaches. We found that systematic application of these frameworks
-improves outcomes. This improvement was observed across multiple projects.
-```
+### Pass 4: Fix Structural Bloat Patterns
 
-### After (Concise, 4 sentences)
-```markdown
-Entity organization and phase sequencing drive research quality. Analysis of
-major frameworks shows systematic approaches improve outcomes by 40% compared
-to ad-hoc methods. Evidence from 127 projects confirms this pattern. Teams
-using structured frameworks consistently achieve higher synthesis quality.
-```
+These patterns create wordiness at the sentence level. Recognize and fix each one.
 
-**Word count reduction:** 96 words → 44 words (54% reduction)
+**Pattern A: Nominalization** -- turning verbs into nouns adds "of" and "the" unnecessarily.
 
-## Common Verbosity Patterns
+<example>
+<input>The implementation of the system resulted in the improvement of efficiency across the organization.</input>
+<output>Implementing the system improved efficiency across the organization.</output>
+<reasoning>"Implementation of" became "implementing"; "improvement of" became "improved." Cut 3 words, gained directness.</reasoning>
+</example>
 
-### Pattern 1: Hedging Language
-❌ **Verbose:** "Research indicates that there may be a correlation between..."
-✅ **Concise:** "Evidence shows correlation between..."
+**Pattern B: Excessive hedging** -- qualifiers that weaken claims without adding useful nuance.
 
-### Pattern 2: Nominalization
-❌ **Verbose:** "The implementation of the system resulted in the improvement of efficiency."
-✅ **Concise:** "Implementing the system improved efficiency."
+<example>
+<input>Research seems to indicate that there may potentially be a correlation between these variables.</input>
+<output>Research shows a correlation between these variables.</output>
+<reasoning>Removed "seems to," "may potentially," and "there...be" construction. If the evidence is uncertain, say "early research suggests" -- one hedge, not three.</reasoning>
+</example>
 
-### Pattern 3: Passive Voice with Filler
-❌ **Verbose:** "It was determined that improvements were made to the process."
-✅ **Concise:** "The team improved the process."
+**Pattern C: Passive voice with filler** -- hiding the actor behind "it was" or "there is."
 
-### Pattern 4: Qualifying Everything
-❌ **Verbose:** "It is important to note that in many cases, most users tend to prefer..."
-✅ **Concise:** "Most users prefer..."
+<example>
+<input>It was determined by the committee that improvements should be made to the process.</input>
+<output>The committee decided to improve the process.</output>
+<reasoning>Named the actor (committee), used active voice (decided), collapsed nominalization (improvements should be made to -> improve).</reasoning>
+</example>
 
-## One-Page Compression Techniques
+**Pattern D: Stacked qualifiers** -- multiple hedges that say "this matters" before stating the point.
 
-For deliverables with strict length constraints (memos, one-pagers, briefs):
+<example>
+<input>It is important to note that in many cases, most users tend to generally prefer a simpler interface.</input>
+<output>Most users prefer a simpler interface.</output>
+<reasoning>Deleted "it is important to note that" (meta-commentary), "in many cases" (redundant with "most"), "tend to generally" (double hedge). The point is the same; the noise is gone.</reasoning>
+</example>
 
-1. **Convert paragraphs to bullets** when listing items
-2. **Use tables** for comparisons instead of prose
-3. **Remove examples** in favor of direct statements
-4. **Combine related points** into single sentences
-5. **Front-load critical information**, cut background
+### Pass 5: Compress Paragraphs
 
-**COMPRESSION EXCLUSIONS — Do NOT reduce these:**
-- **Inline citations** `[PREFIX-N](url)` are evidence markers required for verification and audit trail. They are NOT removable content. Never count citation markers toward word-count reduction targets. Never replace inline citations with a summary footer (e.g., "See sources in research.md").
+After the four word-level passes, review paragraph structure. Target 3-5 sentences per paragraph.
 
-### Example: Memo Compression
-**Original (2 pages):**
-```markdown
+**Technique:** Identify what each sentence contributes. If two sentences make the same point, merge them. If a sentence adds no new information, delete it.
+
+<example>
+<before>
+The investigation into the various methodological approaches utilized in deep research contexts has revealed a number of interesting findings pertaining to the optimal structuring of information architecture. The organization of entity models appears to contribute significantly to overall quality. The sequencing of phases throughout the research workflow is also important. Various researchers have proposed different frameworks over the years. Each framework contributes different perspectives on these issues. Our analysis examined all major approaches. We found that systematic application of these frameworks improves outcomes. This improvement was observed across multiple projects.
+</before>
+<after>
+Entity organization and phase sequencing drive research quality. Our analysis of major frameworks shows systematic approaches improve outcomes by 40% compared to ad-hoc methods. Evidence from 127 projects confirms this pattern across teams and domains.
+</after>
+<reasoning>8 sentences to 3. Deleted the vague throat-clearing opener, merged redundant sentences about "frameworks" and "perspectives," and collapsed the final two sentences into one with a concrete number. Word count: 96 to 37 (61% reduction).</reasoning>
+</example>
+
+## Compression Techniques for Length-Constrained Deliverables
+
+When a document must fit strict page limits (memos, one-pagers, briefs), apply these structural techniques after the five word-level passes:
+
+1. **Convert prose to bullets** when listing three or more items
+2. **Use tables for comparisons** instead of describing differences in paragraphs
+3. **Front-load the critical information** and cut background context
+4. **Combine related points** into single compound sentences
+5. **Delete examples** when the direct statement is clear enough alone
+
+<example>
+<description>Compressing a 2-page memo to 1 page</description>
+<before>
 Background section (400 words explaining context)
 Analysis section (600 words detailing findings)
 Recommendations section (300 words with justification)
-```
-
-**Compressed (1 page):**
-```markdown
+Total: ~1,300 words over 2+ pages
+</before>
+<after>
 **Recommendation:** Implement three-phase methodology (details below).
 
 **Key Findings:**
@@ -168,33 +204,57 @@ Recommendations section (300 words with justification)
 1. Pilot program: Q1 2026
 2. Full rollout: Q2 2026
 3. Metrics review: Monthly
-```
 
-## Conciseness Checklist
+Total: ~60 words, under 1 page
+</after>
+<reasoning>Eliminated the background section entirely (readers already know the context or can ask). Converted analysis into a comparison table. Stripped justification prose from recommendations, replaced with bullet points showing the numbers that justify the decision.</reasoning>
+</example>
 
-Before finalizing content:
+## What NOT to Cut
 
-- ☐ Removed all filler phrases ("in order to", "due to the fact that")
-- ☐ Eliminated redundant words ("past history" → "history")
-- ☐ Replaced weak verbs with strong verbs ("make a decision" → "decide")
-- ☐ Converted nominalizations to verbs ("implementation of" → "implementing")
-- ☐ Paragraphs average 3-5 sentences
-- ☐ Each sentence contains essential information
-- ☐ Length appropriate for deliverable type
-- ☐ Could cut 20%+ words without losing meaning? If yes, cut them.
-- ☐ **EXCEPTION: Inline citations `[PREFIX-N](url)` are NOT eligible for removal.** They are mandatory evidence markers. Verify citation count matches the source document.
+Conciseness has boundaries. The following elements are never candidates for removal, even when reducing word count aggressively:
 
-## Compression Metrics
+<constraints>
+- **Inline citations** such as `[PREFIX-N](url)` are evidence markers required for verification and audit trail. Never count citation markers toward word-count reduction. Never replace inline citations with a summary footer like "See sources in research.md."
+- **Specific numbers and data points** that support claims. Replace vague language with numbers, but never delete numbers to save space.
+- **The core ask or recommendation.** Shortening a document must not weaken or obscure the main message.
+- **Protected content** such as diagram placeholders, figure references, and captions (see SKILL.md for full list).
+</constraints>
 
-Target reductions by deliverable:
-- **First draft → Final draft:** 20-30% word reduction typical
-- **Academic → Executive:** 40-50% word reduction expected
-- **Email:** 3-5 paragraphs maximum (200-300 words)
-- **Memo:** 1 page (400-600 words)
-- **Brief:** 1-3 pages (400-1200 words)
-- **One-pager:** Exactly 1 page (400-600 words)
+## Deliverable-Specific Targets
+
+Use these as calibration benchmarks during the final review:
+
+| Deliverable | Max length | Target word count | Conciseness priority |
+|---|---|---|---|
+| Email | 3-5 paragraphs | 200-300 words | Critical -- readers scan in seconds |
+| Memo | 1 page | 400-600 words | Extreme -- every word justifies its place |
+| Brief | 1-3 pages | 400-1,200 words | High -- dense information in minimal space |
+| One-pager | Exactly 1 page | 400-600 words | Extreme -- page constraint forces ruthless editing |
+| Executive summary | 1-2 pages | 400-800 words | High -- executives value brevity above all |
+| Report | Variable | Variable | Moderate in body sections, high in exec summary |
+
+**Draft-to-final reduction benchmarks:**
+- First draft to final: 20-30% word reduction is normal and expected
+- Academic source to executive document: 40-50% reduction expected
+- If you cannot cut 20%+ from a first draft, the draft was likely already well-written or you are not applying the passes aggressively enough
+
+## Validation Checklist
+
+Before finalizing, verify each item. If any check fails, apply the relevant pass again.
+
+- [ ] All filler phrases from Pass 1 table removed or replaced
+- [ ] No redundant modifiers from Pass 2 table remain
+- [ ] No weak verb-plus-noun constructions from Pass 3 table remain
+- [ ] Nominalizations converted to active verbs where possible
+- [ ] No stacked qualifiers (maximum one hedge per claim)
+- [ ] Every paragraph is 3-5 sentences
+- [ ] Every sentence contributes information not stated elsewhere in the paragraph
+- [ ] Document meets length target for its deliverable type
+- [ ] Could you cut 20%+ more words without losing meaning? If yes, cut them
+- [ ] **EXCEPTION: Inline citations `[PREFIX-N](url)` are NOT eligible for removal.** Verify citation count matches the source document.
 
 ## See Also
-- `clarity-principles.md` (Short sentences, concrete language)
-- `active-voice-principles.md` (Active vs passive)
-- `readability-principles.md` (Visual hierarchy)
+- `clarity-principles.md` -- Short sentences, concrete language
+- `active-voice-principles.md` -- Active vs passive voice patterns
+- `readability-principles.md` -- Visual hierarchy and scannability
