@@ -19,6 +19,7 @@
     "sales-copy",
     "power-positions"
   ],
+  "skills": ["./skills/copywriter", "./skills/reader"],
   "agents": [
     "./agents/copywriter.md",
     "./agents/reader.md"
