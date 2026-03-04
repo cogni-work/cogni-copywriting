@@ -1,0 +1,32 @@
+{
+  "eval_id": 0,
+  "eval_name": "english-memo-polish",
+  "prompt": "Polish this memo for executive readability. Apply BLUF framework. Save to outputs/polished-memo.md",
+  "assertions": [
+    {
+      "name": "bluf_applied",
+      "description": "First paragraph leads with the bottom line (decision/action needed), not a status preamble or narrative introduction",
+      "type": "qualitative"
+    },
+    {
+      "name": "paragraph_length",
+      "description": "No paragraph exceeds 5 sentences or approximately 70 words",
+      "type": "programmatic"
+    },
+    {
+      "name": "bold_anchoring",
+      "description": "Key metrics (75%, $450K, Q2, 6 months) have bold formatting around them",
+      "type": "programmatic"
+    },
+    {
+      "name": "active_voice",
+      "description": "Majority of sentences use active voice — no passive constructions like 'it was decided' or 'things are being looked at'",
+      "type": "qualitative"
+    },
+    {
+      "name": "flesch_readable",
+      "description": "Improved readability compared to input — shorter sentences, simpler words, better flow",
+      "type": "qualitative"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill_name": "copywriter",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Polish this memo for executive readability. Apply BLUF framework. Save to outputs/polished-memo.md",
+      "expected_output": "A well-structured memo with bottom-line-up-front, clear paragraphs, bold anchoring on key metrics, and improved readability",
+      "files": ["test-docs/english-memo.md"]
+    },
+    {
+      "id": 1,
+      "prompt": "Polish this German strategy document. Preserve all citations and German characters. Save to outputs/polished-german.md",
+      "expected_output": "A polished German document with all umlauts preserved, all citations with URLs intact, Wolf Schneider style improvements, and better readability",
+      "files": ["test-docs/german-with-citations.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "Polish this arc narrative document. It's a corporate-visions arc from cogni-narrative. Preserve the arc structure and strengthen techniques per element. Save to outputs/polished-arc.md",
+      "expected_output": "An arc-aware polished document with all H2 headings unchanged, citations preserved, element-specific techniques applied, and no content moved between elements",
+      "files": ["test-docs/arc-narrative.md"]
+    }
+  ]
+}

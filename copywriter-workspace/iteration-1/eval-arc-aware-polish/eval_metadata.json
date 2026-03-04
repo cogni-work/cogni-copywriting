@@ -1,0 +1,27 @@
+{
+  "eval_id": 2,
+  "eval_name": "arc-aware-polish",
+  "prompt": "Polish this arc narrative document. It's a corporate-visions arc from cogni-narrative. Preserve the arc structure and strengthen techniques per element. Save to outputs/polished-arc.md",
+  "assertions": [
+    {
+      "name": "h2_headings_unchanged",
+      "description": "Exactly 5 H2 headings present and unchanged: Why Change, Why Now, Why You, Why Pay, Further Reading",
+      "type": "programmatic"
+    },
+    {
+      "name": "citations_preserved",
+      "description": "All citation markers [P1-1] through [P4-1] present with their full URLs intact (8 total)",
+      "type": "programmatic"
+    },
+    {
+      "name": "no_content_migration",
+      "description": "Citations stay in their original sections — P1-x in Why Change, P2-x in Why Now, P3-x in Why You, P4-x in Why Pay",
+      "type": "programmatic"
+    },
+    {
+      "name": "frontmatter_preserved",
+      "description": "YAML frontmatter with arc_id: corporate-visions still present at top of document",
+      "type": "programmatic"
+    }
+  ]
+}

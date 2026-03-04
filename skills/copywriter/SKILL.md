@@ -1,143 +1,67 @@
 ---
 name: copywriter
-description: Create high-impact business documents using messaging frameworks (BLUF, Pyramid, SCQA, STAR, PSB, FAB) and sophisticated persuasion techniques (number plays, power words, rhetorical devices). Supports memos, emails, briefs, reports, proposals, one-pagers, executive summaries, and business letters with measurable quality standards. Also polishes story arc narratives (from cogni-narrative) with arc-aware technique strengthening.
+description: ALWAYS use this skill when the user wants to polish, rewrite, improve, or create any business document — memos, briefs, reports, proposals, one-pagers, executive summaries, blog posts, emails, or business letters. This skill applies professional copywriting frameworks (BLUF, McKinsey Pyramid, SCQA, STAR, PSB, FAB) and persuasion techniques (number plays, power words, rhetorical devices) to produce executive-ready output. Also handles arc-aware narrative polishing (cogni-narrative story arcs) and IS/DOES/MEANS sales messaging refinement. Trigger this skill whenever the user says things like "polish this document", "make this more readable", "rewrite this memo", "improve the writing", "restructure this brief", "make it more engaging", "apply BLUF", "use the Pyramid Principle", "write a one-pager", "create a proposal", "rewrite for executives", "strengthen the messaging", "better opening hook", "punchy and action-oriented", "clean up this report", or asks to apply ANY messaging framework by name (BLUF, Pyramid, SCQA, STAR, PSB, FAB, MECE). Also trigger for German document polishing requests like "Text verbessern" or "für die Geschäftsführung aufbereiten". When in doubt about whether to use this skill, USE IT — it handles any document improvement or business writing task, even if the user just says "polish this" or "make this better" about a markdown file.
 allowed-tools: Read, Write, Edit, Bash, TodoWrite
 ---
 
 # Copywriter Skill
 
-## Critical Constraints
+## Guiding Principles
+
+Three non-negotiable preservation rules protect document integrity. Understanding *why* they matter will help you apply them consistently even in edge cases.
 
 ### German Character Preservation
 
-**MANDATORY:** ALL German-specific characters MUST be preserved exactly as written. NEVER convert to ASCII equivalents.
-
-| Original | WRONG Conversion | Rule |
-|----------|------------------|------|
-| ä | ae | PRESERVE as ä |
-| ö | oe | PRESERVE as ö |
-| ü | ue | PRESERVE as ü |
-| Ä | Ae | PRESERVE as Ä |
-| Ö | Oe | PRESERVE as Ö |
-| Ü | Ue | PRESERVE as Ü |
-| ß | ss | PRESERVE as ß |
-
-This applies to ALL text: body, headers, citations, technical terms.
+German characters (ä, ö, ü, ß and their uppercase forms) must stay exactly as written. Converting them to ASCII equivalents (ae, oe, ue, ss) changes meaning — "Masse" (mass) vs "Maße" (measurements) — and signals to German readers that the text was processed by a tool that doesn't understand their language. This undermines trust in the entire document.
 
 ### Citation Preservation
 
-**MANDATORY:** ALL citation markers and their URLs MUST be preserved exactly as written. **Removing or omitting citations is a CRITICAL FAILURE** that invalidates the entire document output. Citations are evidence markers for audit trail integrity, NOT style elements eligible for compression.
+Citations are evidence markers for audit trail integrity, not style elements. Every `[P1-1](https://...)`, `[P1-1]`, `<sup>[1]</sup>`, or `[portfolio-validated]` marker must remain exactly where it is, with its URL intact. When conciseness goals conflict with keeping citations, reduce prose — never citations. If the polished output has fewer citations than the source, the output will be rejected.
 
-| Format | Example | Rule |
-|--------|---------|------|
-| Inline with URL | `[P1-1](https://...)` | PRESERVE complete link |
-| Shortform | `[P1-1]` | PRESERVE marker |
-| Superscript | `<sup>[1]</sup>` | PRESERVE HTML tags |
-| Provenance markers | `[portfolio-validated]` | PRESERVE after citation |
-| Portfolio-derived | `[portfolio-derived]` | PRESERVE inline marker |
+Specifically: do not remove URLs from inline citations, change marker formats, relocate citations, merge/split markers, or summarize citations into a footer reference.
 
-**DO NOT:**
-- Remove URLs from inline citations
-- Change citation marker format (e.g., [P1-1] to [1])
-- Relocate citations to different positions in text
-- Merge or split citation markers
-- **Treat citations as clutter, noise, or candidates for word-count reduction**
-- Summarize citations into a footer reference (e.g., "See research.md for sources")
+### Protected Content
 
-**TIEBREAKER RULE:** When conciseness principles conflict with citation preservation, **citation preservation ALWAYS wins.** Reduce word count from prose, not from evidence markers. The output MUST contain at least as many citation markers as the source document.
+Documents may contain content destined for other processing tools. Preserve these exactly:
 
-**CONSEQUENCE:** If the polished output has fewer citations than the source, the output will be rejected and the source document used as-is.
-
-Create professional business documents using structured messaging frameworks, measurable quality standards, and sophisticated impact techniques.
-
-## When to Use
-
-- Creating business documents (memos, emails, briefs, reports, proposals, one-pagers, executive summaries, business letters)
-- Creating blog posts from research insights
-- Applying messaging frameworks (BLUF, Pyramid, SCQA, STAR, PSB, FAB, Inverted Pyramid)
-- Enhancing document impact with persuasion techniques
-- Improving document readability and executive appeal
-- Polishing story arc narratives created by cogni-narrative (arc-aware mode)
-
-## Protected Content (DO NOT Modify)
-
-Documents may contain tagged diagram descriptions for later processing by diagram-expert. These MUST be preserved exactly as-is.
-
-**Protected patterns:**
-
-1. **Diagram placeholder blocks** - Complete XML structure:
-
-   ```xml
-   <diagram-placeholder id="..." type="...">
-     <title>...</title>
-     <content-data>...</content-data>
-     <instructions>...</instructions>
-   </diagram-placeholder>
-   ```
-
-2. **Figure reference text** - Introductory sentences referencing figures:
-   - "As shown in Figure N below..."
-   - "Wie in Abbildung N unten dargestellt..."
-   - Any text pattern: `Figure/Abbildung/Figura/Figuur {N}`
-
-3. **Figure captions** - Lines following placeholders or embeds:
-   - `**Figure N:** Title`
-   - `**Abbildung N:** Titel`
-
-4. **Obsidian embeds** - Already-resolved diagrams:
-   - `![[assets/*.svg]]`
-
-5. **Kanban table and placeholder** - Trend Landscape tables with planning horizons:
-   - Table header pattern: `| Dimension | Act | Plan | Observe |` (or German: `| Dimension | Act | Plan | Observe |`)
-   - Wikilinks in table cells: `[[06-megatrends/data/megatrend-*|*]]`, `[[11-trends/data/trend-*|*]]`
-   - Legend line: `Legend: **M** = Megatrend, **T** = Trend` (or German equivalent)
-   - HTML placeholder: `<!-- kanban-board -->`
-
-**Preservation rules:**
-
-- DO NOT rephrase or "improve" diagram instructions text
-- DO NOT modify figure numbering or caption format
-- DO NOT add, remove, or reorder content-data JSON
-- DO NOT change diagram type or id attributes
-- PRESERVE all whitespace within placeholder blocks
+- **Diagram placeholder blocks** — Complete `<diagram-placeholder>` XML structures
+- **Figure references and captions** — `Figure/Abbildung {N}` text and `**Figure N:** Title` lines
+- **Obsidian embeds** — `![[assets/*.svg]]`
+- **Kanban tables** — Tables with `| Dimension | Act | Plan | Observe |` headers, wikilinks, legends, and `<!-- kanban-board -->` placeholders
 
 ## Workflow
 
-**Initialize TodoWrite** with these 8 steps, then execute sequentially:
+The workflow has 5 core steps. Initialize a TodoWrite checklist, then execute sequentially.
 
 1. Parse parameters and load references
-2. Gather content requirements
-3. Apply structure and framework
-4. Apply writing principles
-5. Apply impact techniques (optional)
-6. Stakeholder review (optional)
-7. Synthesis and refinement (optional)
-8. Validate and write document
+2. Apply structure (if creating or restructuring)
+3. Apply writing and formatting
+4. Review (optional)
+5. Validate and write
 
 ### Scope Handling
 
-When polishing an existing document (`/copywrite --scope=`), use this table to determine which steps execute:
+When polishing an existing document, scope determines which steps run:
 
 | Step | full | structure | tone | formatting |
 |------|------|-----------|------|------------|
-| 1. Parse parameters | YES | YES | YES | YES |
-| 2. Gather content | SKIP | SKIP | SKIP | SKIP |
-| 3. Structure & framework | YES | YES | SKIP | SKIP |
-| 4. Writing principles | YES | SKIP | YES | YES |
-| 5. Impact techniques | YES | SKIP | SKIP | YES |
-| 6. Stakeholder review | YES | SKIP | SKIP | SKIP |
-| 7. Synthesis | YES | SKIP | SKIP | SKIP |
-| 8. Validate & write | YES | YES | YES | YES |
+| 1. Parse & load | YES | YES | YES | YES |
+| 2. Structure | YES | YES | SKIP | SKIP |
+| 3. Writing & formatting | YES | SKIP | YES | YES |
+| 4. Review | YES | SKIP | SKIP | SKIP |
+| 5. Validate & write | YES | YES | YES | YES |
 
-When `arc_mode: true`, arc-preservation rules override scope step selection. See `arc-preservation.md`.
+When `arc_mode` is active, arc-preservation rules override scope. See `arc-preservation.md`.
 
-**Baseline formatting (ALL scopes):** Regardless of scope, every polished output MUST meet these minimum standards:
+### Baseline Formatting (all scopes)
 
-1. **Paragraph separation**: No paragraph exceeds 5 sentences or ~70 words. Split any paragraph covering more than one logical point into separate paragraphs separated by a blank line.
-2. **Bold anchoring**: Bold the 2-4 most critical words around key data points (percentages, counts, ratios, dates). Target 2-3 bold instances per paragraph. Never bold entire sentences.
-3. **White space**: One blank line between every paragraph. Blank lines before and after headings, lists, tables, and block quotes.
+Every polished output meets these readability fundamentals, regardless of scope:
 
-These three standards apply even in `--scope=tone` because they are readability fundamentals, not decorative formatting.
+1. **Paragraph separation**: Max 5 sentences or ~70 words. Split at logical boundaries.
+2. **Bold anchoring**: Bold 2-4 words around key data points (percentages, counts, ratios, dates). Target 2-3 bold instances per paragraph. Never bold entire sentences.
+3. **White space**: Blank lines between every paragraph, heading, list, table, and block quote.
+
+These apply even in `--scope=tone` because they are readability essentials, not decorative formatting.
 
 ### Step 1: Parse Parameters & Load References
 
@@ -145,447 +69,150 @@ These three standards apply even in `--scope=tone` because they are readability 
 
 - `deliverable_type`: memo | email | brief | report | proposal | one-pager | executive-summary | business-letter | blog
 - `framework` (optional): bluf | pyramid | scqa | star | psb | fab | inverted-pyramid
-- `impact_level` (optional): standard | high (for executive audiences)
+- `impact_level` (optional): standard | high
 - `MODE` (optional): standard | sales (default: standard)
 
-**Arc detection (check BEFORE loading framework):**
-
-If the input document has YAML frontmatter with `arc_id`, OR the task prompt specifies arc preservation, OR the document's H2 headings match a known arc pattern:
+**Load the reference index first:**
 
 ```text
-READ: references/09-preservation-modes/arc-preservation.md
-READ: references/09-preservation-modes/arc-technique-map.md
+READ: references/00-index.md
 ```
 
-When arc-aware mode is active:
-- Do NOT load a messaging framework — the arc IS the structure
-- Do NOT load a deliverable type — arc narratives are their own format
-- DO load core principles (clarity, conciseness, active voice) — these still apply
-- DO load impact techniques — applied through the arc-technique-map's element-specific variants
-- Set `arc_mode: true` and `arc_id: {detected_arc_id}` for use in Steps 3-8
+Follow the index's decision tree to detect the operating mode (arc, sales, or standard) and load exactly the references needed. The index handles all conditional loading — deliverable types, frameworks, language-specific principles, impact techniques, and formatting standards.
 
-**Standard mode (no arc detected):**
+**Key mode behaviors:**
 
-```text
-READ: references/04-deliverable-types/{deliverable_type}.md
-READ: references/02-messaging-frameworks/{framework}-framework.md
-READ: references/01-core-principles/clarity-principles.md
-```
+- **Arc mode** (triggered by `arc_id` in frontmatter or arc heading patterns): The arc IS the structure — skip framework and deliverable loading. Load arc-preservation and arc-technique-map references instead.
+- **Sales mode** (triggered by `MODE: sales` or Power Position markers): Load power-positions plus impact techniques, then continue with standard deliverable/framework loading.
+- **Standard mode**: Load deliverable type, messaging framework (user-specified or deliverable's default), and core principles.
 
-If framework not specified, use deliverable's recommended framework.
-If `impact_level: high` or audience is executive/C-suite, also load impact techniques.
+### Step 2: Apply Structure & Framework
 
-**If MODE: sales:**
+**If polishing an existing document:** Skip this step unless `--scope=full` or `--scope=structure`.
 
-```text
-READ: references/08-sales-techniques/power-positions.md
-READ: references/07-impact-techniques/number-plays.md
-READ: references/07-impact-techniques/power-words.md
-```
+**If arc_mode is active:** Skip entirely — the arc provides the structure.
 
-Sales mode enables intelligent enhancement of Power Positions (IS-DOES-MEANS structure) while preserving structure markers.
+**If creating a new document:** Ask the user for:
+- Main message (the bottom line)
+- Audience (role, seniority)
+- Desired action from readers
+- 2-3 supporting key points
+- Output path
 
-### Step 2: Gather Content Requirements
+Then apply the framework pattern from the loaded framework reference. If the user didn't specify a framework, use the deliverable type's recommended default.
 
-Ask user for:
+### Step 3: Apply Writing & Formatting
 
-- **Main message**: What's the bottom line?
-- **Audience**: Who reads this? (role, seniority)
-- **Action**: What should readers do?
-- **Key points**: 2-3 supporting facts
-- **Output path**: Where to write the document
+**Detect document language** from content or `--lang` parameter. Load language-appropriate principles via the reference index.
 
-**For high-impact documents, also ask:**
-
-- **Quantifiable data**: What numbers support the message? (for number plays)
-- **Urgency/exclusivity**: What's the timeline or scarcity factor? (for power words)
-
-### Step 3: Apply Structure & Framework
-
-**If arc_mode is active:** SKIP this step entirely. The arc provides the structure. Proceed to Step 4.
-
-**Standard mode:** Use deliverable structure from loaded reference, then integrate framework pattern:
-
-| Framework | Pattern |
-|-----------|---------|
-| BLUF | Bottom line first → supporting facts → action |
-| Pyramid | Main argument → MECE groups → evidence |
-| SCQA | Situation → Complication → Question → Answer |
-| STAR | Situation → Task → Action → Result |
-| PSB | Problem → Solution → Benefit |
-| FAB | Feature → Advantage → Benefit |
-| Inverted Pyramid | Critical info → details → background |
-
-### Step 4: Apply Writing Principles
-
-**Detect document language** (from content or `--lang` parameter). Then load language-appropriate principles:
-
-**If German detected:**
+**For German documents**, apply Wolf Schneider rules:
 
 ```text
 READ: references/01-core-principles/german-style-principles.md
 ```
 
-Apply Wolf Schneider rules for German:
-- **Satzlaenge**: Max 12 Woerter pro Teilsatz (strenger als Englisch)
-- **Vorfeld**: Max 6 Woerter / 12 Silben vor dem Verb
-- **Satzklammer**: Aufbrechen — einteilige Verben bevorzugen, Mittelfeld verkuerzen
-- **Subjekt-Verb-Naehe**: Subjekt und Verb nicht trennen (max 3 Woerter Abstand)
-- **Hauptsaetze reihen**: Hauptsaetze statt verschachtelter Nebensaetze
-- **Nebensatz anhaengen**: Hauptsatz vor Nebensatz, max 2 Nebensaetze
-- **Attribute aufloesen**: Max 2 Attribute vor Nomen, sonst Relativsaetze
-- **Floskeln eliminieren**: Gegen deutsche Floskelliste pruefen (siehe Reference)
-- **Rhythmus**: Satzlaengen abwechseln (kurz-lang-kurz)
-- **Fuer die Ohren schreiben**: Natuerlicher Klang, keine akademische Abstraktion
+Key targets: max 12 words per clause, Satzklammer breaking, Mittelfeld shortening, Floskel elimination, rhythmic sentence variation.
 
-**If English detected (or default):**
+**For English documents**, apply clarity and conciseness principles: 15-20 word sentences, 3-5 sentence paragraphs, 80%+ active voice, concrete language, strong verbs.
 
-**Clarity**: 15-20 word sentences, concrete language, simple words
-**Conciseness**: 3-5 sentence paragraphs, no filler phrases, strong verbs
-**Active voice**: 80%+ active voice usage
+**Both languages — formatting:**
 
-**Both languages -- formatting and readability:**
-
-1. **Paragraph splitting**: Scan each paragraph. If it exceeds 5 sentences OR covers more than one logical point, split it. Insert a blank line at each topic boundary. Target: 3-5 sentences, 40-70 words per paragraph.
-2. **Bold anchoring**: Identify key data points (percentages, metrics, counts, dates, ratios) and bold 2-4 words around each. Target: 2-3 bold instances per paragraph. Never bold full sentences.
-3. **Heading levels**: Max 3 levels (H1, H2, H3). If H4 is needed, restructure.
+1. **Paragraph splitting**: Scan each paragraph. If it exceeds 5 sentences or covers more than one logical point, split it. Target: 3-5 sentences, 40-70 words.
+2. **Bold anchoring**: Identify key data points and bold 2-4 words around each. Target: 2-3 per paragraph.
+3. **Heading levels**: Max 3 (H1, H2, H3). Restructure if H4 is needed.
 4. **Visual element rhythm**: Insert a visual element (table, list, callout) every 2-3 consecutive prose paragraphs.
 5. **White space**: Blank line between every paragraph, around every heading, list, table, and block quote.
 
-### Step 5: Apply Impact Techniques
+**Impact techniques** (when `impact_level: high` or executive audience):
 
-**If arc_mode is active:** Apply techniques PER ELEMENT using the arc-technique-map. For each element:
+Load techniques from the reference index. The reference files contain detailed decision processes, examples, and checklists for:
 
-1. Look up the element's row in the technique map table for the active `arc_id`
-2. Apply the element's specific Number Play variant (e.g., compound impact for Why Pay, ratio framing for Why Change)
-3. Strengthen the element's primary technique (e.g., tighten forcing functions in Why Now, sharpen PSB in Why Change)
-4. Apply Power Words sparingly (3-5 per element) in body text only
-5. Follow element-specific polish rules from the technique map
+- **Number plays** — Transform vague claims into concrete data (ratio framing, comparative anchoring, before/after contrasts, compound impact)
+- **Power words** — Strategic emotional triggers at decision points (3-5 per page, concentrated in headlines and CTAs)
+- **Rhetorical devices** — Structural persuasion (Rule of Three, anaphora, antithesis, cadence — 2-3 per document)
+- **Executive impact** — C-suite optimization (lead with ask, quantify everything, one-page max)
 
-Do NOT apply techniques generically across the whole document in arc mode. Each element has its own technique profile.
+**Arc-aware technique application**: When `arc_mode` is active, apply techniques per-element using the arc-technique-map rather than generically across the document. Each arc element has its own technique profile.
 
-**Standard mode:** For enhanced persuasion, apply techniques from `references/07-impact-techniques/`:
+**Sales mode enhancement**: When `MODE: sales`, enhance Power Positions (IS-DOES-MEANS structure) while preserving structure markers. Apply number plays primarily to DOES layer, power words primarily to MEANS layer. Never merge layers or modify structure markers.
 
-#### Number Plays
+### Step 4: Review (Optional)
 
-Transform vague claims into concrete, memorable data.
+Skip if `skip_review: true`, or for informal deliverables (emails, casual memos).
 
-| Technique | Pattern | Example |
-|-----------|---------|---------|
-| Ratio framing | % → "X in Y" | "12%" → "1 in 8" |
-| Specific quantification | Vague → precise | "many" → "127 customers" |
-| Comparative anchoring | Raw → relative | "$36K/year" → "$100/day" |
-| Before/after contrast | Old → New (gain) | "5 days → 4 hours (97% faster)" |
+**Two modes available:**
 
-**Read `references/07-impact-techniques/number-plays.md` for detailed patterns.**
-
-#### Power Words
-
-Use emotional triggers strategically in headlines, CTAs, and key statements.
-
-| Category | Words | Use When |
-|----------|-------|----------|
-| Urgency | now, deadline, limited | Time-sensitive requests |
-| Exclusivity | exclusive, insider, select | Premium offerings |
-| Trust | proven, guaranteed, validated | Risk reduction |
-| Achievement | breakthrough, transform, unlock | Aspirational goals |
-
-**Target density:** 3-5 power words per page, concentrated in headlines/CTAs.
-**Read `references/07-impact-techniques/power-words.md` for complete list.**
-
-#### Rhetorical Devices
-
-Apply structural persuasion for key messages.
-
-| Device | Pattern | Example |
-|--------|---------|---------|
-| Rule of Three | A, B, C | "Faster, cheaper, better" |
-| Anaphora | Same start | "We deliver results. We deliver on time." |
-| Antithesis | X, not Y | "More output, less effort" |
-| Cadence | Long → Short | "After months of analysis—we're ready." |
-
-**Place 2-3 devices per document, concentrated at opening and closing.**
-**Read `references/07-impact-techniques/rhetorical-devices.md` for detailed guidance.**
-
-#### Executive Impact
-
-For C-suite and board communications:
-
-1. **Lead with the ask** — Recommendation in first 2 sentences
-2. **Quantify everything** — All benefits as numbers
-3. **Respect time** — One page maximum, 30-second scannable
-4. **Provide decision clarity** — Specific action, timeline, consequence
-5. **Signal credibility** — Data sources, risk acknowledgment
-
-**Read `references/07-impact-techniques/executive-impact.md` for templates.**
-
-#### Power Positions Enhancement (MODE: sales)
-
-When MODE is set to `sales`, apply intelligent enhancement to Power Positions content while preserving the IS-DOES-MEANS structure.
-
-**Structure markers to preserve exactly:**
-
-```markdown
-**IS**:
-**DOES**:
-**MEANS**:
-**Proof**:
-**Addresses**:
-**Competitor Gap**:
-```
-
-**Enhancement by layer:**
-
-| Layer | Enhancement Focus | Techniques |
-|-------|-------------------|------------|
-| **IS** | Make specific and concrete | Add details: numbers, specs, timeframes |
-| **DOES** | Quantify outcomes | Number Plays: %, time, before/after |
-| **MEANS** | Strengthen resonance | Power Words: protect, transform, exclusive |
-
-**Example enhancement:**
-
-Before:
-
-```markdown
-**DOES**: Helps improve operations
-```
-
-After:
-
-```markdown
-**DOES**: Reduce decision cycle from 2 weeks to 48 hours, enabling 10x faster response to market shifts
-```
-
-**Critical rules:**
-
-- NEVER merge IS into DOES or DOES into MEANS
-- PRESERVE all structure markers unchanged
-- PRESERVE Power Position numbering (`### Power Position #N:`)
-- PRESERVE proof points, need references, and citation markers
-- Apply Number Plays primarily to DOES layer
-- Apply Power Words primarily to MEANS layer
-
-**Read `references/08-sales-techniques/power-positions.md` for detailed enhancement rules.**
-
-### Step 6: Stakeholder Review (Optional)
-
-**Skip if:**
-- `skip_review: true` parameter set
-- Deliverable type is informal (email, casual memo)
-
-**Two review modes available:**
-
-#### Option A: Interactive Review via Reader Skill (Recommended)
-
-Delegate to the `cogni-copywriting:reader` skill for parallel multi-persona Q&A with automatic document improvement.
+**Option A — Interactive Reader Skill (recommended for formal deliverables):**
 
 ```text
 Skill: cogni-copywriting:reader
 Args: FILE_PATH={{output_path}} PERSONAS={{stakeholders}} AUTO_IMPROVE=true
 ```
 
-The reader skill runs all selected personas in parallel, synthesizes feedback, and applies one auto-improvement loop directly to the document. See the reader skill for full details.
+The reader skill runs parallel multi-persona Q&A, synthesizes feedback, and applies one auto-improvement loop directly to the document. Use for reports, proposals, executive summaries, and briefs.
 
-**When to use:** Formal deliverables (reports, proposals, executive summaries, briefs) where stakeholder alignment matters.
+**Option B — Automated Checklist Review (lighter weight):**
 
-#### Option B: Automated Checklist Review (Lightweight)
+Load stakeholder review profiles from `references/10-stakeholder-review/`. Default stakeholders by audience:
 
-For faster review without interactive depth:
+| Audience | Default Stakeholders |
+|----------|---------------------|
+| executive | executive, technical, end-user |
+| technical | technical, executive |
+| general | end-user, marketing, executive |
+| legal | legal, executive, technical |
+| sales/marketing | marketing, executive, end-user |
 
-**Load stakeholder profiles:**
+Evaluate against each stakeholder's 5 weighted criteria. Aggregate feedback, prioritize (3+ stakeholders = CRITICAL, 2 = HIGH, 1 = OPTIONAL), and apply CRITICAL/HIGH improvements. Load `references/10-stakeholder-review/synthesis-guidelines.md` for conflict resolution patterns.
 
-```text
-READ: references/10-stakeholder-review/{perspective}-review.md
-```
+**Review mode parameter:** `reader` (Option A), `automated` (default, Option B), or `skip`.
 
-**Default stakeholder selection:**
+Review enhances quality but never blocks delivery — if review fails, continue to Step 5 with the document as-is.
 
-| Audience Parameter | Default Stakeholders |
-|-------------------|---------------------|
-| `executive` | executive, technical, end-user |
-| `technical` | technical, executive |
-| `general` | end-user, marketing, executive |
-| `legal` | legal, executive, technical |
-| `sales/marketing` | marketing, executive, end-user |
+### Step 5: Validate & Write
 
-**Custom selection:** Override with `stakeholders: [executive, legal, technical]` parameter.
+**Validation checklist:**
 
-**Review process:**
+- German characters preserved (ä, ö, ü, ß unchanged)
+- Citations preserved (count >= original)
+- Protected content unchanged
+- Readability: Flesch target (EN 50-60, DE 30-50 via Amstad formula)
+- Active voice: 80%+
+- Framework pattern applied (standard mode)
+- Baseline formatting met (paragraphs, bold anchoring, white space)
 
-1. Initialize Phase 6 TodoWrite with sub-tasks for each stakeholder
-2. For each stakeholder:
-   - Load review criteria from `references/10-stakeholder-review/{perspective}-review.md`
-   - Evaluate document against checklist (5 weighted criteria per perspective)
-   - Assign scores: PASS (100), CONCERN (60), FAIL (0)
-   - Calculate weighted overall score (0-100 scale)
-   - Generate structured feedback:
-     - Strengths (what works well)
-     - Concerns (areas needing improvement)
-     - Recommendations (specific, actionable improvements with priority labels)
-3. Mark stakeholder todo completed
-4. Collect all feedback for synthesis
+**German-specific validation** (when detected language is German):
+- Average clause length: target 10-12 words
+- Floskel count: 0
+- Sentence length variation: std dev > 3 words
+- No attribute chains > 2 before a noun
 
-**Review mode parameter:**
-- `review_mode: reader` - Use interactive reader skill (Option A)
-- `review_mode: automated` (default) - Run checklists automatically (Option B)
-- `review_mode: skip` - Bypass review phases entirely
-
-**Scoring thresholds (Option B only):**
-- 85-100: Excellent, meets stakeholder expectations
-- 70-84: Good, minor improvements recommended
-- 50-69: Concerns, significant improvements needed
-- 0-49: Failing, major issues detected
-
-**Graceful degradation:**
-- Single stakeholder review failure → Log warning, continue with remaining stakeholders
-- All stakeholder reviews fail → Skip to Step 8 with `fallback_reason: "review_failure"`
-- Document continues to Phase 8 regardless—review enhances quality but never blocks delivery
-
-### Step 7: Synthesis & Refinement (Optional)
-
-**Skip if:** Step 6 used reader skill (Option A, which handles its own synthesis) or was skipped entirely.
-
-**Load synthesis guidelines:**
-
-```text
-READ: references/10-stakeholder-review/synthesis-guidelines.md
-```
-
-**Synthesis process:**
-
-1. **Aggregate feedback** - Collect all stakeholder reviews into structured format
-2. **Identify common themes** - Pattern match recommendations across stakeholders:
-   - 3+ stakeholders mention same issue → CRITICAL priority
-   - 2 stakeholders mention same issue → HIGH priority
-   - 1 stakeholder mentions issue → OPTIONAL priority
-   - Executive + 1+ other on same issue → CRITICAL priority
-3. **Prioritize recommendations:**
-   - **CRITICAL** - Multiple stakeholders OR blocks validation OR executive + other
-   - **HIGH** - Multiple stakeholders OR high-weight criterion (>=20%)
-   - **OPTIONAL** - Single stakeholder OR low-weight criterion (<15%)
-4. **Create refinement TodoWrite** with sub-tasks for each CRITICAL and HIGH improvement
-5. **Apply improvements to document:**
-   - For each CRITICAL: Apply change, validate improvement, mark complete
-   - For each HIGH: Assess feasibility, apply if feasible, log if skipped
-   - For each OPTIONAL: Log for manual review, do NOT apply automatically
-6. **Re-evaluate changed sections** - Verify improvements raised criterion scores
-7. **Calculate synthesis metrics** - Overall score, application rate, recommendations applied
-8. Mark synthesis complete
-
-**Synthesis output format:**
-
-```json
-{
-  "stakeholder_reviews": [
-    {
-      "perspective": "executive",
-      "score": 85,
-      "strengths": ["Clear BLUF", "Strong ROI"],
-      "concerns": ["Missing timeline"],
-      "recommendations": ["CRITICAL: Add decision deadline"]
-    }
-  ],
-  "synthesis": {
-    "overall_score": 82,
-    "audience_weighted_score": 84,
-    "critical_improvements": ["Add decision timeline"],
-    "high_improvements": ["Add risk section"],
-    "optional_improvements": ["Add comparison table"],
-    "recommendations_applied": true,
-    "application_rate": 1.0
-  }
-}
-```
-
-**Conflict resolution patterns:**
-
-| Conflict | Resolution |
-|----------|------------|
-| Executive wants brevity, Technical wants detail | Executive summary + technical appendix |
-| Marketing wants emotion, Executive wants data | Lead with data, use power words for emphasis |
-| End-user wants simple, Technical wants precision | Plain language with technical glossary |
-| Legal wants hedging, Marketing wants bold claims | Strong but hedged: "designed to deliver" |
-
-**Tiebreaker hierarchy:**
-1. Primary audience perspective (if specified)
-2. Deliverable requirements (framework, regulatory)
-3. Impact techniques effectiveness
-4. User-specified preference
-
-**Graceful degradation:**
-- Individual improvement fails → Revert change, log failure, continue with remaining
-- Synthesis calculation fails → Continue to Step 8 with original document, log `fallback_reason: "synthesis_failure"`
-- Document continues to Phase 8 regardless—synthesis enhances quality but never blocks delivery
-
-### Step 8: Validate & Write Document
-
-**Validate against:**
-
-- **German characters preserved** (ä, ö, ü, ß MUST remain as-is, NEVER converted to ae, oe, ue, ss)
-- **Citations preserved** (all `[P1-1](URL)` markers MUST retain their URLs, format unchanged)
-- Framework pattern applied correctly (standard mode only)
-- Deliverable requirements met (length, structure, tone) (standard mode only)
-- Readability: Flesch target (language-aware: EN 50-60, DE 30-50 via Amstad formula)
-- Active voice: 80%+ usage
-- **German-specific validation** (when `detected_language: de`):
-  - Average clause length: target 10-12 words (max 12)
-  - Floskel count: 0 (check against german-style-principles.md Floskelliste)
-  - Sentence length variation: standard deviation > 3 words (rhythmic variety)
-  - No attribute chains > 2 before a noun
-- Impact techniques applied (if specified)
-- **Critical stakeholder improvements applied** (if review conducted)
-- **Protected content preserved** (diagram placeholders, figure references, captions unchanged)
-- **Citation formatting applied** (see below)
-
-**Arc-aware validation (additional checks when arc_mode is active):**
+**Arc-aware validation** (when `arc_mode` is active):
 
 Run the technique validation checklist from `arc-technique-map.md`:
-
-```text
-FOR EACH element IN arc:
-  1. Heading text unchanged? (MANDATORY — reject if violated)
-  2. Primary technique intact? (e.g., PSB for Why Change, Forcing Functions for Why Now)
-  3. Number Play variant applied? (check element's row in technique map)
-  4. Word count within target range? (±50 words from arc definition targets)
-  5. Citations preserved within this element? (count ≥ original per element)
-  6. Element serves its distinct purpose? (no blending between elements)
-```
-
-Also validate:
-- H2 count is exactly 6 (subtitle + 4 elements + bridge)
+- Heading text unchanged
+- Primary technique intact per element
+- Number Play variant applied per element
+- Word count within +-50 words of arc targets
+- Citations preserved per element
+- H2 count exactly 6 (subtitle + 4 elements + bridge)
 - No content moved between elements
-- Bridge section ("Further Reading" or equivalent) unchanged
 
-**If arc validation fails:** Revert the failing element to its original text. Log with `fallback_reason="arc_technique_violation"`. Continue with remaining elements — partial polish is acceptable.
+If arc validation fails for an element, revert that element to its original text. Partial polish is acceptable.
 
-**Backup original document** before writing:
+**Backup original** before writing:
 
-1. Extract directory and filename from output path
-2. Check if file exists at output path using Bash: `[[ -f "{output_path}" ]]`
-3. If file exists, create backup with hidden filename:
-   ```bash
-   # Extract directory and filename
-   dir=$(dirname "{output_path}")
-   filename=$(basename "{output_path}")
-   backup_path="${dir}/.${filename}"
-
-   # Copy original to backup (hidden file)
-   cp "{output_path}" "${backup_path}"
-   ```
-4. Report backup creation: `Backup created: {backup_path}`
+```bash
+dir=$(dirname "{output_path}")
+filename=$(basename "{output_path}")
+[[ -f "{output_path}" ]] && cp "{output_path}" "${dir}/.${filename}"
+```
 
 **Apply citation formatting** (if document contains citations):
 
-Read `references/03-formatting-standards/citation-formatting.md` for complete rules.
-
-1. **Move citations to specific claims** (Rule 1):
-   - Identify sections with "Begruendung:" paragraphs followed by "Umsetzung:" lists
-   - Move citations from "Begruendung:" text to individual "Umsetzung:" list items
-   - Place citations at the end of the specific claim they support
-
-2. **Add superscript commas between consecutive citations** (Rule 3):
-   - Find all instances of `</sup><sup>`
-   - Replace with `</sup><sup>,</sup> <sup>` using perl:
+Read `references/03-formatting-standards/citation-formatting.md` for complete rules. Key steps:
+1. Move citations to specific claims they support
+2. Add superscript commas between consecutive citations:
    ```bash
    perl -pi -e 's/<\/sup><sup>/<\/sup><sup>,<\/sup> <sup>/g' "{output_path}"
    ```
@@ -595,126 +222,42 @@ Read `references/03-formatting-standards/citation-formatting.md` for complete ru
 ```text
 Document: {deliverable_type} using {framework}
 File: {path}
-Backup: {backup_path if created, or "None (new file)"}
-Quality: Framework ✓ | Structure ✓ | Readability ✓
-Impact Techniques: {techniques applied, if any}
-Citation Formatting: {citations formatted, if applicable}
-
-Next step: Run `/review-doc {path}` to get multi-stakeholder feedback before distribution
+Backup: {backup_path or "None (new file)"}
+Quality: Framework + Structure + Readability ✓
 ```
 
-## Bundled Resources
+## Readability Script
 
-### References (Progressive Disclosure)
-
-**Core Principles** (01-core-principles/):
-
-- clarity-principles.md - 15-20 word sentences, concrete language
-- conciseness-principles.md - 3-5 sentence paragraphs, strong verbs
-- active-voice-principles.md - 80%+ active voice usage
-- german-style-principles.md - Wolf Schneider rules for German: 12-word clauses, Satzklammer, Mittelfeld, Floskeln
-
-**Formatting Standards** (03-formatting-standards/):
-
-- citation-formatting.md - Citation placement and superscript comma formatting
-- markdown-basics.md - Standard markdown syntax
-- heading-hierarchy.md - Header structure standards
-- visual-elements.md - Visual hierarchy principles
-
-**Messaging Frameworks** (02-messaging-frameworks/):
-
-- bluf-framework.md - Bottom Line Up Front
-- pyramid-framework.md - McKinsey Pyramid Principle
-- scqa-framework.md - Situation-Complication-Question-Answer
-- star-framework.md - Situation-Task-Action-Result
-- psb-framework.md - Problem-Solution-Benefit
-- fab-framework.md - Feature-Advantage-Benefit
-- inverted-pyramid-framework.md - Journalism style
-
-**Deliverable Types** (04-deliverable-types/):
-
-- memos.md, emails.md, briefs.md, reports.md
-- proposals.md, one-pagers.md, executive-summaries.md, business-letters.md
-
-**Impact Techniques** (07-impact-techniques/):
-
-- number-plays.md - Quantification, ratios, before/after contrasts
-- power-words.md - Emotional triggers by category
-- rhetorical-devices.md - Rule of Three, anaphora, antithesis, cadence
-- executive-impact.md - C-suite optimization, decision clarity
-
-**Sales Techniques** (08-sales-techniques/):
-
-- power-positions.md - IS-DOES-MEANS enhancement for sales proposals
-
-**Arc Preservation** (09-preservation-modes/):
-
-- arc-preservation.md - Arc-aware preservation mode activation, structure rules, validation
-- arc-technique-map.md - Per-arc, per-element technique strengthening rules and Number Play variants
-
-**Stakeholder Review** (10-stakeholder-review/):
-
-- 00-index.md - Overview of stakeholder review system
-- executive-review.md - Executive perspective: decision-readiness, clarity, ROI
-- technical-review.md - Technical perspective: accuracy, precision, logical consistency
-- legal-review.md - Legal/compliance perspective: risk language, regulatory alignment
-- marketing-review.md - Marketing perspective: persuasiveness, audience resonance
-- end-user-review.md - End-user perspective: accessibility, plain language, actionability
-- synthesis-guidelines.md - Multi-stakeholder feedback aggregation and conflict resolution
-
-**Workflow** (workflow/):
-
-- step-by-step-guide.md - Detailed sub-steps and validation checklists
-
-### Scripts
-
-**calculate_readability.py** - Language-aware Flesch scoring (English standard + German Amstad), paragraph length, visual elements
+Language-aware Flesch scoring with German Wolf-Schneider analysis:
 
 ```bash
 python3 scripts/calculate_readability.py <file_path> [--lang de|en|auto]
 ```
 
-Auto-detects German vs English and applies the correct formula. German text uses Amstad (1978): `180 - ASL - 58.5 * ASW`, which compensates for German compound words and higher syllable counts. Language-aware targets: English 50-60, German 30-50 (German compound words inherently produce lower Amstad scores). The script returns `flesch_target_min` and `flesch_target_max` fields for validation.
+Auto-detects language. Returns `flesch_score`, `flesch_target_min/max`, `avg_paragraph_length`, `visual_elements`, `header_levels`, and German-specific style metrics when applicable.
 
-## Quick Reference
+## Bundled Resources
 
-| Deliverable | Length | Recommended Frameworks | Impact Techniques | Default Stakeholders |
-|-------------|--------|----------------------|-------------------|----------------------|
-| memo | 1 page | BLUF, Pyramid, SCQA | Number plays, anaphora | executive, end-user |
-| email | 200-300 words | BLUF, SCQA | Power words in subject | end-user, marketing |
-| brief | 1-3 pages | BLUF, Pyramid, SCQA | Rule of Three | executive, technical |
-| report | variable | Pyramid, SCQA | Before/after contrasts | executive, technical, end-user |
-| proposal | variable | FAB, PSB, Pyramid | All techniques | executive, legal, marketing |
-| one-pager | 1 page | PSB, FAB | Rule of Three, power words | marketing, executive |
-| executive-summary | 1-2 pages | BLUF, Pyramid | Executive impact | executive, technical |
-| business-letter | 1 page | Direct/Indirect | Trust words |
-| blog | 800-1500 words | Inverted Pyramid, SCQA | Number plays, power words in CTA |
+All references are organized in progressive disclosure tiers. Start with `references/00-index.md` — it routes you to exactly the files needed for any given task.
 
-## Impact Techniques Quick Reference
+**Core Principles** (01-core-principles/) — Clarity, conciseness, active voice, German style (Wolf Schneider), German hooks, plain language, readability
 
-### Number Plays Cheat Sheet
+**Messaging Frameworks** (02-messaging-frameworks/) — BLUF, Pyramid, SCQA, Inverted Pyramid, STAR, PSB, FAB
 
-```text
-Vague → Specific: "many customers" → "2,847 customers"
-Percent → Ratio: "25% fail" → "1 in 4 fail"
-Compound Impact: "10 hrs/week × 52 weeks × 5 people = $130K recovered"
-Before/After: "Error rate: 12% → 0.3% (40x improvement)"
-```
+**Formatting Standards** (03-formatting-standards/) — Citation formatting, visual elements, heading hierarchy, markdown basics
 
-### Power Words by Category
+**Deliverable Types** (04-deliverable-types/) — Memos, emails, briefs, reports, proposals, one-pagers, executive summaries, business letters, blogs
 
-| Urgency | Exclusivity | Trust | Achievement |
-|---------|-------------|-------|-------------|
-| now | exclusive | proven | breakthrough |
-| deadline | insider | guaranteed | transform |
-| limited | select | validated | accelerate |
-| immediate | elite | certified | unlock |
+**Examples** (05-examples/) — Memo-BLUF, email-SCQA, brief-Pyramid, proposal-FAB
 
-### Rhetorical Patterns
+**Templates** (06-templates/) — Memo, email, brief, proposal
 
-```text
-Rule of Three: "Reduce cost. Improve speed. Maintain quality."
-Anaphora: "We deliver results. We deliver on time. We deliver beyond expectations."
-Antithesis: "This isn't a cost—it's an investment."
-Cadence: "After eighteen months of development—we're ready."
-```
+**Impact Techniques** (07-impact-techniques/) — Number plays, power words, rhetorical devices, executive impact
+
+**Sales Techniques** (08-sales-techniques/) — Power Positions (IS-DOES-MEANS)
+
+**Arc Preservation** (09-preservation-modes/) — Arc detection and preservation rules, per-element technique map
+
+**Stakeholder Review** (10-stakeholder-review/) — Executive, technical, legal, marketing, end-user perspectives, synthesis guidelines
+
+**Workflow** (workflow/) — Detailed sub-steps and validation checklists
