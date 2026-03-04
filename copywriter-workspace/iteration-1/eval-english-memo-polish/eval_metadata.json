@@ -5,7 +5,7 @@
   "assertions": [
     {
       "name": "bluf_applied",
-      "description": "First paragraph leads with the bottom line (decision/action needed), not a status preamble or narrative introduction",
+      "description": "First paragraph leads with the bottom line (decision/action needed), not a status preamble",
       "type": "qualitative"
     },
     {
@@ -19,14 +19,22 @@
       "type": "programmatic"
     },
     {
-      "name": "active_voice",
-      "description": "Majority of sentences use active voice — no passive constructions like 'it was decided' or 'things are being looked at'",
-      "type": "qualitative"
+      "name": "memo_header_format",
+      "description": "Document uses proper memo header format (TO/FROM/DATE/SUBJECT lines) rather than generic markdown H1 heading",
+      "type": "programmatic",
+      "discriminating": true
     },
     {
-      "name": "flesch_readable",
-      "description": "Improved readability compared to input — shorter sentences, simpler words, better flow",
-      "type": "qualitative"
+      "name": "visual_element_rhythm",
+      "description": "Contains at least one table or callout block breaking up consecutive prose",
+      "type": "programmatic",
+      "discriminating": true
+    },
+    {
+      "name": "sentence_conciseness",
+      "description": "Average sentence length is 15-20 words (not 25+ academic-style)",
+      "type": "programmatic",
+      "discriminating": true
     }
   ]
 }

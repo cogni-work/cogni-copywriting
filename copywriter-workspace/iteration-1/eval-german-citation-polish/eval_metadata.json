@@ -5,7 +5,7 @@
   "assertions": [
     {
       "name": "german_chars_preserved",
-      "description": "All German characters (ä, ö, ü, ß, Ä, Ö, Ü) preserved exactly — none converted to ASCII (ae, oe, ue, ss)",
+      "description": "All German characters (ä, ö, ü, ß, Ä, Ö, Ü) preserved exactly -- none converted to ASCII (ae, oe, ue, ss)",
       "type": "programmatic"
     },
     {
@@ -20,8 +20,26 @@
     },
     {
       "name": "paragraph_length",
-      "description": "No paragraph exceeds 5 sentences — long German compound sentences should be broken up",
+      "description": "No paragraph exceeds 5 sentences -- long German compound sentences should be broken up",
       "type": "programmatic"
+    },
+    {
+      "name": "wolf_schneider_clause_length",
+      "description": "Average sentence length significantly shorter than baseline (~22 words) -- target ~12 words per clause following Wolf Schneider principles",
+      "type": "programmatic",
+      "discriminating": true
+    },
+    {
+      "name": "visual_elements_added",
+      "description": "Contains at least one table or callout/blockquote not in the original document (original has zero visual elements)",
+      "type": "programmatic",
+      "discriminating": true
+    },
+    {
+      "name": "summary_table_present",
+      "description": "A summary or overview table synthesizing the three phases is present",
+      "type": "content_check",
+      "discriminating": true
     }
   ]
 }

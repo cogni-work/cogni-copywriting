@@ -15,13 +15,25 @@
     },
     {
       "name": "no_content_migration",
-      "description": "Citations stay in their original sections — P1-x in Why Change, P2-x in Why Now, P3-x in Why You, P4-x in Why Pay",
+      "description": "Citations stay in their original sections -- P1-x in Why Change, P2-x in Why Now, P3-x in Why You, P4-x in Why Pay",
       "type": "programmatic"
     },
     {
       "name": "frontmatter_preserved",
       "description": "YAML frontmatter with arc_id: corporate-visions still present at top of document",
       "type": "programmatic"
+    },
+    {
+      "name": "bold_anchoring_per_element",
+      "description": "Each arc element section contains bold-anchored key data points (2+ bold phrases per section)",
+      "type": "content_check",
+      "discriminating": true
+    },
+    {
+      "name": "word_count_stability",
+      "description": "Output word count is within +-50 words of original per arc element (no massive expansion/reduction)",
+      "type": "programmatic",
+      "discriminating": true
     }
   ]
 }
