@@ -103,7 +103,7 @@ Then apply the framework pattern from the loaded framework reference. If the use
 
 ### Step 3: Apply Writing & Formatting
 
-**Detect document language** from content or `--lang` parameter. Load language-appropriate principles via the reference index.
+**Detect document language:** (1) `--lang` parameter, (2) workspace preference from `.workspace-config.json` (via `${PROJECT_AGENTS_OPS_ROOT}/.workspace-config.json` or CWD), (3) content analysis. Load language-appropriate principles via the reference index.
 
 **For German documents**, apply Wolf Schneider rules:
 
