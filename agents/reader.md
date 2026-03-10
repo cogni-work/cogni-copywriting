@@ -3,7 +3,7 @@ name: reader
 model: sonnet
 color: cyan
 description: |
-  Review documents through parallel stakeholder persona Q&A simulation with synthesized feedback and automatic improvement. Delegates to reader skill for multi-persona analysis.
+  Review documents through parallel stakeholder persona Q&A simulation with synthesized feedback and automatic improvement.
 
   <example>
   Context: User wants stakeholder feedback on a document

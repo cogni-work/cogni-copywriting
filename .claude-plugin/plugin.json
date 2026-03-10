@@ -1,12 +1,13 @@
 {
   "name": "cogni-copywriting",
-  "version": "0.2.8",
-  "description": "Professional copywriting toolkit providing document polishing with messaging frameworks (BLUF, Pyramid, SCQA, STAR, PSB, FAB), arc-aware narrative polishing (cogni-narrative integration), stakeholder review via parallel persona Q&A, readability optimization, sales enhancement (Power Positions), and multi-language support (English/German).",
+  "version": "0.2.9",
+  "description": "Professional copywriting toolkit providing document polishing with messaging frameworks (BLUF, Pyramid, SCQA, STAR, PSB, FAB), stakeholder review via parallel persona Q&A, readability optimization, sales enhancement (Power Positions), and multi-language support.",
   "author": {
     "name": "Stephan de Haas",
     "email": "stephan@cogni-work.ai"
   },
   "license": "AGPL-3.0-only",
+  "repository": "https://github.com/cogni-work/cogni-copywriting",
   "keywords": [
     "copywriting",
     "document-polishing",

@@ -3,7 +3,7 @@ name: copywriter
 model: opus
 color: blue
 description: |
-  Polish markdown documents for executive readability using McKinsey Pyramid Principle. Delegates to copywriter skill for document transformation.
+  Polish markdown documents for executive readability using McKinsey Pyramid Principle and messaging frameworks.
 
   <example>
   Context: User wants to polish a document
