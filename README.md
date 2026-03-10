@@ -90,6 +90,22 @@ Detects German language automatically, loads Wolf Schneider style rules — brea
 - Python 3 (for readability calculations)
 - Claude Code with plugin support
 
+## Architecture
+
+```
+cogni-copywriting/
+├── .claude-plugin/plugin.json    Plugin manifest
+├── skills/                       2 copywriting skills
+│   ├── copywriter/
+│   └── reader/
+├── agents/                       2 delegation agents
+│   ├── copywriter.md
+│   └── reader.md
+└── commands/                     2 slash commands
+    ├── copywrite.md
+    └── review-doc.md
+```
+
 ## License
 
-CC-BY-NC-SA-4.0
+[AGPL-3.0](LICENSE)
